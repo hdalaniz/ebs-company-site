@@ -24,7 +24,7 @@ export const products: Product[] = [
       "Create a professional digital foundation or discover what's holding your existing website back.",
     cardSupporting: "Includes EBS Insight + EBS Launch",
     status: "available",
-    statusLabel: "Available / Building Now",
+    statusLabel: "Building Now",
     cta: "Explore EBS Presence",
   },
   {
@@ -65,29 +65,29 @@ export const products: Product[] = [
   },
 ];
 
-export const growthLoop = [
+export const platformJourney = [
   {
     key: "presence",
-    name: "Presence",
+    name: "EBS Presence",
     href: "/products/presence",
-    description: "Build and improve the digital foundation.",
+    action: "Build + Improve",
   },
   {
     key: "growth",
-    name: "Growth",
+    name: "EBS Growth",
     href: "/products/growth",
-    description: "Capture and convert demand.",
+    action: "Capture + Convert",
   },
   {
     key: "revenue-intelligence",
-    name: "Revenue Intelligence",
+    name: "EBS Revenue Intelligence",
     href: "/products/revenue-intelligence",
-    description: "Measure and prove what creates revenue.",
+    action: "Measure + Prove",
   },
   {
     key: "assist",
-    name: "Assist",
+    name: "EBS Assist",
     href: "/products/assist",
-    description: "Recommend the next best action.",
+    action: "Recommend + Automate",
   },
 ] as const;

@@ -12,7 +12,7 @@ export function SectionHeading({
   headingId,
 }: SectionHeadingProps) {
   return (
-    <div className="max-w-2xl">
+    <div>
       {eyebrow ? (
         <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-[0.7rem] font-semibold tracking-[0.22em] text-teal uppercase">
           {eyebrow}
@@ -22,8 +22,8 @@ export function SectionHeading({
         id={headingId}
         className={
           eyebrow
-            ? "mt-4 text-2xl font-bold tracking-tight text-light sm:text-3xl lg:text-[2.15rem]"
-            : "text-2xl font-bold tracking-tight text-light sm:text-3xl lg:text-[2.15rem]"
+            ? "mt-4 max-w-xl text-2xl font-bold tracking-tight text-light sm:text-3xl lg:text-[2.15rem]"
+            : "max-w-xl text-2xl font-bold tracking-tight text-light sm:text-3xl lg:text-[2.15rem]"
         }
       >
         {heading}

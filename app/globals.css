@@ -13,6 +13,14 @@
   --ebs-muted: #8b9aab;
   --ebs-on-teal: #04241c;
 
+  --brand-cyan: var(--ebs-cyan);
+  --brand-teal: var(--ebs-teal);
+  --brand-mint: var(--ebs-teal);
+  --brand-navy: var(--ebs-navy);
+  --brand-navy-secondary: var(--ebs-navy-surface);
+  --brand-text: var(--ebs-light);
+  --brand-text-muted: var(--ebs-muted);
+
   --background: var(--ebs-navy);
   --background-secondary: var(--ebs-navy);
   --surface: var(--ebs-navy-surface);
@@ -69,7 +77,26 @@
   --color-ebs-light: var(--ebs-light);
   --color-ebs-muted: var(--ebs-muted);
   --color-ebs-on-teal: var(--ebs-on-teal);
+  --color-brand-cyan: var(--brand-cyan);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-mint: var(--brand-mint);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-secondary: var(--brand-navy-secondary);
+  --color-brand-text: var(--brand-text);
+  --color-brand-text-muted: var(--brand-text-muted);
   --font-sans: var(--font-inter);
+  --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
+
+  @keyframes spotlight {
+    0% {
+      opacity: 0;
+      transform: translate(-72%, -62%) scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -40%) scale(1);
+    }
+  }
 }
 
 html {
@@ -81,6 +108,16 @@ html {
   html {
     scroll-behavior: auto;
   }
+
+  .animate-spotlight {
+    animation: none;
+    opacity: 0.55;
+    transform: translate(-50%, -40%) scale(1);
+  }
+
+  .final-cta-glow {
+    opacity: 0.7;
+  }
 }
 
 body {
@@ -89,7 +126,8 @@ body {
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
-.page-grid {
+.page-grid,
+.hero-grid {
   pointer-events: none;
   position: absolute;
   inset: 0;
@@ -104,7 +142,8 @@ body {
   );
 }
 
-.page-glow {
+.page-glow,
+.hero-glow {
   pointer-events: none;
   position: absolute;
   inset: 0;
@@ -142,6 +181,14 @@ body {
     ellipse 58% 52% at 50% 42%,
     var(--glow-teal-mountain),
     transparent 70%
+  );
+}
+
+.hero-mountain-mask {
+  mask-image: radial-gradient(
+    ellipse 72% 78% at 50% 48%,
+    #000 38%,
+    transparent 80%
   );
 }
 

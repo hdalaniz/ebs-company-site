@@ -21,11 +21,11 @@ export function FinalCta() {
             how existing demand becomes revenue, EBS helps you find the best
             next step.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
             <ButtonLink href="/products/presence">
               Explore EBS Presence
             </ButtonLink>
-            <ButtonLink href={getInsightUrl("/analyze")} variant="secondary">
+            <ButtonLink href={getInsightUrl("/analyze")} variant="ghost">
               Run EBS Insight
             </ButtonLink>
           </div>

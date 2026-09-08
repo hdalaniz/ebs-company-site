@@ -13,7 +13,7 @@ function isExternal(href: string) {
   return href.startsWith("http://") || href.startsWith("https://");
 }
 
-const variants = {
+export const buttonLinkVariants = {
   primary:
     "hero-cta inline-flex items-center justify-center rounded-md bg-teal px-5 py-3 text-sm font-semibold text-on-teal transition-colors hover:bg-teal-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal",
   secondary:
@@ -28,7 +28,7 @@ export function ButtonLink({
   variant = "primary",
   className,
 }: ButtonLinkProps) {
-  const classes = cn(variants[variant], className);
+  const classes = cn(buttonLinkVariants[variant], className);
 
   if (isExternal(href)) {
     return (

@@ -23,7 +23,7 @@ export function getInsightUrl(path = "") {
   const base = process.env.NEXT_PUBLIC_EBS_INSIGHT_URL?.trim().replace(/\/$/, "");
 
   if (!base) {
-    return "/products/presence#configure-ebs-insight-url";
+    return "/products/presence#ebs-insight";
   }
 
   const normalizedPath = path

@@ -14,6 +14,7 @@ const navLinkClass =
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(true);
+  const [productsOpen, setProductsOpen] = useState(false);
   const productsMenuId = useId();
   const mobileMenuId = useId();
 
@@ -21,6 +22,7 @@ export function Header() {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setMobileOpen(false);
+        setProductsOpen(false);
       }
     }
 
@@ -36,52 +38,82 @@ export function Header() {
   }, [mobileOpen]);
 
   function closeMenus() {
+    setProductsOpen(false);
     window.setTimeout(() => setMobileOpen(false), 0);
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-light/10 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+    <header className="relative z-10 border-b border-light/10 bg-background/75 backdrop-blur-xl">
+      <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-5 py-3.5 sm:px-8 lg:grid-cols-[1fr_auto_1fr]">
         <Link
           href="/"
           className="flex min-w-0 items-center gap-3 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
           onClick={closeMenus}
         >
-          <BrandMark className="size-8" />
-          <span className="truncate text-[0.95rem] font-semibold tracking-tight text-light">
-            Elevate Business Systems
-          </span>
+          <BrandMark className="size-8 shrink-0" priority />
+          <div className="min-w-0">
+            <p className="text-[0.95rem] font-semibold tracking-tight text-light">
+              EBS
+            </p>
+            <p className="truncate text-[0.7rem] leading-snug tracking-wide text-teal">
+              Elevate Business Systems
+            </p>
+          </div>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
-          <div className="group relative">
+        <nav
+          aria-label="Primary"
+          className="hidden items-center gap-7 lg:col-start-2 lg:flex"
+        >
+          <div
+            className="relative"
+            onBlur={(event) => {
+              const next = event.relatedTarget;
+              if (!(next instanceof Node) || !event.currentTarget.contains(next)) {
+                setProductsOpen(false);
+              }
+            }}
+          >
             <button
               type="button"
               className={cn(navLinkClass, "inline-flex items-center gap-1.5")}
+              aria-expanded={productsOpen}
               aria-haspopup="true"
               aria-controls={productsMenuId}
+              onClick={() => setProductsOpen((open) => !open)}
             >
               Products
-              <ChevronIcon className="group-hover:rotate-180 group-focus-within:rotate-180" />
+              <ChevronIcon className={cn(productsOpen && "rotate-180")} />
             </button>
 
             <div
               id={productsMenuId}
-              className="absolute top-full left-1/2 z-50 w-[min(28rem,calc(100vw-2.5rem))] -translate-x-1/2 pt-3 opacity-0 pointer-events-none transition-opacity group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100"
+              hidden={!productsOpen}
+              className={cn(
+                "absolute top-full left-1/2 z-50 w-[min(30rem,calc(100vw-2.5rem))] -translate-x-1/2 pt-3",
+                productsOpen ? "pointer-events-auto" : "pointer-events-none",
+              )}
             >
               <ul className="ebs-card overflow-hidden rounded-2xl p-2">
                 {products.map((product) => (
                   <li key={product.key}>
                     <Link
                       href={product.href}
-                      className="block rounded-xl px-3.5 py-3 transition-colors hover:bg-light/5 focus-visible:bg-light/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
+                      className={cn(
+                        "block rounded-xl px-3.5 py-3 transition-colors hover:bg-light/5 focus-visible:bg-light/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal",
+                        product.key === "presence" &&
+                          "bg-teal/5 ring-1 ring-inset ring-teal/20",
+                      )}
                       onClick={closeMenus}
                     >
                       <span className="flex items-center justify-between gap-3">
                         <span className="text-sm font-semibold text-light">
                           {product.name}
                         </span>
-                        <ProductStatusBadge status={product.status} />
+                        <ProductStatusBadge
+                          status={product.status}
+                          label={product.statusLabel}
+                        />
                       </span>
                       <span className="mt-1 block text-sm text-muted">
                         {product.navDescription}
@@ -104,10 +136,20 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="hidden items-center justify-self-end gap-4 lg:col-start-3 lg:flex">
           <Link href={site.signInHref} className={navLinkClass} onClick={closeMenus}>
             Sign In
           </Link>
+          <Link
+            href={site.getStartedHref}
+            className="hero-cta inline-flex items-center rounded-md bg-teal px-3.5 py-2 text-sm font-semibold text-on-teal transition-colors hover:bg-teal-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal sm:px-4"
+            onClick={closeMenus}
+          >
+            Get Started
+          </Link>
+        </div>
+
+        <div className="flex items-center justify-self-end gap-3 lg:hidden">
           <Link
             href={site.getStartedHref}
             className="hero-cta inline-flex items-center rounded-md bg-teal px-3.5 py-2 text-sm font-semibold text-on-teal transition-colors hover:bg-teal-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
@@ -115,18 +157,17 @@ export function Header() {
           >
             Get Started
           </Link>
+          <button
+            type="button"
+            className="inline-flex size-10 items-center justify-center rounded-md border border-light/10 text-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
+            aria-expanded={mobileOpen}
+            aria-controls={mobileMenuId}
+            onClick={() => setMobileOpen((open) => !open)}
+          >
+            <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
+            <MenuIcon open={mobileOpen} />
+          </button>
         </div>
-
-        <button
-          type="button"
-          className="inline-flex size-10 items-center justify-center rounded-md border border-light/10 text-light lg:hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
-          aria-expanded={mobileOpen}
-          aria-controls={mobileMenuId}
-          onClick={() => setMobileOpen((open) => !open)}
-        >
-          <span className="sr-only">{mobileOpen ? "Close menu" : "Open menu"}</span>
-          <MenuIcon open={mobileOpen} />
-        </button>
       </div>
 
       <div
@@ -151,14 +192,21 @@ export function Header() {
                 <li key={product.key}>
                   <Link
                     href={product.href}
-                    className="block rounded-xl px-3 py-3 hover:bg-light/5"
+                    className={cn(
+                      "block rounded-xl px-3 py-3 hover:bg-light/5",
+                      product.key === "presence" &&
+                        "bg-teal/5 ring-1 ring-inset ring-teal/20",
+                    )}
                     onClick={closeMenus}
                   >
                     <span className="flex items-center justify-between gap-3">
                       <span className="text-sm font-semibold text-light">
                         {product.name}
                       </span>
-                      <ProductStatusBadge status={product.status} />
+                      <ProductStatusBadge
+                        status={product.status}
+                        label={product.statusLabel}
+                      />
                     </span>
                     <span className="mt-1 block text-sm text-muted">
                       {product.navDescription}
@@ -190,23 +238,13 @@ export function Header() {
           >
             About
           </Link>
-
-          <div className="flex flex-col gap-3 border-t border-light/10 pt-4">
-            <Link
-              href={site.signInHref}
-              className="text-sm text-muted"
-              onClick={closeMenus}
-            >
-              Sign In
-            </Link>
-            <Link
-              href={site.getStartedHref}
-              className="hero-cta inline-flex items-center justify-center rounded-md bg-teal px-4 py-2.5 text-sm font-semibold text-on-teal"
-              onClick={closeMenus}
-            >
-              Get Started
-            </Link>
-          </div>
+          <Link
+            href={site.signInHref}
+            className="block py-2.5 text-sm text-muted"
+            onClick={closeMenus}
+          >
+            Sign In
+          </Link>
         </nav>
       </div>
     </header>
