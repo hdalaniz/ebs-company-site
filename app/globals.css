@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+:root {
+  /* Canonical EBS UI colors — shared with EBS Insight. Do not approximate in components. */
+  --ebs-navy: #05080d;
+  --ebs-navy-surface: #0c131c;
+  --ebs-navy-elevated: #121b27;
+  --ebs-teal: #1ec8a5;
+  --ebs-teal-hover: #2adbb6;
+  --ebs-cyan: #38bdf8;
+  --ebs-accent: #1ec8a5;
+  --ebs-light: #eef3f7;
+  --ebs-muted: #8b9aab;
+  --ebs-on-teal: #04241c;
+
+  --background: var(--ebs-navy);
+  --background-secondary: var(--ebs-navy);
+  --surface: var(--ebs-navy-surface);
+  --surface-elevated: var(--ebs-navy-elevated);
+  --border: rgba(238, 243, 247, 0.1);
+  --accent: var(--ebs-accent);
+  --accent-hover: var(--ebs-teal-hover);
+  --text-primary: var(--ebs-light);
+  --text-muted: var(--ebs-muted);
+
+  --teal: var(--ebs-teal);
+  --teal-secondary: var(--ebs-cyan);
+  --teal-hover: var(--ebs-teal-hover);
+  --growth: var(--ebs-teal);
+  --muted: var(--ebs-muted);
+  --light: var(--ebs-light);
+  --on-teal: var(--ebs-on-teal);
+  --grid-line: rgba(255, 255, 255, 0.035);
+  --glow-teal-page: rgba(30, 200, 165, 0.16);
+  --glow-cyan-page: rgba(56, 189, 248, 0.08);
+  --glow-teal-mountain: rgba(30, 200, 165, 0.18);
+
+  --shadow-card: 0 24px 80px -32px rgba(0, 0, 0, 0.85);
+  --shadow-cta:
+    0 0 0 1px rgba(30, 200, 165, 0.35),
+    0 12px 32px -12px rgba(30, 200, 165, 0.7);
+  --shadow-brand-mark: 0 8px 20px -10px rgba(30, 200, 165, 0.9);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-muted: var(--text-muted);
+  --color-teal: var(--teal);
+  --color-teal-secondary: var(--teal-secondary);
+  --color-teal-hover: var(--teal-hover);
+  --color-growth: var(--growth);
+  --color-muted: var(--muted);
+  --color-light: var(--light);
+  --color-on-teal: var(--on-teal);
+  --color-ebs-navy: var(--ebs-navy);
+  --color-ebs-navy-surface: var(--ebs-navy-surface);
+  --color-ebs-navy-elevated: var(--ebs-navy-elevated);
+  --color-ebs-teal: var(--ebs-teal);
+  --color-ebs-teal-hover: var(--ebs-teal-hover);
+  --color-ebs-cyan: var(--ebs-cyan);
+  --color-ebs-accent: var(--ebs-accent);
+  --color-ebs-light: var(--ebs-light);
+  --color-ebs-muted: var(--ebs-muted);
+  --color-ebs-on-teal: var(--ebs-on-teal);
+  --font-sans: var(--font-inter);
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.page-grid {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 50% -10%,
+    #000 20%,
+    transparent 72%
+  );
+}
+
+.page-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 50% 40% at 70% 0%,
+      var(--glow-teal-page),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 40% 30% at 10% 20%,
+      var(--glow-cyan-page),
+      transparent 55%
+    );
+}
+
+.ebs-card {
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(20px);
+}
+
+.hero-cta {
+  box-shadow: var(--shadow-cta);
+}
+
+.brand-mark-shadow {
+  box-shadow: var(--shadow-brand-mark);
+}
+
+.hero-mountain-glow {
+  background: radial-gradient(
+    ellipse 58% 52% at 50% 42%,
+    var(--glow-teal-mountain),
+    transparent 70%
+  );
+}
+
+.final-cta-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 72% 80% at 8% 12%,
+      var(--glow-teal-page),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 60% 70% at 92% 88%,
+      var(--glow-cyan-page),
+      transparent 58%
+    );
+}
