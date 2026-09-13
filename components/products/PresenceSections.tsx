@@ -36,11 +36,11 @@ export function PresenceHero() {
         <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-[0.7rem] font-semibold tracking-[0.22em] text-teal uppercase">
           EBS Presence
         </p>
-        <h1 className="mt-4 max-w-2xl text-[2.05rem] leading-[1.08] font-bold tracking-tight text-light sm:text-5xl lg:text-[3.25rem]">
+        <h1 className="mt-4 max-w-2xl text-[2.05rem] leading-[1.08] font-bold tracking-tight text-ink sm:text-5xl lg:text-[3.25rem]">
           Make your online presence{" "}
           <span className="text-teal">work harder</span> for your business.
         </h1>
-        <p className="mt-6 max-w-xl text-[1.0625rem] leading-7 text-light/80 sm:text-lg sm:leading-8">
+        <p className="mt-6 max-w-xl text-[1.0625rem] leading-7 text-ink/80 sm:text-lg sm:leading-8">
           Whether you&apos;re starting from scratch or already have a website,
           EBS Presence helps you build, understand, and improve the digital
           foundation customers see first.
@@ -91,13 +91,13 @@ export function PresenceDecision() {
               Yes — I already have a website
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-3">
-              <p className="text-sm font-semibold text-light">EBS Insight</p>
+              <p className="text-sm font-semibold text-ink">EBS Insight</p>
               <ProductStatusBadge status="available" label="Available" />
             </div>
-            <h3 className="mt-4 text-xl font-semibold tracking-tight text-light sm:text-2xl">
+            <h3 className="mt-4 text-xl font-semibold tracking-tight text-ink sm:text-2xl">
               Find what&apos;s holding your website back.
             </h3>
-            <p className="mt-3 text-sm leading-6 text-light/80 sm:text-[0.95rem] sm:leading-7">
+            <p className="mt-3 text-sm leading-6 text-ink/80 sm:text-[0.95rem] sm:leading-7">
               Analyze your existing online presence, uncover conversion
               problems, and get prioritized recommendations for what to improve
               next.
@@ -133,13 +133,13 @@ export function PresenceDecision() {
               No — I need a website
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-3">
-              <p className="text-sm font-semibold text-light">EBS Launch</p>
+              <p className="text-sm font-semibold text-ink">EBS Launch</p>
               <ProductStatusBadge status="coming-soon" />
             </div>
-            <h3 className="mt-4 text-xl font-semibold tracking-tight text-light sm:text-2xl">
+            <h3 className="mt-4 text-xl font-semibold tracking-tight text-ink sm:text-2xl">
               Build your digital foundation.
             </h3>
-            <p className="mt-3 text-sm leading-6 text-light/80 sm:text-[0.95rem] sm:leading-7">
+            <p className="mt-3 text-sm leading-6 text-ink/80 sm:text-[0.95rem] sm:leading-7">
               Tell EBS about your business, goals, visual preferences, services,
               and desired features through a guided website-building experience.
             </p>
@@ -184,19 +184,19 @@ export function PresenceRelationship() {
           <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-muted uppercase">
             Existing website
           </p>
-          <p className="mt-3 text-base font-semibold tracking-tight text-light">
+          <p className="mt-3 text-base font-semibold tracking-tight text-ink">
             EBS Insight
           </p>
-          <p className="mt-2 text-sm text-light/80">Analyze + Improve</p>
+          <p className="mt-2 text-sm text-ink/80">Analyze + Improve</p>
         </div>
         <div className="px-5 py-5 sm:px-6 sm:py-6">
           <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-muted uppercase">
             No website
           </p>
-          <p className="mt-3 text-base font-semibold tracking-tight text-light">
+          <p className="mt-3 text-base font-semibold tracking-tight text-ink">
             EBS Launch
           </p>
-          <p className="mt-2 text-sm text-light/80">Design + Build</p>
+          <p className="mt-2 text-sm text-ink/80">Design + Build</p>
         </div>
       </div>
     </section>
@@ -235,7 +235,7 @@ export function LaunchPreview() {
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm",
                   step.complete
-                    ? "border-teal/30 bg-teal/10 text-light"
+                    ? "border-teal/30 bg-teal/10 text-ink"
                     : "border-border bg-surface-elevated/70 text-muted",
                 )}
               >
@@ -255,7 +255,7 @@ export function LaunchPreview() {
             <p className="text-[0.7rem] font-semibold tracking-[0.18em] text-teal uppercase">
               Current step
             </p>
-            <h3 className="mt-2 text-lg font-semibold tracking-tight text-light sm:text-xl">
+            <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink sm:text-xl">
               Choose a visual direction
             </h3>
           </div>
@@ -275,12 +275,12 @@ export function LaunchPreview() {
                   {style.tones.map((tone) => (
                     <span
                       key={tone}
-                      className="size-6 rounded-full border border-light/10"
+                      className="size-6 rounded-full border border-navy/15"
                       style={{ backgroundColor: tone }}
                     />
                   ))}
                 </div>
-                <p className="mt-3 text-sm font-medium text-light">{style.name}</p>
+                <p className="mt-3 text-sm font-medium text-ink">{style.name}</p>
                 {style.current ? (
                   <p className="mt-1 text-xs font-medium text-teal">Selected</p>
                 ) : (
@@ -315,11 +315,11 @@ export function PresenceFinalCta() {
         <div className="relative z-10">
           <h2
             id="presence-final-cta-heading"
-            className="max-w-2xl text-3xl font-bold tracking-tight text-light sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]"
+            className="max-w-2xl text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]"
           >
             Start with where your business is today.
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-light/80 sm:text-lg sm:leading-8">
+          <p className="mt-5 max-w-2xl text-base leading-7 text-ink/80 sm:text-lg sm:leading-8">
             Already have a website? Use EBS Insight to understand what to
             improve. Starting from scratch? EBS Launch is being built for you.
           </p>
@@ -366,7 +366,7 @@ function CompactJourney({
           >
             {index + 1}
           </span>
-          <span className="text-sm font-medium text-light">{step}</span>
+          <span className="text-sm font-medium text-ink">{step}</span>
           {index < steps.length - 1 ? (
             <span
               className={isTeal ? "text-teal/50" : "text-teal-secondary/50"}
@@ -397,19 +397,19 @@ function InsightPreview() {
           <p className="text-[0.65rem] font-semibold tracking-[0.14em] text-muted uppercase">
             Website Growth Score
           </p>
-          <p className="mt-1 text-xl font-semibold tracking-tight text-light">78</p>
+          <p className="mt-1 text-xl font-semibold tracking-tight text-ink">78</p>
         </div>
         <div className="bg-surface-elevated/70 px-4 py-3">
           <p className="text-[0.65rem] font-semibold tracking-[0.14em] text-muted uppercase">
             Key Opportunities
           </p>
-          <p className="mt-1 text-xl font-semibold tracking-tight text-light">4</p>
+          <p className="mt-1 text-xl font-semibold tracking-tight text-ink">4</p>
         </div>
         <div className="bg-surface-elevated/70 px-4 py-3 sm:col-span-1">
           <p className="text-[0.65rem] font-semibold tracking-[0.14em] text-muted uppercase">
             Recommended Next Action
           </p>
-          <p className="mt-1 text-sm font-medium leading-5 text-light">
+          <p className="mt-1 text-sm font-medium leading-5 text-ink">
             Improve after-hours lead capture
           </p>
         </div>
@@ -439,14 +439,14 @@ function LaunchCardPreview() {
         </span>
       </figcaption>
       <div className="px-4 py-4">
-        <p className="text-sm font-medium text-light">Choose your visual style</p>
+        <p className="text-sm font-medium text-ink">Choose your visual style</p>
         <ol className="mt-3 flex flex-wrap gap-1.5">
           {steps.map((step) => (
             <li
               key={step}
               className={
                 step === "Visual Style"
-                  ? "rounded-full border border-teal-secondary/40 bg-teal-secondary/10 px-2.5 py-1 text-xs font-medium text-light"
+                  ? "rounded-full border border-teal-secondary/40 bg-teal-secondary/10 px-2.5 py-1 text-xs font-medium text-ink"
                   : "rounded-full border border-border px-2.5 py-1 text-xs text-muted"
               }
             >

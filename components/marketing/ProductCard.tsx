@@ -15,11 +15,11 @@ export function ProductCard({
     return (
       <Link
         href={product.href}
-        className="ebs-card group/bento relative isolate grid overflow-hidden ring-1 ring-inset ring-teal/20 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]"
+        className="ebs-card ebs-card-featured group/bento relative isolate grid overflow-hidden focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]"
       >
         <div className="flex flex-col px-5 py-6 sm:px-8 sm:py-8 lg:px-10 lg:py-10">
           <div className="flex flex-wrap items-center gap-3">
-            <p className="text-[0.68rem] font-semibold tracking-[0.2em] text-teal uppercase">
+            <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
               {product.name}
             </p>
             <ProductStatusBadge
@@ -27,10 +27,10 @@ export function ProductCard({
               label={product.statusLabel}
             />
           </div>
-          <h3 className="mt-4 max-w-3xl text-2xl font-semibold tracking-tight text-light sm:text-[1.75rem] lg:text-3xl">
+          <h3 className="mt-4 max-w-3xl text-2xl font-semibold tracking-tight text-ink sm:text-[1.75rem] lg:text-3xl">
             {product.cardHeadline}
           </h3>
-          <p className="mt-3 max-w-xl text-[0.95rem] leading-6 text-light/80 sm:text-base sm:leading-7">
+          <p className="mt-3 max-w-xl text-[0.95rem] leading-6 text-ink/75 sm:text-base sm:leading-7">
             {product.cardDescription}
           </p>
           {product.cardSupporting ? (
@@ -55,7 +55,7 @@ export function ProductCard({
   return (
     <Link
       href={product.href}
-      className="ebs-card group/bento flex h-full flex-col overflow-hidden p-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
+      className="ebs-card ebs-card-muted group/bento flex h-full flex-col overflow-hidden p-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
     >
       <div
         className="relative h-24 overflow-hidden border-b border-border bg-gradient-to-br from-teal/12 to-transparent text-teal sm:h-28"
@@ -66,7 +66,7 @@ export function ProductCard({
       <div className="flex flex-1 flex-col justify-between px-5 py-5 sm:px-6 sm:py-6">
         <div className="motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover/bento:translate-x-1">
           <div className="flex flex-wrap items-center gap-2.5">
-            <p className="text-[0.68rem] font-semibold tracking-[0.2em] text-teal uppercase">
+            <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
               {product.name}
             </p>
             <ProductStatusBadge
@@ -74,7 +74,7 @@ export function ProductCard({
               label={product.statusLabel}
             />
           </div>
-          <h3 className="mt-3 text-lg font-semibold tracking-tight text-light sm:text-xl">
+          <h3 className="mt-3 text-lg font-semibold tracking-tight text-ink sm:text-xl">
             {product.cardHeadline}
           </h3>
         </div>

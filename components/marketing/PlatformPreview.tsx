@@ -40,7 +40,7 @@ export function PlatformPreview() {
                 <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-muted uppercase">
                   {metric.label}
                 </p>
-                <p className="mt-2 text-2xl font-semibold tracking-tight text-light">
+                <p className="mt-2 text-2xl font-semibold tracking-tight text-ink">
                   {metric.value}
                 </p>
               </div>
@@ -51,10 +51,10 @@ export function PlatformPreview() {
             <p className="text-[0.7rem] font-semibold tracking-[0.18em] text-teal uppercase">
               Recommended next action
             </p>
-            <h3 className="mt-3 text-lg font-semibold tracking-tight text-light sm:text-xl">
+            <h3 className="mt-3 text-lg font-semibold tracking-tight text-ink sm:text-xl">
               Improve after-hours lead capture
             </h3>
-            <p className="mt-3 text-sm leading-6 text-light/80 sm:text-[0.95rem] sm:leading-7">
+            <p className="mt-3 text-sm leading-6 text-ink/80 sm:text-[0.95rem] sm:leading-7">
               Impact: <span className="font-medium text-teal">High</span>
             </p>
           </article>

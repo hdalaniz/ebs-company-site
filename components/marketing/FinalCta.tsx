@@ -12,11 +12,11 @@ export function FinalCta() {
         <div className="relative z-10">
           <h2
             id="final-cta-heading"
-            className="max-w-2xl text-3xl font-bold tracking-tight text-light sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]"
+            className="max-w-2xl text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]"
           >
             Build a stronger system for growth.
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-light/80 sm:text-lg sm:leading-8">
+          <p className="mt-5 max-w-2xl text-base leading-7 text-ink/80 sm:text-lg sm:leading-8">
             Whether you&apos;re establishing your online presence or improving
             how existing demand becomes revenue, EBS helps you find the best
             next step.

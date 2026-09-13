@@ -3,13 +3,14 @@
 import { useEffect, useId, useState } from "react";
 import Link from "next/link";
 import { BrandMark } from "@/components/brand/BrandMark";
+import { buttonLinkVariants } from "@/components/marketing/ButtonLink";
 import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
 import { products } from "@/config/products";
 import { site } from "@/config/site";
 import { cn } from "@/lib/cn";
 
 const navLinkClass =
-  "text-sm text-muted transition-colors hover:text-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal";
+  "text-sm font-medium text-muted transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -43,7 +44,7 @@ export function Header() {
   }
 
   return (
-    <header className="relative z-10 border-b border-light/10 bg-background/75 backdrop-blur-xl">
+    <header className="relative z-20 border-b border-navy/10 bg-white/90 shadow-[0_8px_24px_-18px_rgba(14,36,56,0.35)] backdrop-blur-xl">
       <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-5 py-3.5 sm:px-8 lg:grid-cols-[1fr_auto_1fr]">
         <Link
           href="/"
@@ -52,10 +53,10 @@ export function Header() {
         >
           <BrandMark className="size-8 shrink-0" priority />
           <div className="min-w-0">
-            <p className="text-[0.95rem] font-semibold tracking-tight text-light">
+            <p className="text-[0.95rem] font-semibold tracking-tight text-ink">
               EBS
             </p>
-            <p className="truncate text-[0.7rem] leading-snug tracking-wide text-teal">
+            <p className="hidden truncate text-xs leading-snug tracking-wide text-teal sm:block">
               Elevate Business Systems
             </p>
           </div>
@@ -100,14 +101,14 @@ export function Header() {
                     <Link
                       href={product.href}
                       className={cn(
-                        "block rounded-xl px-3.5 py-3 transition-colors hover:bg-light/5 focus-visible:bg-light/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal",
+                        "block rounded-xl px-3.5 py-3 transition-colors hover:bg-sky/80 focus-visible:bg-sky/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal",
                         product.key === "presence" &&
-                          "bg-teal/5 ring-1 ring-inset ring-teal/20",
+                          "bg-teal/10 ring-1 ring-inset ring-teal/25",
                       )}
                       onClick={closeMenus}
                     >
                       <span className="flex items-center justify-between gap-3">
-                        <span className="text-sm font-semibold text-light">
+                        <span className="text-sm font-semibold text-ink">
                           {product.name}
                         </span>
                         <ProductStatusBadge
@@ -142,7 +143,7 @@ export function Header() {
           </Link>
           <Link
             href={site.getStartedHref}
-            className="hero-cta inline-flex items-center rounded-md bg-teal px-3.5 py-2 text-sm font-semibold text-on-teal transition-colors hover:bg-teal-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal sm:px-4"
+            className={cn(buttonLinkVariants.primary, "px-3.5 py-2 sm:px-4")}
             onClick={closeMenus}
           >
             Get Started
@@ -152,14 +153,14 @@ export function Header() {
         <div className="flex items-center justify-self-end gap-3 lg:hidden">
           <Link
             href={site.getStartedHref}
-            className="hero-cta inline-flex items-center rounded-md bg-teal px-3.5 py-2 text-sm font-semibold text-on-teal transition-colors hover:bg-teal-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
+            className={cn(buttonLinkVariants.primary, "px-3.5 py-2")}
             onClick={closeMenus}
           >
             Get Started
           </Link>
           <button
             type="button"
-            className="inline-flex size-10 items-center justify-center rounded-md border border-light/10 text-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
+            className="inline-flex size-11 items-center justify-center rounded-lg border border-navy/15 text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
             aria-expanded={mobileOpen}
             aria-controls={mobileMenuId}
             onClick={() => setMobileOpen((open) => !open)}
@@ -173,12 +174,12 @@ export function Header() {
       <div
         id={mobileMenuId}
         hidden={!mobileOpen}
-        className="border-t border-light/10 bg-background lg:hidden"
+        className="border-t border-navy/10 bg-white lg:hidden"
       >
         <nav aria-label="Mobile" className="mx-auto max-w-7xl space-y-1 px-5 py-4 sm:px-8">
           <button
             type="button"
-            className="flex w-full items-center justify-between rounded-md py-2.5 text-left text-sm font-medium text-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
+            className="flex min-h-11 w-full items-center justify-between rounded-md py-2.5 text-left text-base font-medium text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
             aria-expanded={mobileProductsOpen}
             onClick={() => setMobileProductsOpen((open) => !open)}
           >
@@ -193,14 +194,14 @@ export function Header() {
                   <Link
                     href={product.href}
                     className={cn(
-                      "block rounded-xl px-3 py-3 hover:bg-light/5",
+                      "block rounded-xl px-3 py-3 hover:bg-sky/80",
                       product.key === "presence" &&
-                        "bg-teal/5 ring-1 ring-inset ring-teal/20",
+                        "bg-teal/10 ring-1 ring-inset ring-teal/25",
                     )}
                     onClick={closeMenus}
                   >
                     <span className="flex items-center justify-between gap-3">
-                      <span className="text-sm font-semibold text-light">
+                      <span className="text-base font-semibold text-ink">
                         {product.name}
                       </span>
                       <ProductStatusBadge
@@ -219,28 +220,28 @@ export function Header() {
 
           <Link
             href="/#how-ebs-works"
-            className="block py-2.5 text-sm text-muted"
+            className="block min-h-11 py-3 text-base text-muted"
             onClick={closeMenus}
           >
             How EBS Works
           </Link>
           <Link
             href="/#why-ebs"
-            className="block py-2.5 text-sm text-muted"
+            className="block min-h-11 py-3 text-base text-muted"
             onClick={closeMenus}
           >
             Why EBS
           </Link>
           <Link
             href="/about"
-            className="block py-2.5 text-sm text-muted"
+            className="block min-h-11 py-3 text-base text-muted"
             onClick={closeMenus}
           >
             About
           </Link>
           <Link
             href={site.signInHref}
-            className="block py-2.5 text-sm text-muted"
+            className="block min-h-11 py-3 text-base text-muted"
             onClick={closeMenus}
           >
             Sign In

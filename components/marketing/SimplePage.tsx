@@ -25,13 +25,13 @@ export function SimplePage({
       <h1
         className={
           eyebrow
-            ? "mt-4 text-3xl font-bold tracking-tight text-light sm:text-4xl"
-            : "text-3xl font-bold tracking-tight text-light sm:text-4xl"
+            ? "mt-4 text-3xl font-bold tracking-tight text-ink sm:text-4xl"
+            : "text-3xl font-bold tracking-tight text-ink sm:text-4xl"
         }
       >
         {title}
       </h1>
-      <p className="mt-5 text-base leading-7 text-light/80 sm:text-lg sm:leading-8">
+      <p className="mt-5 text-base leading-7 text-ink/75 sm:text-lg sm:leading-8">
         {description}
       </p>
       <div className="mt-8">

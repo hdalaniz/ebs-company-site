@@ -4,7 +4,7 @@ import { Header } from "@/components/layout/Header";
 
 export function SiteShell({ children }: { children: ReactNode }) {
   return (
-    <div className="relative flex min-h-dvh flex-col overflow-x-clip bg-background">
+    <div className="relative flex min-h-dvh flex-col overflow-x-clip bg-warm">
       <div className="page-grid" aria-hidden="true" />
       <div className="page-glow" aria-hidden="true" />
       <Header />

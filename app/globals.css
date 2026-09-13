@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Canonical EBS UI colors — shared with EBS Insight. Do not approximate in components. */
+  /* Legacy Insight-derived tokens — retained for dark surfaces and compatibility. */
   --ebs-navy: #05080d;
   --ebs-navy-surface: #0c131c;
   --ebs-navy-elevated: #121b27;
@@ -13,41 +13,68 @@
   --ebs-muted: #8b9aab;
   --ebs-on-teal: #04241c;
 
-  --brand-cyan: var(--ebs-cyan);
-  --brand-teal: var(--ebs-teal);
-  --brand-mint: var(--ebs-teal);
-  --brand-navy: var(--ebs-navy);
-  --brand-navy-secondary: var(--ebs-navy-surface);
-  --brand-text: var(--ebs-light);
-  --brand-text-muted: var(--ebs-muted);
+  /*
+    Local-first company brand system.
+    Balance: ~60% light surfaces, ~20% photography, ~12% navy, ~8% teal.
+  */
+  --brand-navy: #143049;
+  --brand-navy-deep: #0e2438;
+  --brand-teal: #1ec8a5;
+  --brand-teal-hover: #17b395;
+  --brand-sky: #e6eef4;
+  --brand-warm: #f6f3ee;
+  --brand-white: #ffffff;
+  --brand-forest: #4d6b5a;
+  --brand-slate: #4f6274;
+  --brand-stone: #7d8b99;
+  --brand-slate-blue: #4d7c93;
 
-  --background: var(--ebs-navy);
-  --background-secondary: var(--ebs-navy);
-  --surface: var(--ebs-navy-surface);
-  --surface-elevated: var(--ebs-navy-elevated);
-  --border: rgba(238, 243, 247, 0.1);
-  --accent: var(--ebs-accent);
-  --accent-hover: var(--ebs-teal-hover);
-  --text-primary: var(--ebs-light);
-  --text-muted: var(--ebs-muted);
+  --ink: var(--brand-navy);
+  --on-dark: var(--ebs-light);
+  --on-dark-muted: #9db0c3;
 
-  --teal: var(--ebs-teal);
-  --teal-secondary: var(--ebs-cyan);
-  --teal-hover: var(--ebs-teal-hover);
-  --growth: var(--ebs-teal);
-  --muted: var(--ebs-muted);
+  --brand-cyan: var(--brand-slate-blue);
+  --brand-mint: var(--brand-teal);
+  --brand-navy-secondary: var(--brand-navy-deep);
+  --brand-text: var(--ink);
+  --brand-text-muted: var(--brand-slate);
+
+  --background: var(--brand-warm);
+  --background-secondary: var(--brand-sky);
+  --surface: var(--brand-white);
+  --surface-elevated: #f3f6f9;
+  --border: rgba(20, 48, 73, 0.12);
+  --accent: var(--brand-teal);
+  --accent-hover: var(--brand-teal-hover);
+  --text-primary: var(--ink);
+  --text-muted: var(--brand-slate);
+
+  --teal: var(--brand-teal);
+  --teal-secondary: var(--brand-slate-blue);
+  --teal-hover: var(--brand-teal-hover);
+  --growth: var(--brand-teal);
+  --muted: var(--brand-slate);
   --light: var(--ebs-light);
-  --on-teal: var(--ebs-on-teal);
-  --grid-line: rgba(255, 255, 255, 0.035);
-  --glow-teal-page: rgba(30, 200, 165, 0.16);
-  --glow-cyan-page: rgba(56, 189, 248, 0.08);
-  --glow-teal-mountain: rgba(30, 200, 165, 0.18);
+  --on-teal: var(--brand-navy);
+  --grid-line: rgba(20, 48, 73, 0.045);
+  --glow-teal-page: rgba(30, 200, 165, 0.1);
+  --glow-cyan-page: rgba(77, 124, 147, 0.08);
+  --glow-teal-mountain: rgba(30, 200, 165, 0.22);
 
-  --shadow-card: 0 24px 80px -32px rgba(0, 0, 0, 0.85);
-  --shadow-cta:
+  --shadow-card:
+    0 18px 40px -28px rgba(14, 36, 56, 0.32),
+    0 4px 12px -6px rgba(14, 36, 56, 0.08);
+  --shadow-card-featured:
+    0 22px 50px -24px rgba(14, 36, 56, 0.36),
+    0 0 0 1px rgba(30, 200, 165, 0.38);
+  --shadow-cta: 0 10px 22px -12px rgba(20, 48, 73, 0.28);
+  --shadow-brand-mark: 0 8px 18px -10px rgba(20, 48, 73, 0.32);
+
+  /* Legacy dark-system shadows, kept for explicit dark treatments. */
+  --shadow-card-dark: 0 24px 80px -32px rgba(0, 0, 0, 0.85);
+  --shadow-cta-dark:
     0 0 0 1px rgba(30, 200, 165, 0.35),
     0 12px 32px -12px rgba(30, 200, 165, 0.7);
-  --shadow-brand-mark: 0 8px 20px -10px rgba(30, 200, 165, 0.9);
 }
 
 @theme inline {
@@ -67,6 +94,15 @@
   --color-muted: var(--muted);
   --color-light: var(--light);
   --color-on-teal: var(--on-teal);
+  --color-ink: var(--ink);
+  --color-navy: var(--brand-navy);
+  --color-navy-deep: var(--brand-navy-deep);
+  --color-sky: var(--brand-sky);
+  --color-warm: var(--brand-warm);
+  --color-forest: var(--brand-forest);
+  --color-stone: var(--brand-stone);
+  --color-on-dark: var(--on-dark);
+  --color-on-dark-muted: var(--on-dark-muted);
   --color-ebs-navy: var(--ebs-navy);
   --color-ebs-navy-surface: var(--ebs-navy-surface);
   --color-ebs-navy-elevated: var(--ebs-navy-elevated);
@@ -101,7 +137,7 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -117,6 +153,10 @@ html {
 
   .final-cta-glow {
     opacity: 0.7;
+  }
+
+  .cta-arrow {
+    transform: none;
   }
 }
 
@@ -161,11 +201,19 @@ body {
 }
 
 .ebs-card {
-  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 1.5rem;
+  border-radius: 1.25rem;
   box-shadow: var(--shadow-card);
-  backdrop-filter: blur(20px);
+}
+
+.ebs-card-featured {
+  box-shadow: var(--shadow-card-featured);
+  background: color-mix(in srgb, var(--surface) 92%, var(--brand-sky));
+}
+
+.ebs-card-muted {
+  background: color-mix(in srgb, var(--brand-sky) 42%, var(--brand-white));
 }
 
 .hero-cta {
@@ -207,4 +255,64 @@ body {
       var(--glow-cyan-page),
       transparent 58%
     );
+}
+
+.photo-scrim-hero {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      105deg,
+      var(--brand-warm) 0%,
+      color-mix(in srgb, var(--brand-warm) 94%, transparent) 28%,
+      color-mix(in srgb, var(--brand-warm) 72%, transparent) 46%,
+      color-mix(in srgb, var(--brand-navy) 22%, transparent) 68%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to top,
+      var(--brand-warm) 0%,
+      color-mix(in srgb, var(--brand-warm) 55%, transparent) 16%,
+      transparent 38%
+    );
+}
+
+.photo-fade-bottom {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 5.5rem;
+  background: linear-gradient(to bottom, transparent, var(--brand-warm));
+}
+
+.photo-accent-glow {
+  pointer-events: none;
+  position: absolute;
+  inset: auto -8% 18% auto;
+  width: min(28rem, 55vw);
+  height: min(18rem, 40vw);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(30, 200, 165, 0.18),
+    transparent 70%
+  );
+}
+
+@media (max-width: 1023px) {
+  .photo-scrim-hero {
+    background:
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--brand-warm) 8%, transparent) 0%,
+        color-mix(in srgb, var(--brand-warm) 42%, transparent) 22%,
+        color-mix(in srgb, var(--brand-warm) 88%, transparent) 42%,
+        var(--brand-warm) 58%
+      );
+  }
+
+  .photo-accent-glow {
+    display: none;
+  }
 }

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { brand } from "@/config/brand";
+import { cn } from "@/lib/cn";
 
 type BrandMarkProps = {
   className?: string;
@@ -16,7 +17,7 @@ export function BrandMark({
       alt={brand.companyName}
       width={32}
       height={32}
-      className={`brand-mark-shadow shrink-0 rounded-lg ${className}`.trim()}
+      className={cn("brand-mark-shadow shrink-0 rounded-lg", className)}
       priority={priority}
     />
   );

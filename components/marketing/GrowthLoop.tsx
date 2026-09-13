@@ -48,10 +48,10 @@ export function GrowthLoop() {
               >
                 {String(index + 1).padStart(2, "0")}
               </p>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight text-light">
+              <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink">
                 {step.name}
               </h3>
-              <p className="mt-2 text-sm leading-6 text-light/80 sm:leading-7">
+              <p className="mt-2 text-sm leading-6 text-ink/80 sm:leading-7">
                 {step.action}
               </p>
             </>

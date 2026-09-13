@@ -24,7 +24,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-scroll-behavior="smooth"
       className={`${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-background font-sans text-light">
+      <body className="min-h-full bg-warm font-sans text-ink">
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

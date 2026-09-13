@@ -1,62 +1,83 @@
-import { PreviewFrame } from "@/components/marketing/ComingSoonProduct";
+import {
+  ConceptualButton,
+  ProductVisionFrame,
+} from "@/components/products/FutureProductSections";
 
-const recommendations = [
+const actions: {
+  label: string;
+  title: string;
+  why: string;
+  opportunity?: string;
+  suggested: string;
+}[] = [
   {
-    title: "Follow up with unclosed estimates",
-    reason: "Three estimates have had no owner follow-up in 5+ days.",
-    impact: "Recover stalled demand before it goes cold.",
-    action: "Call the highest-value open estimate first.",
+    label: "Action 1",
+    title: "Follow up with unclosed estimates.",
+    why: "3 estimates have had no activity for more than 5 days.",
+    opportunity: "$7,800",
+    suggested: "Review Follow-Ups",
   },
   {
-    title: "Review slow-response opportunities",
-    reason: "Two new inquiries waited more than two hours for a reply.",
-    impact: "Faster response is more likely to convert to a booking.",
-    action: "Reply to the oldest unanswered inquiry now.",
+    label: "Action 2",
+    title: "Review slow-response opportunities.",
+    why: "7 leads waited longer than your target response time.",
+    suggested: "Review Lead Workflow",
   },
   {
-    title: "Request reviews from recent customers",
-    reason: "Four completed jobs in the last 14 days have no public review ask.",
-    impact: "Stronger proof can improve the next customer’s decision.",
-    action: "Send a review request to the most recent completed job.",
+    label: "Action 3",
+    title: "Request reviews from recent customers.",
+    why: "6 completed jobs are eligible for a review request.",
+    suggested: "Prepare Review Requests",
   },
-] as const;
+];
 
 export function AssistPreview() {
   return (
-    <PreviewFrame title="EBS Assist · Product preview">
-      <p className="mb-5 text-sm text-muted">
-        Recommendations are illustrative. EBS Assist does not currently take
-        autonomous actions.
-      </p>
-      <div className="grid gap-4 lg:grid-cols-3">
-        {recommendations.map((item, index) => (
-          <article
-            key={item.title}
-            className="rounded-2xl border border-border bg-surface-elevated/80 p-5"
-          >
-            <p className="text-[0.68rem] font-semibold tracking-[0.18em] text-teal uppercase">
-              Priority {index + 1}
-            </p>
-            <h3 className="mt-2 text-base font-semibold tracking-tight text-light">
-              {item.title}
-            </h3>
-            <dl className="mt-4 space-y-3 text-sm">
-              <div>
-                <dt className="text-muted">Reason</dt>
-                <dd className="mt-1 text-light/80">{item.reason}</dd>
-              </div>
-              <div>
-                <dt className="text-muted">Potential impact</dt>
-                <dd className="mt-1 text-light/80">{item.impact}</dd>
-              </div>
-              <div>
-                <dt className="text-muted">Suggested action</dt>
-                <dd className="mt-1 text-teal">{item.action}</dd>
-              </div>
-            </dl>
-          </article>
-        ))}
+    <ProductVisionFrame
+      productName="EBS Assist"
+      caption="Future product vision"
+      disclaimer="Future preview — actions are not currently automated. EBS Assist does not take autonomous actions today."
+    >
+      <div className="rounded-2xl border border-border bg-surface-elevated/80 p-5 sm:p-6">
+        <p className="text-sm font-medium text-teal">Good morning.</p>
+        <p className="mt-2 max-w-xl text-xl font-semibold tracking-tight text-ink sm:text-2xl">
+          You have 3 opportunities worth reviewing today.
+        </p>
       </div>
-    </PreviewFrame>
+
+      <ol className="mt-4 grid gap-4 lg:grid-cols-3">
+        {actions.map((action) => (
+          <li
+            key={action.label}
+            className="flex h-full flex-col rounded-2xl border border-border bg-surface-elevated/80 p-5 sm:p-6"
+          >
+            <p className="text-[0.7rem] font-semibold tracking-[0.18em] text-teal uppercase">
+              {action.label}
+            </p>
+            <h3 className="mt-3 text-lg font-semibold tracking-tight text-ink">
+              {action.title}
+            </h3>
+            <p className="mt-4 text-sm font-medium text-muted">Why</p>
+            <p className="mt-1 text-sm leading-6 text-ink/80">{action.why}</p>
+            {action.opportunity ? (
+              <>
+                <p className="mt-4 text-sm font-medium text-muted">
+                  Potential opportunity
+                </p>
+                <p className="mt-1 text-lg font-semibold tracking-tight text-ink">
+                  {action.opportunity}
+                </p>
+              </>
+            ) : null}
+            <div className="mt-auto pt-4">
+              <p className="text-sm font-medium text-muted">Suggested action</p>
+              <div className="mt-3">
+                <ConceptualButton>{action.suggested}</ConceptualButton>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </ProductVisionFrame>
   );
 }

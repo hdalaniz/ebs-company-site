@@ -52,10 +52,10 @@ export function WhyEbs() {
             </div>
             <div className="flex flex-1 flex-col justify-between px-5 py-5 sm:px-6 sm:py-6">
               <div className="motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover/bento:translate-x-1">
-                <h3 className="text-lg font-semibold tracking-tight text-light sm:text-xl">
+                <h3 className="text-lg font-semibold tracking-tight text-ink sm:text-xl">
                   {reason.title}
                 </h3>
-                <p className="mt-2 text-[0.95rem] leading-6 text-light/80 sm:text-base sm:leading-7">
+                <p className="mt-2 text-[0.95rem] leading-6 text-ink/80 sm:text-base sm:leading-7">
                   {reason.description}
                 </p>
               </div>

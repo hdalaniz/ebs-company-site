@@ -3,8 +3,8 @@ import { cn } from "@/lib/cn";
 
 const styles: Record<ProductStatus, string> = {
   available: "border-teal/30 bg-teal/10 text-teal",
-  "coming-soon": "border-teal-secondary/30 bg-teal-secondary/10 text-teal-secondary",
-  future: "border-light/15 bg-light/5 text-muted",
+  "coming-soon": "border-teal-secondary/25 bg-sky text-teal-secondary",
+  future: "border-navy/12 bg-sky/80 text-muted",
 };
 
 const defaultLabels: Record<ProductStatus, string> = {
@@ -27,7 +27,7 @@ export function ProductStatusBadge({
   return (
     <span
       className={cn(
-        "inline-flex rounded-full border px-2.5 py-1 text-[0.68rem] font-semibold tracking-[0.16em] uppercase",
+        "inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold tracking-[0.16em] uppercase",
         styles[status],
         className,
       )}

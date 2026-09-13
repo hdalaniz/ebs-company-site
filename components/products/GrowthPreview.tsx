@@ -1,53 +1,108 @@
-import { PreviewFrame } from "@/components/marketing/ComingSoonProduct";
+import { ProductVisionFrame } from "@/components/products/FutureProductSections";
 
 const metrics = [
-  { label: "New Leads", value: "12" },
-  { label: "Awaiting Response", value: "4" },
-  { label: "Follow-Ups Due", value: "7" },
-  { label: "Recovered Leads", value: "3" },
+  { label: "New Leads", value: "14" },
+  { label: "Awaiting Response", value: "3" },
+  { label: "Follow-Ups Due", value: "6" },
+  { label: "Recovered Opportunities", value: "4" },
+] as const;
+
+const leads = [
+  {
+    name: "Sarah M.",
+    request: "AC Repair Request",
+    source: "Website",
+    time: "4 minutes ago",
+    status: "Needs Response",
+    action: "Respond now",
+    featured: true,
+  },
+  {
+    name: "James R.",
+    request: "Estimate follow-up",
+    source: "Estimate",
+    time: "2 days ago",
+    status: "Follow-up due",
+    action: "Send estimate reminder",
+    featured: false,
+  },
+  {
+    name: "Maria L.",
+    request: "Missed-call recovery",
+    source: "Phone",
+    time: "Yesterday",
+    status: "Missed call",
+    action: "Return the call",
+    featured: false,
+  },
+  {
+    name: "David K.",
+    request: "Reactivation opportunity",
+    source: "Previous customer",
+    time: "Last season",
+    status: "Reactivation",
+    action: "Reconnect when appropriate",
+    featured: false,
+  },
 ] as const;
 
 export function GrowthPreview() {
   return (
-    <PreviewFrame title="EBS Growth · Product preview">
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <ProductVisionFrame
+      productName="EBS Growth"
+      caption="Product vision preview"
+      disclaimer="Illustrative interface — not live customer records. EBS Growth does not currently capture or act on leads."
+    >
+      <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
         {metrics.map((metric) => (
           <div
             key={metric.label}
             className="rounded-2xl border border-border bg-surface-elevated/80 px-4 py-4"
           >
-            <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-muted uppercase">
+            <p className="text-[0.7rem] font-semibold tracking-[0.14em] text-muted uppercase">
               {metric.label}
             </p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-light">
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
               {metric.value}
             </p>
           </div>
         ))}
       </div>
 
-      <article className="mt-5 rounded-2xl border border-teal/25 bg-teal/5 p-5">
-        <p className="text-[0.68rem] font-semibold tracking-[0.18em] text-teal uppercase">
-          Sample lead
+      <div className="mt-6">
+        <p className="text-[0.7rem] font-semibold tracking-[0.18em] text-teal uppercase">
+          Sample lead inbox
         </p>
-        <h3 className="mt-2 text-lg font-semibold text-light">
-          Customer inquiry
-        </h3>
-        <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-3">
-          <div>
-            <dt className="text-muted">Lead source</dt>
-            <dd className="mt-1 text-light">Website contact form</dd>
-          </div>
-          <div>
-            <dt className="text-muted">Time since inquiry</dt>
-            <dd className="mt-1 text-light">2 hours</dd>
-          </div>
-          <div>
-            <dt className="text-muted">Recommended action</dt>
-            <dd className="mt-1 text-teal">Call before end of day</dd>
-          </div>
-        </dl>
-      </article>
-    </PreviewFrame>
+        <ul className="mt-4 space-y-3" aria-label="Illustrative lead inbox">
+          {leads.map((lead) => (
+            <li
+              key={lead.name}
+              className={
+                lead.featured
+                  ? "rounded-2xl border border-teal/30 bg-teal/5 p-4 sm:p-5"
+                  : "rounded-2xl border border-border bg-surface-elevated/80 p-4 sm:p-5"
+              }
+            >
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p className="text-base font-semibold tracking-tight text-ink">
+                    {lead.name}
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-ink/80">{lead.request}</p>
+                  <p className="mt-1 text-sm text-muted">
+                    {lead.source} · {lead.time}
+                  </p>
+                </div>
+                <p className="text-sm font-medium text-teal">{lead.status}</p>
+              </div>
+              <p className="mt-3 text-sm leading-6 text-ink/80">
+                Recommended next action:{" "}
+                <span className="font-medium text-teal">{lead.action}</span>
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </ProductVisionFrame>
   );
 }

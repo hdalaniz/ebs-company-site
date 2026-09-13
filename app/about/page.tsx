@@ -13,15 +13,15 @@ export default function AboutPage() {
       <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-[0.7rem] font-semibold tracking-[0.22em] text-teal uppercase">
         About
       </p>
-      <h1 className="mt-4 text-3xl font-bold tracking-tight text-light sm:text-4xl">
+      <h1 className="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
         The platform behind EBS products.
       </h1>
-      <p className="mt-5 text-base leading-7 text-light/80 sm:text-lg sm:leading-8">
+      <p className="mt-5 text-base leading-7 text-ink/75 sm:text-lg sm:leading-8">
         Elevate Business Systems helps service businesses turn missed demand
         into booked revenue. This site is the parent brand and product hub for
         Presence, Growth, Revenue Intelligence, and Assist.
       </p>
-      <p className="mt-5 text-base leading-7 text-light/80 sm:text-lg sm:leading-8">
+      <p className="mt-5 text-base leading-7 text-ink/75 sm:text-lg sm:leading-8">
         EBS is not a generic website agency, an all-purpose AI operating system,
         or a CRM replacement. It is a focused growth system: strengthen the
         digital foundation, capture more of the demand you already have, measure
