@@ -4,7 +4,9 @@ import {
   PresenceDecision,
   PresenceFinalCta,
   PresenceHero,
+  PresenceLocalBreak,
   PresenceRelationship,
+  PresenceWhy,
 } from "@/components/products/PresenceSections";
 
 export const metadata: Metadata = {
@@ -19,6 +21,8 @@ export default function PresencePage() {
       <PresenceHero />
       <PresenceDecision />
       <PresenceRelationship />
+      <PresenceWhy />
+      <PresenceLocalBreak />
       <LaunchPreview />
       <PresenceFinalCta />
     </>

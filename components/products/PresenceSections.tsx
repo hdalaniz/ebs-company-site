@@ -1,8 +1,7 @@
-import { GrowthMountain } from "@/components/brand/GrowthMountain";
-import { Spotlight } from "@/components/brand/Spotlight";
-import { ButtonLink, buttonLinkVariants } from "@/components/marketing/ButtonLink";
+import { ScenicPhoto } from "@/components/brand/ScenicPhoto";
+import { ButtonLink } from "@/components/marketing/ButtonLink";
 import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
-import { SectionHeading } from "@/components/marketing/SectionHeading";
+import { brand } from "@/config/brand";
 import { getInsightUrl } from "@/config/site";
 import { cn } from "@/lib/cn";
 
@@ -12,49 +11,80 @@ const launchSetupSteps = [
   { label: "Business", complete: true },
   { label: "Goals", complete: true },
   { label: "Style", complete: true },
-  { label: "Content", complete: false },
+  { label: "Services", complete: false },
   { label: "Features", complete: false },
   { label: "Preview", complete: false },
 ] as const;
 const launchStyles = [
-  { name: "Quiet Professional", tones: ["#0c131c", "#1ec8a5", "#eef3f7"], current: true },
-  { name: "Warm & Local", tones: ["#121b27", "#38bdf8", "#8b9aab"], current: false },
-  { name: "Bold Contrast", tones: ["#05080d", "#2adbb6", "#eef3f7"], current: false },
+  {
+    name: "Modern",
+    tones: ["#143049", "#1ec8a5", "#e6eef4"],
+    current: true,
+  },
+  {
+    name: "Warm",
+    tones: ["#4d6b5a", "#1ec8a5", "#f6f3ee"],
+    current: false,
+  },
+  {
+    name: "Bold",
+    tones: ["#0e2438", "#17b395", "#ffffff"],
+    current: false,
+  },
+] as const;
+
+const presenceBenefits = [
+  {
+    title: "Build trust quickly",
+    description:
+      "A clear, professional online presence helps customers feel confident choosing your business.",
+  },
+  {
+    title: "Make it easy to take the next step",
+    description:
+      "When contact paths are obvious, more visitors become calls, forms, and booked jobs.",
+  },
+  {
+    title: "Turn more visits into opportunities",
+    description:
+      "Presence helps you strengthen the digital front door customers see before they ever pick up the phone.",
+  },
 ] as const;
 
 export function PresenceHero() {
   return (
-    <section className="relative mx-auto grid w-full max-w-7xl items-start gap-10 px-5 pt-12 pb-6 sm:px-8 sm:pt-16 sm:pb-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16 lg:pt-20 lg:pb-8">
-      <div
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        aria-hidden="true"
-      >
-        <Spotlight className="-top-40 left-0 md:-top-20 md:left-60" />
-      </div>
+    <section className="relative isolate overflow-hidden lg:min-h-[36rem]">
+      <ScenicPhoto
+        src={brand.assets.heroLandscape}
+        alt={brand.photography.heroLandscapeAlt}
+        priority
+        objectPosition="object-[center_35%]"
+      />
 
-      <div className="relative z-10">
-        <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-[0.7rem] font-semibold tracking-[0.22em] text-teal uppercase">
-          EBS Presence
-        </p>
-        <h1 className="mt-4 max-w-2xl text-[2.05rem] leading-[1.08] font-bold tracking-tight text-ink sm:text-5xl lg:text-[3.25rem]">
-          Make your online presence{" "}
-          <span className="text-teal">work harder</span> for your business.
-        </h1>
-        <p className="mt-6 max-w-xl text-[1.0625rem] leading-7 text-ink/80 sm:text-lg sm:leading-8">
-          Whether you&apos;re starting from scratch or already have a website,
-          EBS Presence helps you build, understand, and improve the digital
-          foundation customers see first.
-        </p>
-        <div className="mt-8">
-          <ButtonLink href="/products/presence#presence-decision" className="w-full sm:w-auto">
-            Choose your path
-          </ButtonLink>
-        </div>
-      </div>
-
-      <div className="relative z-10 flex w-full flex-col">
-        <div className="relative -mx-2 overflow-hidden sm:mx-0 lg:-mt-8 lg:-mr-6 lg:overflow-visible">
-          <GrowthMountain className="pointer-events-none h-auto w-full lg:w-[118%] lg:max-w-none" />
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-24 pb-14 sm:px-8 sm:pt-28 sm:pb-16 lg:pt-16 lg:pb-20">
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+            EBS Presence
+          </p>
+          <h1 className="mt-4 text-[2.15rem] leading-[1.12] font-bold tracking-tight text-ink sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
+            Make your online presence work harder for your business.
+          </h1>
+          <p className="mt-5 max-w-xl text-[1.0625rem] leading-7 text-ink/80 sm:text-lg sm:leading-8">
+            Whether you&apos;re starting from scratch or already have a website,
+            EBS Presence helps you build, understand, and improve the digital
+            foundation customers see first.
+          </p>
+          <div className="mt-8">
+            <ButtonLink
+              href="/products/presence#presence-decision"
+              className="w-full sm:w-auto"
+            >
+              Choose your path
+            </ButtonLink>
+          </div>
+          <p className="mt-6 text-sm font-medium tracking-wide text-ink/70">
+            Built for local businesses. Designed for growth.
+          </p>
         </div>
       </div>
     </section>
@@ -66,38 +96,39 @@ export function PresenceDecision() {
     <section
       id="presence-decision"
       aria-labelledby="presence-decision-heading"
-      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-2 pb-12 sm:px-8 sm:pt-4 sm:pb-16 lg:pt-6 lg:pb-20"
+      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-6 pb-14 sm:px-8 sm:pt-8 sm:pb-16 lg:pt-10 lg:pb-20"
     >
-      <SectionHeading
-        headingId="presence-decision-heading"
-        heading="Do you already have a website?"
-        supporting="Choose the path that best matches where your business is today."
-      />
+      <div>
+        <h2
+          id="presence-decision-heading"
+          className="max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
+        >
+          Do you already have a website?
+        </h2>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
+          Choose the path that best matches where your business is today.
+        </p>
+      </div>
 
-      <div className="mt-8 grid items-stretch gap-5 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-10 grid items-stretch gap-5 lg:grid-cols-2 lg:gap-6">
         <article
           id="ebs-insight"
-          className="ebs-card group flex h-full flex-col overflow-hidden ring-1 ring-inset ring-teal/20"
+          className="ebs-card ebs-card-featured group flex h-full flex-col overflow-hidden"
         >
-          <div
-            className="relative h-24 overflow-hidden border-b border-border bg-gradient-to-br from-teal/12 to-transparent text-teal sm:h-28"
-            aria-hidden="true"
-          >
-            <InsightIconography />
-          </div>
-
-          <div className="flex flex-1 flex-col px-5 py-6 sm:px-7 sm:py-7">
-            <p className="text-[0.7rem] font-semibold tracking-[0.18em] text-teal uppercase">
+          <div className="flex flex-1 flex-col px-5 py-6 sm:px-7 sm:py-8">
+            <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
               Yes — I already have a website
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-3">
-              <p className="text-sm font-semibold text-ink">EBS Insight</p>
+              <p className="text-lg font-semibold tracking-tight text-ink">
+                EBS Insight
+              </p>
               <ProductStatusBadge status="available" label="Available" />
             </div>
             <h3 className="mt-4 text-xl font-semibold tracking-tight text-ink sm:text-2xl">
               Find what&apos;s holding your website back.
             </h3>
-            <p className="mt-3 text-sm leading-6 text-ink/80 sm:text-[0.95rem] sm:leading-7">
+            <p className="mt-3 text-sm leading-6 text-ink/75 sm:text-[0.95rem] sm:leading-7">
               Analyze your existing online presence, uncover conversion
               problems, and get prioritized recommendations for what to improve
               next.
@@ -106,7 +137,7 @@ export function PresenceDecision() {
             <CompactJourney steps={insightJourney} accent="teal" />
             <InsightPreview />
 
-            <div className="mt-auto pt-6">
+            <div className="mt-auto pt-7">
               <ButtonLink
                 href={getInsightUrl("/analyze")}
                 className="w-full sm:w-auto"
@@ -119,35 +150,30 @@ export function PresenceDecision() {
 
         <article
           id="ebs-launch-path"
-          className="ebs-card group flex h-full flex-col overflow-hidden ring-1 ring-inset ring-teal-secondary/15"
+          className="ebs-card group flex h-full flex-col overflow-hidden"
         >
-          <div
-            className="relative h-24 overflow-hidden border-b border-border bg-gradient-to-br from-teal-secondary/10 to-transparent text-teal-secondary sm:h-28"
-            aria-hidden="true"
-          >
-            <LaunchIconography />
-          </div>
-
-          <div className="flex flex-1 flex-col px-5 py-6 sm:px-7 sm:py-7">
-            <p className="text-[0.7rem] font-semibold tracking-[0.18em] text-teal-secondary uppercase">
+          <div className="flex flex-1 flex-col px-5 py-6 sm:px-7 sm:py-8">
+            <p className="text-xs font-semibold tracking-[0.18em] text-muted uppercase">
               No — I need a website
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-3">
-              <p className="text-sm font-semibold text-ink">EBS Launch</p>
+              <p className="text-lg font-semibold tracking-tight text-ink">
+                EBS Launch
+              </p>
               <ProductStatusBadge status="coming-soon" />
             </div>
             <h3 className="mt-4 text-xl font-semibold tracking-tight text-ink sm:text-2xl">
               Build your digital foundation.
             </h3>
-            <p className="mt-3 text-sm leading-6 text-ink/80 sm:text-[0.95rem] sm:leading-7">
+            <p className="mt-3 text-sm leading-6 text-ink/75 sm:text-[0.95rem] sm:leading-7">
               Tell EBS about your business, goals, visual preferences, services,
               and desired features through a guided website-building experience.
             </p>
 
-            <CompactJourney steps={launchJourney} accent="cyan" />
+            <CompactJourney steps={launchJourney} accent="slate" />
             <LaunchCardPreview />
 
-            <div className="mt-auto pt-6">
+            <div className="mt-auto pt-7">
               <ButtonLink
                 href="/products/presence#ebs-launch"
                 variant="secondary"
@@ -167,36 +193,130 @@ export function PresenceRelationship() {
   return (
     <section
       aria-labelledby="presence-relationship-heading"
-      className="mx-auto w-full max-w-7xl px-5 pt-2 pb-10 sm:px-8 sm:pt-4 sm:pb-12 lg:pt-6 lg:pb-14"
+      className="section-sky"
     >
-      <p className="text-[0.7rem] font-semibold tracking-[0.22em] text-teal uppercase">
-        EBS Presence
-      </p>
-      <h2
-        id="presence-relationship-heading"
-        className="sr-only"
-      >
-        How EBS Presence connects Insight and Launch
-      </h2>
-
-      <div className="ebs-card mt-4 grid gap-0 overflow-hidden md:grid-cols-2">
-        <div className="border-b border-border px-5 py-5 sm:px-6 sm:py-6 md:border-r md:border-b-0">
-          <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-muted uppercase">
-            Existing website
+      <div className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:py-20">
+        <div>
+          <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+            EBS Presence
           </p>
-          <p className="mt-3 text-base font-semibold tracking-tight text-ink">
-            EBS Insight
-          </p>
-          <p className="mt-2 text-sm text-ink/80">Analyze + Improve</p>
+          <h2
+            id="presence-relationship-heading"
+            className="mt-3 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
+          >
+            Two ways to strengthen your online presence.
+          </h2>
         </div>
-        <div className="px-5 py-5 sm:px-6 sm:py-6">
-          <p className="text-[0.68rem] font-semibold tracking-[0.16em] text-muted uppercase">
-            No website
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-2 lg:gap-6">
+          <div className="ebs-card p-6 sm:p-7">
+            <p className="text-sm font-medium text-muted">
+              Already have a website
+            </p>
+            <p className="mt-2 text-lg font-semibold tracking-tight text-ink">
+              EBS Insight
+            </p>
+            <ol className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm text-ink/80">
+              <li className="font-medium text-ink">Analyze</li>
+              <li aria-hidden="true" className="text-teal/50">
+                →
+              </li>
+              <li className="font-medium text-ink">Prioritize</li>
+              <li aria-hidden="true" className="text-teal/50">
+                →
+              </li>
+              <li className="font-medium text-ink">Improve</li>
+            </ol>
+          </div>
+
+          <div className="ebs-card p-6 sm:p-7">
+            <p className="text-sm font-medium text-muted">Need a website</p>
+            <p className="mt-2 text-lg font-semibold tracking-tight text-ink">
+              EBS Launch
+            </p>
+            <ol className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-2 text-sm text-ink/80">
+              <li className="font-medium text-ink">Define</li>
+              <li aria-hidden="true" className="text-teal/50">
+                →
+              </li>
+              <li className="font-medium text-ink">Design</li>
+              <li aria-hidden="true" className="text-teal/50">
+                →
+              </li>
+              <li className="font-medium text-ink">Build</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function PresenceWhy() {
+  return (
+    <section
+      aria-labelledby="presence-why-heading"
+      className="mx-auto w-full max-w-7xl px-5 pt-14 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-14"
+    >
+      <div>
+        <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+          Why EBS Presence
+        </p>
+        <h2
+          id="presence-why-heading"
+          className="mt-3 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
+        >
+          Your online presence is often your first impression.
+        </h2>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
+          For local service businesses, a website is more than a brochure. It
+          helps customers decide whether to call, trust, and choose your
+          business.
+        </p>
+      </div>
+
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+        {presenceBenefits.map((benefit) => (
+          <article key={benefit.title} className="ebs-card p-6 sm:p-7">
+            <h3 className="text-lg font-semibold tracking-tight text-ink">
+              {benefit.title}
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-ink/75 sm:text-[0.95rem] sm:leading-7">
+              {benefit.description}
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export function PresenceLocalBreak() {
+  return (
+    <section
+      aria-labelledby="presence-local-heading"
+      className="relative isolate overflow-hidden"
+    >
+      <ScenicPhoto
+        src={brand.assets.localNeighborhood}
+        alt={brand.photography.localNeighborhoodAlt}
+        variant="band"
+        objectPosition="object-[center_40%]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+        <div className="max-w-2xl">
+          <h2
+            id="presence-local-heading"
+            className="text-3xl font-bold tracking-tight text-on-dark sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]"
+          >
+            A stronger digital front door for a stronger local business.
+          </h2>
+          <p className="mt-5 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
+            EBS Presence is being built around the way home-service businesses
+            actually win customers — through trust, clarity, local reputation,
+            and an easy path to contact.
           </p>
-          <p className="mt-3 text-base font-semibold tracking-tight text-ink">
-            EBS Launch
-          </p>
-          <p className="mt-2 text-sm text-ink/80">Design + Build</p>
         </div>
       </div>
     </section>
@@ -208,26 +328,36 @@ export function LaunchPreview() {
     <section
       id="ebs-launch"
       aria-labelledby="ebs-launch-heading"
-      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-2 pb-10 sm:px-8 sm:pt-4 sm:pb-12 lg:pt-6 lg:pb-16"
+      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-14 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-16"
     >
-      <SectionHeading
-        eyebrow="Coming Soon"
-        headingId="ebs-launch-heading"
-        heading="Meet EBS Launch."
-        supporting="A guided website-building experience designed to turn your business information, goals, visual preferences, services, and desired features into a professional digital foundation."
-      />
+      <div>
+        <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+          Coming Soon
+        </p>
+        <h2
+          id="ebs-launch-heading"
+          className="mt-3 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
+        >
+          Meet EBS Launch.
+        </h2>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
+          A guided website-building experience designed to turn your business
+          information, goals, services, and visual preferences into a
+          professional online presence.
+        </p>
+      </div>
 
-      <figure className="ebs-card relative mt-8 overflow-hidden border-teal-secondary/30">
-        <figcaption className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-5 py-3 sm:px-6">
-          <span className="text-[0.68rem] font-semibold tracking-[0.2em] text-teal-secondary uppercase">
+      <figure className="ebs-card relative mt-10 overflow-hidden">
+        <figcaption className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-5 py-3.5 sm:px-6">
+          <span className="text-xs font-semibold tracking-[0.16em] text-muted uppercase">
             Website setup
           </span>
-          <span className="text-[0.68rem] font-semibold tracking-[0.16em] text-muted uppercase">
+          <span className="text-xs font-semibold tracking-[0.16em] text-teal uppercase">
             Product vision preview
           </span>
         </figcaption>
 
-        <div className="px-5 py-6 sm:px-8 sm:py-8">
+        <div className="px-5 py-7 sm:px-8 sm:py-9">
           <ol className="flex flex-wrap gap-2">
             {launchSetupSteps.map((step) => (
               <li
@@ -236,7 +366,7 @@ export function LaunchPreview() {
                   "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm",
                   step.complete
                     ? "border-teal/30 bg-teal/10 text-ink"
-                    : "border-border bg-surface-elevated/70 text-muted",
+                    : "border-border bg-sky/40 text-muted",
                 )}
               >
                 <span
@@ -252,11 +382,11 @@ export function LaunchPreview() {
           </ol>
 
           <div className="mt-8">
-            <p className="text-[0.7rem] font-semibold tracking-[0.18em] text-teal uppercase">
-              Current step
+            <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+              Step 2 of 6
             </p>
             <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink sm:text-xl">
-              Choose a visual direction
+              Choose your visual style
             </h3>
           </div>
 
@@ -265,7 +395,7 @@ export function LaunchPreview() {
               <div
                 key={style.name}
                 className={cn(
-                  "rounded-xl border bg-surface-elevated/70 p-4",
+                  "rounded-2xl border bg-sky/30 p-4",
                   style.current
                     ? "border-teal/40 ring-1 ring-inset ring-teal/20"
                     : "border-border",
@@ -291,15 +421,6 @@ export function LaunchPreview() {
           </div>
         </div>
       </figure>
-
-      <div className="mt-6">
-        <span
-          className={cn(buttonLinkVariants.secondary, "pointer-events-none w-full sm:w-auto")}
-          aria-disabled="true"
-        >
-          Coming Soon
-        </span>
-      </div>
     </section>
   );
 }
@@ -308,22 +429,28 @@ export function PresenceFinalCta() {
   return (
     <section
       aria-labelledby="presence-final-cta-heading"
-      className="mx-auto w-full max-w-7xl px-5 pt-4 pb-16 sm:px-8 sm:pt-6 sm:pb-20 lg:pt-8 lg:pb-24"
+      className="relative isolate overflow-hidden"
     >
-      <div className="ebs-card relative overflow-hidden px-6 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
-        <div className="final-cta-glow" aria-hidden="true" />
-        <div className="relative z-10">
+      <ScenicPhoto
+        src={brand.assets.ctaValley}
+        alt={brand.photography.ctaValleyAlt}
+        variant="cta"
+        objectPosition="object-[center_45%]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-16 sm:px-8 sm:py-20 lg:py-24">
+        <div className="max-w-2xl">
           <h2
             id="presence-final-cta-heading"
-            className="max-w-2xl text-3xl font-bold tracking-tight text-ink sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]"
+            className="text-3xl font-bold tracking-tight text-on-dark sm:text-4xl lg:text-[2.65rem] lg:leading-[1.12]"
           >
             Start with where your business is today.
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-ink/80 sm:text-lg sm:leading-8">
+          <p className="mt-5 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
             Already have a website? Use EBS Insight to understand what to
             improve. Starting from scratch? EBS Launch is being built for you.
           </p>
-          <div className="mt-8 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
             <ButtonLink
               href={getInsightUrl("/analyze")}
               className="w-full sm:w-auto"
@@ -333,11 +460,14 @@ export function PresenceFinalCta() {
             <ButtonLink
               href="/#products"
               variant="ghost"
-              className="w-full sm:w-auto"
+              className="w-full text-on-dark hover:text-teal sm:w-auto"
             >
               Explore EBS Products
             </ButtonLink>
           </div>
+          <p className="mt-7 text-sm font-medium tracking-wide text-on-dark/70">
+            Better systems. Stronger businesses.
+          </p>
         </div>
       </div>
     </section>
@@ -349,7 +479,7 @@ function CompactJourney({
   accent,
 }: {
   steps: readonly string[];
-  accent: "teal" | "cyan";
+  accent: "teal" | "slate";
 }) {
   const isTeal = accent === "teal";
 
@@ -360,8 +490,8 @@ function CompactJourney({
           <span
             className={
               isTeal
-                ? "flex size-7 items-center justify-center rounded-full border border-teal/40 bg-teal/10 text-[0.65rem] font-semibold text-teal"
-                : "flex size-7 items-center justify-center rounded-full border border-teal-secondary/40 bg-teal-secondary/10 text-[0.65rem] font-semibold text-teal-secondary"
+                ? "flex size-7 items-center justify-center rounded-full border border-teal/40 bg-teal/10 text-xs font-semibold text-teal"
+                : "flex size-7 items-center justify-center rounded-full border border-navy/15 bg-sky text-xs font-semibold text-muted"
             }
           >
             {index + 1}
@@ -369,7 +499,7 @@ function CompactJourney({
           <span className="text-sm font-medium text-ink">{step}</span>
           {index < steps.length - 1 ? (
             <span
-              className={isTeal ? "text-teal/50" : "text-teal-secondary/50"}
+              className={isTeal ? "text-teal/50" : "text-muted/60"}
               aria-hidden="true"
             >
               →
@@ -383,33 +513,37 @@ function CompactJourney({
 
 function InsightPreview() {
   return (
-    <figure className="mt-6 overflow-hidden rounded-xl border border-border bg-surface-elevated/70">
+    <figure className="mt-6 overflow-hidden rounded-2xl border border-border bg-sky/35">
       <figcaption className="flex items-center justify-between gap-2 border-b border-border px-4 py-2.5">
-        <span className="text-[0.65rem] font-semibold tracking-[0.16em] text-teal uppercase">
+        <span className="text-xs font-semibold tracking-[0.14em] text-teal uppercase">
           Insight snapshot
         </span>
-        <span className="text-[0.65rem] font-semibold tracking-[0.14em] text-muted uppercase">
+        <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
           Conceptual preview
         </span>
       </figcaption>
       <div className="grid gap-px bg-border sm:grid-cols-3">
-        <div className="bg-surface-elevated/70 px-4 py-3">
-          <p className="text-[0.65rem] font-semibold tracking-[0.14em] text-muted uppercase">
+        <div className="bg-white/80 px-4 py-3.5">
+          <p className="text-xs font-semibold tracking-[0.12em] text-muted uppercase">
             Website Growth Score
           </p>
-          <p className="mt-1 text-xl font-semibold tracking-tight text-ink">78</p>
+          <p className="mt-1.5 text-xl font-semibold tracking-tight text-ink">
+            78
+          </p>
         </div>
-        <div className="bg-surface-elevated/70 px-4 py-3">
-          <p className="text-[0.65rem] font-semibold tracking-[0.14em] text-muted uppercase">
+        <div className="bg-white/80 px-4 py-3.5">
+          <p className="text-xs font-semibold tracking-[0.12em] text-muted uppercase">
             Key Opportunities
           </p>
-          <p className="mt-1 text-xl font-semibold tracking-tight text-ink">4</p>
+          <p className="mt-1.5 text-xl font-semibold tracking-tight text-ink">
+            4
+          </p>
         </div>
-        <div className="bg-surface-elevated/70 px-4 py-3 sm:col-span-1">
-          <p className="text-[0.65rem] font-semibold tracking-[0.14em] text-muted uppercase">
+        <div className="bg-white/80 px-4 py-3.5">
+          <p className="text-xs font-semibold tracking-[0.12em] text-muted uppercase">
             Recommended Next Action
           </p>
-          <p className="mt-1 text-sm font-medium leading-5 text-ink">
+          <p className="mt-1.5 text-sm font-medium leading-5 text-ink">
             Improve after-hours lead capture
           </p>
         </div>
@@ -420,21 +554,21 @@ function InsightPreview() {
 
 function LaunchCardPreview() {
   const steps = [
-    "Business Setup",
-    "Visual Style",
-    "Colors",
+    "Business",
+    "Goals",
+    "Style",
     "Services",
     "Features",
     "Preview",
   ] as const;
 
   return (
-    <figure className="mt-6 overflow-hidden rounded-xl border border-border bg-surface-elevated/70">
+    <figure className="mt-6 overflow-hidden rounded-2xl border border-border bg-sky/35">
       <figcaption className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-2.5">
-        <span className="text-[0.65rem] font-semibold tracking-[0.16em] text-teal-secondary uppercase">
+        <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
           Step 2 of 6
         </span>
-        <span className="text-[0.65rem] font-semibold tracking-[0.14em] text-muted uppercase">
+        <span className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
           Conceptual preview
         </span>
       </figcaption>
@@ -445,8 +579,8 @@ function LaunchCardPreview() {
             <li
               key={step}
               className={
-                step === "Visual Style"
-                  ? "rounded-full border border-teal-secondary/40 bg-teal-secondary/10 px-2.5 py-1 text-xs font-medium text-ink"
+                step === "Style"
+                  ? "rounded-full border border-teal/35 bg-teal/10 px-2.5 py-1 text-xs font-medium text-ink"
                   : "rounded-full border border-border px-2.5 py-1 text-xs text-muted"
               }
             >
@@ -456,96 +590,5 @@ function LaunchCardPreview() {
         </ol>
       </div>
     </figure>
-  );
-}
-
-function InsightIconography() {
-  return (
-    <svg viewBox="0 0 320 112" className="absolute inset-0 h-full w-full">
-      <rect
-        x="36"
-        y="28"
-        width="92"
-        height="60"
-        rx="10"
-        fill="none"
-        stroke="currentColor"
-        strokeOpacity="0.4"
-        strokeWidth="1.6"
-      />
-      <path
-        d="M52 68 74 48l18 14 22-24"
-        fill="none"
-        stroke="currentColor"
-        strokeOpacity="0.8"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle
-        cx="198"
-        cy="56"
-        r="22"
-        fill="none"
-        stroke="currentColor"
-        strokeOpacity="0.7"
-        strokeWidth="1.8"
-      />
-      <path
-        d="M198 42v14l10 6"
-        fill="none"
-        stroke="currentColor"
-        strokeOpacity="0.7"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function LaunchIconography() {
-  return (
-    <svg viewBox="0 0 320 112" className="absolute inset-0 h-full w-full">
-      <rect
-        x="42"
-        y="26"
-        width="88"
-        height="62"
-        rx="8"
-        fill="none"
-        stroke="currentColor"
-        strokeOpacity="0.45"
-        strokeWidth="1.6"
-      />
-      <path
-        d="M42 44h88"
-        fill="none"
-        stroke="currentColor"
-        strokeOpacity="0.28"
-        strokeWidth="1.3"
-      />
-      <rect
-        x="156"
-        y="34"
-        width="52"
-        height="46"
-        rx="8"
-        fill="none"
-        stroke="currentColor"
-        strokeOpacity="0.7"
-        strokeWidth="1.6"
-      />
-      <rect
-        x="222"
-        y="42"
-        width="52"
-        height="38"
-        rx="8"
-        fill="none"
-        stroke="currentColor"
-        strokeOpacity="0.3"
-        strokeWidth="1.5"
-      />
-    </svg>
   );
 }
