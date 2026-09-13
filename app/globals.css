@@ -300,6 +300,50 @@ body {
   );
 }
 
+.photo-scrim-band {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      100deg,
+      color-mix(in srgb, var(--brand-navy-deep) 72%, transparent) 0%,
+      color-mix(in srgb, var(--brand-navy-deep) 48%, transparent) 42%,
+      color-mix(in srgb, var(--brand-navy-deep) 28%, transparent) 100%
+    );
+}
+
+.photo-fade-edges {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, var(--brand-warm), transparent 18%, transparent 82%, var(--brand-warm));
+}
+
+.photo-scrim-cta {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      105deg,
+      color-mix(in srgb, var(--brand-navy-deep) 86%, transparent) 0%,
+      color-mix(in srgb, var(--brand-navy-deep) 68%, transparent) 38%,
+      color-mix(in srgb, var(--brand-navy-deep) 42%, transparent) 72%,
+      color-mix(in srgb, var(--brand-navy-deep) 28%, transparent) 100%
+    ),
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--brand-navy-deep) 55%, transparent) 0%,
+      transparent 34%
+    );
+}
+
+.section-sky {
+  background: color-mix(in srgb, var(--brand-sky) 72%, var(--brand-warm));
+}
+
 @media (max-width: 1023px) {
   .photo-scrim-hero {
     background:
@@ -314,5 +358,23 @@ body {
 
   .photo-accent-glow {
     display: none;
+  }
+
+  .photo-scrim-band {
+    background:
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--brand-navy-deep) 78%, transparent) 0%,
+        color-mix(in srgb, var(--brand-navy-deep) 62%, transparent) 100%
+      );
+  }
+
+  .photo-scrim-cta {
+    background:
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--brand-navy-deep) 78%, transparent) 0%,
+        color-mix(in srgb, var(--brand-navy-deep) 70%, transparent) 100%
+      );
   }
 }

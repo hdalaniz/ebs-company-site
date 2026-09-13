@@ -9,7 +9,7 @@ const footerLinkClass =
 export function Footer() {
   return (
     <footer className="relative z-10 mt-auto bg-navy-deep">
-      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 sm:px-8 md:grid-cols-[1.3fr_repeat(3,minmax(0,1fr))] md:gap-10 lg:py-16">
+      <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 sm:px-8 md:grid-cols-[1.35fr_repeat(3,minmax(0,1fr))] md:gap-10 lg:py-20">
         <div>
           <Link
             href="/"
@@ -34,7 +34,7 @@ export function Footer() {
           <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
             Products
           </p>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-4 space-y-3.5">
             {products.map((product) => (
               <li key={product.key}>
                 <Link href={product.href} className={footerLinkClass}>
@@ -49,7 +49,7 @@ export function Footer() {
           <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
             Company
           </p>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-4 space-y-3.5">
             <li>
               <Link href="/about" className={footerLinkClass}>
                 About
@@ -62,7 +62,7 @@ export function Footer() {
           <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
             Legal
           </p>
-          <ul className="mt-4 space-y-3">
+          <ul className="mt-4 space-y-3.5">
             <li>
               <Link href="/privacy" className={footerLinkClass}>
                 Privacy

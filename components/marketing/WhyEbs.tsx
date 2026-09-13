@@ -1,24 +1,22 @@
-import { SectionHeading } from "@/components/marketing/SectionHeading";
-
 const reasons = [
   {
     title: "Stop guessing what to improve.",
     description:
-      "EBS identifies where the customer journey is breaking down.",
+      "EBS helps you see where calls, leads, and customer journeys are breaking down — so you can focus on the problems that matter.",
     accent: "teal" as const,
     visual: "leak" as const,
   },
   {
     title: "Know what to do next.",
     description:
-      "Recommendations prioritize the highest-value next action instead of overwhelming owners with another large report.",
-    accent: "cyan" as const,
+      "Clear next steps beat another long report. Recommendations prioritize the highest-value action for your business.",
+    accent: "slate" as const,
     visual: "next" as const,
   },
   {
     title: "Connect improvements to outcomes.",
     description:
-      "EBS is being designed to connect growth actions with leads, bookings, and revenue influenced.",
+      "EBS is being designed to connect growth actions with leads, bookings, and revenue — so progress is visible.",
     accent: "teal" as const,
     visual: "outcomes" as const,
   },
@@ -29,36 +27,47 @@ export function WhyEbs() {
     <section
       id="why-ebs"
       aria-labelledby="why-ebs-heading"
-      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-2 pb-16 sm:px-8 sm:pt-4 sm:pb-20 lg:pt-6 lg:pb-24"
+      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-14 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-14"
     >
-      <SectionHeading
-        headingId="why-ebs-heading"
-        heading="More than tools. A clearer path to growth."
-        supporting="EBS helps service businesses understand what's working, what needs attention, and what to do next."
-      />
+      <div>
+        <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+          Why EBS
+        </p>
+        <h2
+          id="why-ebs-heading"
+          className="mt-3 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
+        >
+          Clarity for the businesses that keep communities running.
+        </h2>
+        <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
+          EBS helps service businesses understand what&apos;s working, what
+          needs attention, and what to do next.
+        </p>
+      </div>
 
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
         {reasons.map((reason) => (
-          <article key={reason.title} className="ebs-card group/bento flex h-full flex-col overflow-hidden p-0">
+          <article
+            key={reason.title}
+            className="ebs-card group/bento flex h-full flex-col overflow-hidden p-0"
+          >
             <div
               className={
-                reason.accent === "cyan"
-                  ? "relative h-24 overflow-hidden border-b border-border bg-gradient-to-br from-teal-secondary/10 to-transparent text-teal-secondary sm:h-28"
+                reason.accent === "slate"
+                  ? "relative h-24 overflow-hidden border-b border-border bg-gradient-to-br from-sky to-transparent text-teal-secondary sm:h-28"
                   : "relative h-24 overflow-hidden border-b border-border bg-gradient-to-br from-teal/12 to-transparent text-teal sm:h-28"
               }
               aria-hidden="true"
             >
               <ReasonVisual visual={reason.visual} />
             </div>
-            <div className="flex flex-1 flex-col justify-between px-5 py-5 sm:px-6 sm:py-6">
-              <div className="motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover/bento:translate-x-1">
-                <h3 className="text-lg font-semibold tracking-tight text-ink sm:text-xl">
-                  {reason.title}
-                </h3>
-                <p className="mt-2 text-[0.95rem] leading-6 text-ink/80 sm:text-base sm:leading-7">
-                  {reason.description}
-                </p>
-              </div>
+            <div className="flex flex-1 flex-col px-5 py-5 sm:px-6 sm:py-6">
+              <h3 className="text-lg font-semibold tracking-tight text-ink sm:text-xl">
+                {reason.title}
+              </h3>
+              <p className="mt-2 text-[0.95rem] leading-6 text-ink/75 sm:text-base sm:leading-7">
+                {reason.description}
+              </p>
             </div>
           </article>
         ))}

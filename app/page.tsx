@@ -1,6 +1,7 @@
 import { FinalCta } from "@/components/marketing/FinalCta";
 import { GrowthLoop } from "@/components/marketing/GrowthLoop";
 import { Hero } from "@/components/marketing/Hero";
+import { LocalBusinessBreak } from "@/components/marketing/LocalBusinessBreak";
 import { PlatformPreview } from "@/components/marketing/PlatformPreview";
 import { ProductPlatform } from "@/components/marketing/ProductPlatform";
 import { WhyEbs } from "@/components/marketing/WhyEbs";
@@ -12,6 +13,7 @@ export default function Home() {
       <ProductPlatform />
       <GrowthLoop />
       <WhyEbs />
+      <LocalBusinessBreak />
       <PlatformPreview />
       <FinalCta />
     </>

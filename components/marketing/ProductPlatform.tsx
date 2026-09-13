@@ -14,19 +14,19 @@ export function ProductPlatform() {
     <section
       id="products"
       aria-labelledby="products-heading"
-      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-2 pb-16 sm:px-8 sm:pt-4 sm:pb-20 lg:pt-6 lg:pb-24"
+      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-4 pb-16 sm:px-8 sm:pt-6 sm:pb-20 lg:pt-8 lg:pb-24"
     >
       <SectionHeading
         headingId="products-heading"
         heading="One platform. Built around business growth."
-        supporting="EBS products are designed to help service businesses improve each stage of the customer and revenue journey."
+        supporting="EBS products help service businesses strengthen their presence, capture more demand, and turn more opportunities into booked revenue."
       />
 
-      <div className="mt-8">
+      <div className="mt-10">
         <ProductCard product={presence} featured />
       </div>
 
-      <div className="mt-5 grid gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-3">
+      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {futureProducts.map((product) => (
           <ProductCard key={product.key} product={product} />
         ))}
