@@ -133,6 +133,31 @@
       transform: translate(-50%, -40%) scale(1);
     }
   }
+
+  --animate-fade-up: fade-up 0.7s ease-out both;
+  --animate-photo-settle: photo-settle 1.15s ease-out both;
+
+  @keyframes fade-up {
+    0% {
+      opacity: 0;
+      transform: translateY(0.9rem);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes photo-settle {
+    0% {
+      opacity: 0.94;
+      transform: scale(1.03);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
 html {
@@ -157,6 +182,13 @@ html {
 
   .cta-arrow {
     transform: none;
+  }
+
+  .animate-fade-up,
+  .animate-photo-settle {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -328,20 +360,74 @@ body {
   background:
     linear-gradient(
       105deg,
-      color-mix(in srgb, var(--brand-navy-deep) 86%, transparent) 0%,
-      color-mix(in srgb, var(--brand-navy-deep) 68%, transparent) 38%,
-      color-mix(in srgb, var(--brand-navy-deep) 42%, transparent) 72%,
+      color-mix(in srgb, var(--brand-navy-deep) 88%, transparent) 0%,
+      color-mix(in srgb, var(--brand-navy-deep) 72%, transparent) 34%,
+      color-mix(in srgb, var(--brand-navy-deep) 48%, transparent) 62%,
       color-mix(in srgb, var(--brand-navy-deep) 28%, transparent) 100%
     ),
     linear-gradient(
       to top,
-      color-mix(in srgb, var(--brand-navy-deep) 55%, transparent) 0%,
-      transparent 34%
+      color-mix(in srgb, var(--brand-navy-deep) 62%, transparent) 0%,
+      transparent 38%
     );
 }
 
 .section-sky {
   background: color-mix(in srgb, var(--brand-sky) 72%, var(--brand-warm));
+}
+
+.section-topo {
+  background-image:
+    radial-gradient(
+      ellipse 70% 55% at 80% 110%,
+      color-mix(in srgb, var(--teal) 8%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 55% 45% at 8% 90%,
+      color-mix(in srgb, var(--brand-slate-blue) 7%, transparent),
+      transparent 68%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--brand-sky) 72%, var(--brand-warm)),
+      color-mix(in srgb, var(--brand-sky) 55%, var(--brand-warm))
+    );
+}
+
+.section-topo::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='80' viewBox='0 0 160 80' fill='none'%3E%3Cpath d='M0 50c20-12 35 8 55-2s28-18 50-8 30 6 55-6' stroke='%231EC8A5' stroke-opacity='0.35' stroke-width='1'/%3E%3Cpath d='M0 62c22-10 34 6 54-1s30-14 52-6 34 4 54-5' stroke='%234D7C93' stroke-opacity='0.28' stroke-width='1'/%3E%3C/svg%3E");
+  background-size: 160px 80px;
+  mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 75%, transparent);
+}
+
+.section-platform {
+  background:
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--brand-warm) 88%, var(--brand-sky)),
+      var(--brand-warm)
+    );
+}
+
+.section-curve-top {
+  position: relative;
+}
+
+.section-curve-top::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  top: -1px;
+  height: 2.75rem;
+  background: var(--brand-warm);
+  clip-path: ellipse(70% 100% at 50% 0%);
 }
 
 @media (max-width: 1023px) {
@@ -364,8 +450,8 @@ body {
     background:
       linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--brand-navy-deep) 78%, transparent) 0%,
-        color-mix(in srgb, var(--brand-navy-deep) 62%, transparent) 100%
+        color-mix(in srgb, var(--brand-navy-deep) 80%, transparent) 0%,
+        color-mix(in srgb, var(--brand-navy-deep) 68%, transparent) 100%
       );
   }
 
@@ -373,8 +459,8 @@ body {
     background:
       linear-gradient(
         to bottom,
-        color-mix(in srgb, var(--brand-navy-deep) 78%, transparent) 0%,
-        color-mix(in srgb, var(--brand-navy-deep) 70%, transparent) 100%
+        color-mix(in srgb, var(--brand-navy-deep) 82%, transparent) 0%,
+        color-mix(in srgb, var(--brand-navy-deep) 74%, transparent) 100%
       );
   }
 }
