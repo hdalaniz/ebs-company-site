@@ -21,7 +21,7 @@ const journeyCopy = [
   },
   {
     label: "Growth",
-    support: "Capture demand",
+    support: "Capture and convert",
   },
   {
     label: "Revenue Intelligence",
@@ -44,7 +44,7 @@ export function GrowthLoop() {
     <section
       id="how-ebs-works"
       aria-labelledby="how-ebs-works-heading"
-      className="section-sky section-topo relative scroll-mt-6 overflow-hidden"
+      className="section-sky section-topo relative scroll-mt-24 overflow-hidden"
     >
       <div
         aria-hidden="true"

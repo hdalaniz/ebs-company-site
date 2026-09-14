@@ -10,7 +10,9 @@ import {
 import { FutureProductPreviewSection } from "@/components/products/FutureProductSections";
 
 export const metadata: Metadata = {
-  title: "EBS Growth",
+  title: {
+    absolute: "EBS Growth | Capture and Convert Demand",
+  },
   description:
     "A future EBS product being designed to help service businesses respond faster, follow up consistently, recover missed opportunities, and reactivate previous customers. Not currently available.",
 };

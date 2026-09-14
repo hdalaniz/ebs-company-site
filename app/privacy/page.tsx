@@ -3,7 +3,8 @@ import { SimplePage } from "@/components/marketing/SimplePage";
 
 export const metadata: Metadata = {
   title: "Privacy",
-  description: "Privacy policy placeholder for Elevate Business Systems.",
+  description:
+    "How Elevate Business Systems handles privacy for this public company site.",
 };
 
 export default function PrivacyPage() {
@@ -11,7 +12,7 @@ export default function PrivacyPage() {
     <SimplePage
       eyebrow="Legal"
       title="Privacy"
-      description="This is a placeholder privacy page. The published policy will live here."
+      description="A published privacy policy will live here. Until then, this page exists so visitors can find our intended legal home."
     />
   );
 }

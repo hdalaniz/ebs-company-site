@@ -14,7 +14,7 @@ import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
-import { getInsightUrl } from "@/config/site";
+import { ctaCopy, getInsightUrl } from "@/config/site";
 import { cn } from "@/lib/cn";
 import { useIsClient } from "@/lib/use-is-client";
 
@@ -70,15 +70,15 @@ export function Hero() {
             of the demand they already generate into customers.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
-            <ButtonLink href="/#products" className="w-full sm:w-auto">
-              Explore EBS Products
+            <ButtonLink href="/products/presence" className="w-full sm:w-auto">
+              {ctaCopy.presence}
             </ButtonLink>
             <ButtonLink
               href={getInsightUrl("/analyze")}
               variant="ghost"
               className="w-full sm:w-auto"
             >
-              Run EBS Insight
+              {ctaCopy.insight}
             </ButtonLink>
           </div>
           <p className="mt-6 text-sm font-medium tracking-wide text-ink/70">
@@ -121,7 +121,7 @@ function InsightPathCard() {
             Analyze and improve your online presence.
           </p>
           <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-teal/12 px-3 py-1.5 text-sm font-semibold text-teal motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-0.5">
-            Get started
+            {ctaCopy.insight}
             <span aria-hidden="true">→</span>
           </p>
         </div>
@@ -159,7 +159,7 @@ function LaunchPathCard() {
             Build your digital foundation.
           </p>
           <p className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-teal motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-0.5">
-            Learn more
+            {ctaCopy.launch}
             <span aria-hidden="true">→</span>
           </p>
         </div>

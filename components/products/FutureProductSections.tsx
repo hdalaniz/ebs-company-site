@@ -31,7 +31,7 @@ export function FutureProductHero({
       </div>
 
       <div className="relative z-10">
-        <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-[0.7rem] font-semibold tracking-[0.22em] text-teal uppercase">
+        <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-teal uppercase">
           {eyebrow}
         </p>
         <div className="mt-4">

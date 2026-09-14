@@ -12,7 +12,7 @@ import {
 import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
 import { products } from "@/config/products";
-import { getInsightUrl } from "@/config/site";
+import { ctaCopy, getInsightUrl } from "@/config/site";
 import { cn } from "@/lib/cn";
 
 const whyCards = [
@@ -38,42 +38,26 @@ const whyCards = [
 
 const productJourney = [
   {
-    key: "presence",
-    name: "EBS Presence",
+    key: "presence" as const,
     action: "Build + Improve",
-    href: "/products/presence",
-    status: "available" as const,
-    statusLabel: "Current foundation",
-    detail: "Strengthen the digital front door customers see first.",
+    detail: "Build and improve the digital foundation customers see first.",
   },
   {
-    key: "growth",
-    name: "EBS Growth",
+    key: "growth" as const,
     action: "Capture + Convert",
-    href: "/products/growth",
-    status: "coming-soon" as const,
-    statusLabel: "Coming Soon",
-    detail: "Respond faster and keep opportunities moving toward booked work.",
+    detail: "Capture demand and convert more of it into booked work.",
   },
   {
-    key: "revenue-intelligence",
-    name: "EBS Revenue Intelligence",
+    key: "revenue-intelligence" as const,
     action: "Measure + Prove",
-    href: "/products/revenue-intelligence",
-    status: "coming-soon" as const,
-    statusLabel: "Coming Soon",
-    detail: "Connect activity to what actually becomes booked revenue.",
+    detail: "Measure and prove what actually becomes booked revenue.",
   },
   {
-    key: "assist",
-    name: "EBS Assist",
-    action: "Recommend + Improve",
-    href: "/products/assist",
-    status: "future" as const,
-    statusLabel: "Future",
-    detail: "Surface clearer next moves from measured business outcomes.",
+    key: "assist" as const,
+    action: "Recommend",
+    detail: "Recommend the next best action from measured business outcomes.",
   },
-] as const;
+];
 
 const serviceCategories = [
   { name: "HVAC", icon: "hvac" as const },
@@ -174,7 +158,7 @@ export function AboutHero() {
               href="/products/presence"
               className="w-full sm:w-auto"
             >
-              Explore EBS Presence
+              {ctaCopy.presence}
             </ButtonLink>
             <ButtonLink
               href="/#how-ebs-works"
@@ -281,6 +265,10 @@ export function AboutProductJourney() {
           />
           {productJourney.map((step, index) => {
             const product = products.find((item) => item.key === step.key);
+            if (!product) {
+              return null;
+            }
+
             return (
               <li key={step.key} className="relative">
                 {index < productJourney.length - 1 ? (
@@ -290,7 +278,7 @@ export function AboutProductJourney() {
                   />
                 ) : null}
                 <Link
-                  href={step.href}
+                  href={product.href}
                   className={cn(
                     "ebs-card group relative z-10 block h-full rounded-2xl p-5 transition-[transform,box-shadow] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal motion-safe:hover:-translate-y-0.5 sm:p-6",
                     step.key === "presence" &&
@@ -302,21 +290,21 @@ export function AboutProductJourney() {
                       <ProductIcon index={index} />
                     </span>
                     <ProductStatusBadge
-                      status={step.status}
-                      label={step.statusLabel}
+                      status={product.status}
+                      label={product.statusLabel}
                     />
                   </div>
                   <p className="mt-4 text-[0.68rem] font-semibold tracking-[0.16em] text-teal uppercase">
                     {step.action}
                   </p>
                   <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink">
-                    {product?.name ?? step.name}
+                    {product.name}
                   </h3>
                   <p className="mt-2 text-sm leading-6 text-ink/75">
                     {step.detail}
                   </p>
                   <p className="mt-4 text-sm font-semibold text-teal motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-0.5">
-                    Learn more
+                    {product.cta}
                     <span aria-hidden="true"> →</span>
                   </p>
                 </Link>
@@ -587,14 +575,14 @@ export function AboutFinalCta() {
                 href="/products/presence"
                 className="w-full sm:w-auto"
               >
-                Explore EBS Presence
+                {ctaCopy.presence}
               </ButtonLink>
               <ButtonLink
                 href={getInsightUrl("/analyze")}
                 variant="ghost"
                 className="w-full justify-center text-on-dark hover:text-teal sm:w-auto"
               >
-                Run EBS Insight
+                {ctaCopy.insight}
               </ButtonLink>
             </div>
           </div>

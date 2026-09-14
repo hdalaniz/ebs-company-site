@@ -10,7 +10,9 @@ import {
 } from "@/components/products/AssistSections";
 
 export const metadata: Metadata = {
-  title: "EBS Assist",
+  title: {
+    absolute: "EBS Assist | Know Your Next Best Move",
+  },
   description:
     "A future EBS intelligence layer designed to recommend, prioritize, and draft the next best business actions. Not currently available and does not take autonomous actions today.",
 };

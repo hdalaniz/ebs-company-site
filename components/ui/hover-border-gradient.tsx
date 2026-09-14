@@ -134,7 +134,7 @@ export function HoverBorderGradient({
             : {
                 background: active
                   ? "linear-gradient(135deg, color-mix(in srgb, var(--teal) 70%, transparent), color-mix(in srgb, var(--brand-slate-blue) 35%, transparent))"
-                  : "var(--border)",
+                  : "linear-gradient(var(--border), var(--border))",
                 opacity: active ? 1 : 0.4,
               }
         }

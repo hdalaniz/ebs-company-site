@@ -10,7 +10,9 @@ import {
 } from "@/components/products/PresenceSections";
 
 export const metadata: Metadata = {
-  title: "EBS Presence",
+  title: {
+    absolute: "EBS Presence | Build and Improve Your Online Presence",
+  },
   description:
     "Whether you're starting from scratch or already have a website, EBS Presence helps you build, understand, and improve the digital foundation customers see first.",
 };

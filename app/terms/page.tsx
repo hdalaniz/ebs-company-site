@@ -3,7 +3,8 @@ import { SimplePage } from "@/components/marketing/SimplePage";
 
 export const metadata: Metadata = {
   title: "Terms",
-  description: "Terms of use placeholder for Elevate Business Systems.",
+  description:
+    "Terms of use for the Elevate Business Systems public company site.",
 };
 
 export default function TermsPage() {
@@ -11,7 +12,7 @@ export default function TermsPage() {
     <SimplePage
       eyebrow="Legal"
       title="Terms"
-      description="This is a placeholder terms page. The published terms will live here."
+      description="Published terms of use will live here. Until then, this page exists so visitors can find our intended legal home."
     />
   );
 }

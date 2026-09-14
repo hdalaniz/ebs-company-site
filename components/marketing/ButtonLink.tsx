@@ -14,7 +14,7 @@ function isExternal(href: string) {
 }
 
 const base =
-  "inline-flex items-center justify-center rounded-lg text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal";
+  "inline-flex min-h-11 items-center justify-center rounded-lg text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal";
 
 export const buttonLinkVariants = {
   primary: cn(
@@ -50,7 +50,7 @@ export function ButtonLink({
 
   if (isExternal(href)) {
     return (
-      <a href={href} className={classes} rel="noreferrer">
+      <a href={href} className={classes} rel="noopener noreferrer">
         {content}
       </a>
     );

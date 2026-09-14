@@ -11,7 +11,9 @@ import {
 } from "@/components/marketing/AboutSections";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: {
+    absolute: "About Elevate Business Systems",
+  },
   description:
     "Elevate Business Systems is building practical software for service businesses that want to capture more demand, convert more opportunities, and understand what actually drives growth.",
 };

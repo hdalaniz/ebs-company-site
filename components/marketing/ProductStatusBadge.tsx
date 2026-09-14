@@ -10,7 +10,7 @@ const styles: Record<ProductStatus, string> = {
 const defaultLabels: Record<ProductStatus, string> = {
   available: "Available",
   "coming-soon": "Coming Soon",
-  future: "Future",
+  future: "Future Product",
 };
 
 type ProductStatusBadgeProps = {

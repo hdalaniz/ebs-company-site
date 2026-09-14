@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { BrandMark } from "@/components/brand/BrandMark";
 import { buttonLinkVariants } from "@/components/marketing/ButtonLink";
 import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
@@ -13,11 +14,14 @@ const navLinkClass =
   "text-sm font-medium text-muted transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal";
 
 export function Header() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(true);
   const [productsOpen, setProductsOpen] = useState(false);
   const productsMenuId = useId();
   const mobileMenuId = useId();
+  const mobileProductsId = useId();
+  const productsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -37,6 +41,25 @@ export function Header() {
       document.body.style.overflow = "";
     };
   }, [mobileOpen]);
+
+  useEffect(() => {
+    if (!productsOpen) {
+      return;
+    }
+
+    function onPointerDown(event: PointerEvent) {
+      if (
+        productsRef.current &&
+        event.target instanceof Node &&
+        !productsRef.current.contains(event.target)
+      ) {
+        setProductsOpen(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [productsOpen]);
 
   function closeMenus() {
     setProductsOpen(false);
@@ -67,6 +90,7 @@ export function Header() {
           className="hidden items-center gap-7 lg:col-start-2 lg:flex"
         >
           <div
+            ref={productsRef}
             className="relative"
             onBlur={(event) => {
               const next = event.relatedTarget;
@@ -100,9 +124,10 @@ export function Header() {
                   <li key={product.key}>
                     <Link
                       href={product.href}
+                      aria-current={pathname === product.href ? "page" : undefined}
                       className={cn(
                         "block rounded-xl px-3.5 py-3 transition-colors hover:bg-sky/80 focus-visible:bg-sky/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal",
-                        product.key === "presence" &&
+                        pathname === product.href &&
                           "bg-teal/10 ring-1 ring-inset ring-teal/25",
                       )}
                       onClick={closeMenus}
@@ -132,7 +157,12 @@ export function Header() {
           <Link href="/#why-ebs" className={navLinkClass} onClick={closeMenus}>
             Why EBS
           </Link>
-          <Link href="/about" className={navLinkClass} onClick={closeMenus}>
+          <Link
+            href="/about"
+            className={cn(navLinkClass, pathname === "/about" && "text-ink")}
+            aria-current={pathname === "/about" ? "page" : undefined}
+            onClick={closeMenus}
+          >
             About
           </Link>
         </nav>
@@ -143,7 +173,7 @@ export function Header() {
           </Link>
           <Link
             href={site.getStartedHref}
-            className={cn(buttonLinkVariants.primary, "px-3.5 py-2 sm:px-4")}
+            className={cn(buttonLinkVariants.primary, "px-4")}
             onClick={closeMenus}
           >
             Get Started
@@ -153,7 +183,7 @@ export function Header() {
         <div className="flex items-center justify-self-end gap-3 lg:hidden">
           <Link
             href={site.getStartedHref}
-            className={cn(buttonLinkVariants.primary, "px-3.5 py-2")}
+            className={cn(buttonLinkVariants.primary, "px-3.5")}
             onClick={closeMenus}
           >
             Get Started
@@ -181,21 +211,26 @@ export function Header() {
             type="button"
             className="flex min-h-11 w-full items-center justify-between rounded-md py-2.5 text-left text-base font-medium text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
             aria-expanded={mobileProductsOpen}
+            aria-controls={mobileProductsId}
             onClick={() => setMobileProductsOpen((open) => !open)}
           >
             Products
             <ChevronIcon className={cn(mobileProductsOpen && "rotate-180")} />
           </button>
 
-          {mobileProductsOpen ? (
-            <ul className="space-y-1 pb-2 pl-1">
+          <ul
+            id={mobileProductsId}
+            hidden={!mobileProductsOpen}
+            className="space-y-1 pb-2 pl-1"
+          >
               {products.map((product) => (
                 <li key={product.key}>
                   <Link
                     href={product.href}
+                    aria-current={pathname === product.href ? "page" : undefined}
                     className={cn(
-                      "block rounded-xl px-3 py-3 hover:bg-sky/80",
-                      product.key === "presence" &&
+                      "block rounded-xl px-3 py-3 hover:bg-sky/80 focus-visible:bg-sky/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal",
+                      pathname === product.href &&
                         "bg-teal/10 ring-1 ring-inset ring-teal/25",
                     )}
                     onClick={closeMenus}
@@ -215,33 +250,34 @@ export function Header() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          ) : null}
+          </ul>
 
           <Link
             href="/#how-ebs-works"
-            className="block min-h-11 py-3 text-base text-muted"
+            className="block min-h-11 rounded-md py-3 text-base text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
             onClick={closeMenus}
           >
             How EBS Works
           </Link>
           <Link
             href="/#why-ebs"
-            className="block min-h-11 py-3 text-base text-muted"
+            className="block min-h-11 rounded-md py-3 text-base text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
             onClick={closeMenus}
           >
             Why EBS
           </Link>
           <Link
             href="/about"
-            className="block min-h-11 py-3 text-base text-muted"
+            className="block min-h-11 rounded-md py-3 text-base text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
+            aria-current={pathname === "/about" ? "page" : undefined}
             onClick={closeMenus}
           >
             About
           </Link>
           <Link
             href={site.signInHref}
-            className="block min-h-11 py-3 text-base text-muted"
+            className="block min-h-11 rounded-md py-3 text-base text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
+            aria-current={pathname === site.signInHref ? "page" : undefined}
             onClick={closeMenus}
           >
             Sign In

@@ -4,7 +4,7 @@ import { ScenicPhoto } from "@/components/brand/ScenicPhoto";
 import { ButtonLink } from "@/components/marketing/ButtonLink";
 import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
-import { getInsightUrl } from "@/config/site";
+import { ctaCopy, getInsightUrl } from "@/config/site";
 
 export function FinalCta() {
   return (
@@ -46,19 +46,16 @@ export function FinalCta() {
                 href="/products/presence"
                 className="w-full sm:w-auto"
               >
-                Explore EBS Presence
+                {ctaCopy.presence}
               </ButtonLink>
               <ButtonLink
                 href={getInsightUrl("/analyze")}
                 variant="ghost"
                 className="w-full justify-center text-on-dark hover:text-teal sm:w-auto"
               >
-                Run EBS Insight
+                {ctaCopy.insight}
               </ButtonLink>
             </div>
-            <p className="mt-6 text-sm font-medium tracking-wide text-on-dark/70 sm:mt-7">
-              Built for local businesses. Designed for growth.
-            </p>
           </div>
         </div>
       </div>

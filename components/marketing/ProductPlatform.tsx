@@ -17,7 +17,7 @@ export function ProductPlatform() {
     <section
       id="products"
       aria-labelledby="products-heading"
-      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-4 pb-16 sm:px-8 sm:pt-6 sm:pb-20 lg:pt-8 lg:pb-24"
+      className="mx-auto w-full max-w-7xl scroll-mt-24 px-5 pt-4 pb-16 sm:px-8 sm:pt-6 sm:pb-20 lg:pt-8 lg:pb-24"
     >
       <SectionHeading
         headingId="products-heading"

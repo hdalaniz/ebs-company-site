@@ -8,7 +8,7 @@ import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
-import { getInsightUrl } from "@/config/site";
+import { ctaCopy, getInsightUrl } from "@/config/site";
 
 const workflowStages = [
   {
@@ -107,7 +107,7 @@ export function GrowthHero() {
 
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pt-12 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14 lg:pt-20 lg:pb-14">
         <div className="motion-safe:animate-fade-up">
-          <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-[0.7rem] font-semibold tracking-[0.22em] text-teal uppercase">
+          <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-teal uppercase">
             EBS Growth
           </p>
           <div className="mt-4">
@@ -126,6 +126,18 @@ export function GrowthHero() {
             Built to help local service businesses respond while the opportunity
             is still warm.
           </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
+            <ButtonLink href="/products/presence" className="w-full sm:w-auto">
+              {ctaCopy.presence}
+            </ButtonLink>
+            <ButtonLink
+              href={getInsightUrl("/analyze")}
+              variant="ghost"
+              className="w-full sm:w-auto"
+            >
+              {ctaCopy.insight}
+            </ButtonLink>
+          </div>
         </div>
 
         <div className="relative motion-safe:animate-fade-up [animation-delay:120ms]">
@@ -469,19 +481,16 @@ export function GrowthFinalCta() {
                 href="/products/presence"
                 className="w-full sm:w-auto"
               >
-                Explore EBS Presence
+                {ctaCopy.presence}
               </ButtonLink>
               <ButtonLink
                 href={getInsightUrl("/analyze")}
                 variant="ghost"
                 className="w-full justify-center text-on-dark hover:text-teal sm:w-auto"
               >
-                Run EBS Insight
+                {ctaCopy.insight}
               </ButtonLink>
             </div>
-            <p className="mt-6 text-sm font-medium tracking-wide text-on-dark/70 sm:mt-7">
-              Built for local businesses. Designed for growth.
-            </p>
           </div>
         </div>
       </div>

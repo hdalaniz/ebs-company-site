@@ -27,7 +27,7 @@ export function WhyEbs() {
     <section
       id="why-ebs"
       aria-labelledby="why-ebs-heading"
-      className="relative scroll-mt-6 overflow-hidden bg-gradient-to-b from-[color-mix(in_srgb,var(--brand-sky)_35%,var(--brand-warm))] via-warm to-warm"
+      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-[color-mix(in_srgb,var(--brand-sky)_35%,var(--brand-warm))] via-warm to-warm"
     >
       <div className="mx-auto w-full max-w-7xl px-5 pt-14 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-14">
       <div>

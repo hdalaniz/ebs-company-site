@@ -18,7 +18,7 @@ export const products: Product[] = [
     key: "presence",
     name: "EBS Presence",
     href: "/products/presence",
-    navDescription: "Build or improve your online presence.",
+    navDescription: "Build and improve the digital foundation.",
     cardHeadline: "Build an online presence that wins business.",
     cardDescription:
       "Create a professional digital foundation or discover what's holding your existing website back.",
@@ -43,7 +43,7 @@ export const products: Product[] = [
     key: "revenue-intelligence",
     name: "EBS Revenue Intelligence",
     href: "/products/revenue-intelligence",
-    navDescription: "Connect activity to booked revenue.",
+    navDescription: "Measure and prove what becomes revenue.",
     cardHeadline: "Know what actually drives revenue.",
     cardDescription:
       "Connect leads, responses, bookings, jobs, and revenue so owners can understand what's working.",
@@ -55,12 +55,12 @@ export const products: Product[] = [
     key: "assist",
     name: "EBS Assist",
     href: "/products/assist",
-    navDescription: "Know the next best action.",
+    navDescription: "Recommend the next best action.",
     cardHeadline: "Know your next best move.",
     cardDescription:
-      "Use business signals and measured outcomes to recommend and eventually automate the highest-value next actions.",
+      "Use business signals and measured outcomes to recommend the highest-value next actions.",
     status: "future",
-    statusLabel: "Future",
+    statusLabel: "Future Product",
     cta: "Preview EBS Assist",
   },
 ];
@@ -88,6 +88,6 @@ export const platformJourney = [
     key: "assist",
     name: "EBS Assist",
     href: "/products/assist",
-    action: "Recommend + Automate",
+    action: "Recommend",
   },
 ] as const;

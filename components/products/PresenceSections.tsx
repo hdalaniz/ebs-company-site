@@ -6,7 +6,8 @@ import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
-import { getInsightUrl } from "@/config/site";
+import { products } from "@/config/products";
+import { ctaCopy, getInsightUrl } from "@/config/site";
 import { cn } from "@/lib/cn";
 
 const insightJourney = ["Analyze", "Understand", "Improve"] as const;
@@ -94,9 +95,18 @@ export function PresenceHero() {
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 pt-24 pb-14 sm:px-8 sm:pt-28 sm:pb-16 lg:pt-16 lg:pb-20">
         <div className="max-w-2xl motion-safe:animate-fade-up">
-          <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-            EBS Presence
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+              EBS Presence
+            </p>
+            <ProductStatusBadge
+              status="available"
+              label={
+                products.find((product) => product.key === "presence")
+                  ?.statusLabel
+              }
+            />
+          </div>
           <h1 className="mt-4 text-[2.15rem] leading-[1.12] font-bold tracking-tight text-ink sm:text-5xl lg:text-[3.25rem] lg:leading-[1.08]">
             Make your online presence work harder for your business.
           </h1>
@@ -105,17 +115,21 @@ export function PresenceHero() {
             EBS Presence helps you build, understand, and improve the digital
             foundation customers see first.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
             <ButtonLink
               href="/products/presence#presence-decision"
               className="w-full sm:w-auto"
             >
               Choose your path
             </ButtonLink>
+            <ButtonLink
+              href={getInsightUrl("/analyze")}
+              variant="ghost"
+              className="w-full sm:w-auto"
+            >
+              {ctaCopy.insight}
+            </ButtonLink>
           </div>
-          <p className="mt-6 text-sm font-medium tracking-wide text-ink/70">
-            Built for local businesses. Designed for growth.
-          </p>
         </div>
       </div>
     </section>
@@ -127,7 +141,7 @@ export function PresenceDecision() {
     <section
       id="presence-decision"
       aria-labelledby="presence-decision-heading"
-      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-6 pb-14 sm:px-8 sm:pt-8 sm:pb-16 lg:pt-10 lg:pb-20"
+      className="mx-auto w-full max-w-7xl scroll-mt-24 px-5 pt-6 pb-14 sm:px-8 sm:pt-8 sm:pb-16 lg:pt-10 lg:pb-20"
     >
       <div>
         <h2
@@ -145,7 +159,7 @@ export function PresenceDecision() {
         <HoverBorderGradient
           as="article"
           id="ebs-insight"
-          containerClassName="shadow-[var(--shadow-card-featured)]"
+          containerClassName="scroll-mt-24 shadow-[var(--shadow-card-featured)]"
           className="ebs-card-featured group flex h-full flex-col overflow-hidden shadow-none"
         >
           <div className="flex flex-1 flex-col px-5 py-6 sm:px-7 sm:py-8">
@@ -175,7 +189,7 @@ export function PresenceDecision() {
                 href={getInsightUrl("/analyze")}
                 className="w-full sm:w-auto"
               >
-                Analyze My Website
+                {ctaCopy.insight}
               </ButtonLink>
             </div>
           </div>
@@ -213,7 +227,7 @@ export function PresenceDecision() {
                 variant="secondary"
                 className="w-full sm:w-auto"
               >
-                Preview EBS Launch
+                {ctaCopy.launch}
               </ButtonLink>
             </div>
           </div>
@@ -501,13 +515,16 @@ export function LaunchPreview() {
     <section
       id="ebs-launch"
       aria-labelledby="ebs-launch-heading"
-      className="relative overflow-hidden bg-gradient-to-b from-[color-mix(in_srgb,var(--brand-sky)_22%,var(--brand-warm))] to-warm"
+      className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-[color-mix(in_srgb,var(--brand-sky)_22%,var(--brand-warm))] to-warm"
     >
-      <div className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-14 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-16">
+      <div className="mx-auto w-full max-w-7xl px-5 pt-14 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-16">
         <div>
-          <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-            Coming Soon
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+              EBS Launch
+            </p>
+            <ProductStatusBadge status="coming-soon" />
+          </div>
           <h2
             id="ebs-launch-heading"
             className="mt-3 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
@@ -661,19 +678,16 @@ export function PresenceFinalCta() {
                 href={getInsightUrl("/analyze")}
                 className="w-full sm:w-auto"
               >
-                Run EBS Insight
+                {ctaCopy.insight}
               </ButtonLink>
               <ButtonLink
-                href="/#products"
+                href="/products/presence#ebs-launch"
                 variant="ghost"
                 className="w-full justify-center text-on-dark hover:text-teal sm:w-auto"
               >
-                Explore EBS Products
+                {ctaCopy.launch}
               </ButtonLink>
             </div>
-            <p className="mt-6 text-sm font-medium tracking-wide text-on-dark/70 sm:mt-7">
-              Built for local businesses. Designed for growth.
-            </p>
           </div>
         </div>
       </div>

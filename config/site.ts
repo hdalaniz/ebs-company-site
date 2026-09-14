@@ -7,6 +7,12 @@ export const site = {
   signInHref: "/signin",
 } as const;
 
+export const ctaCopy = {
+  presence: "Explore EBS Presence",
+  insight: "Run EBS Insight",
+  launch: "Preview EBS Launch",
+} as const;
+
 /**
  * Origin of the existing EBS Insight application.
  *
