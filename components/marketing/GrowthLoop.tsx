@@ -1,5 +1,12 @@
+"use client";
+
 import Link from "next/link";
+import {
+  JourneyReveal,
+  JourneyStep,
+} from "@/components/ui/journey-reveal";
 import { platformJourney } from "@/config/products";
+import { cn } from "@/lib/cn";
 
 const continuousStep = {
   key: "continuous",
@@ -7,12 +14,27 @@ const continuousStep = {
   action: "Learn + Elevate",
 } as const;
 
-const stepLabels = [
-  "Presence",
-  "Growth",
-  "Revenue Intelligence",
-  "Assist",
-  "Continuous Improvement",
+const journeyCopy = [
+  {
+    label: "Presence",
+    support: "Build the foundation",
+  },
+  {
+    label: "Growth",
+    support: "Capture demand",
+  },
+  {
+    label: "Revenue Intelligence",
+    support: "Prove what works",
+  },
+  {
+    label: "Assist",
+    support: "Choose the next move",
+  },
+  {
+    label: "Continuous Improvement",
+    support: "Learn and elevate",
+  },
 ] as const;
 
 export function GrowthLoop() {
@@ -22,9 +44,18 @@ export function GrowthLoop() {
     <section
       id="how-ebs-works"
       aria-labelledby="how-ebs-works-heading"
-      className="section-sky scroll-mt-6"
+      className="section-sky section-topo relative scroll-mt-6 overflow-hidden"
     >
-      <div className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:py-20">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-warm/80 to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-warm/70 to-transparent"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:py-20">
         <div>
           <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
             How EBS works
@@ -42,60 +73,97 @@ export function GrowthLoop() {
           </p>
         </div>
 
-        <ol className="mt-10 grid grid-cols-1 gap-8 overflow-visible lg:grid-cols-5 lg:gap-5">
-          {steps.map((step, index) => {
-            const isLast = index === steps.length - 1;
-            const href = "href" in step ? step.href : undefined;
-            const label = stepLabels[index] ?? step.name;
+        <div className="relative mt-12 lg:mt-14">
+          <RisingPathGraphic />
 
-            const content = (
-              <>
-                <div className="relative z-10 flex size-11 items-center justify-center rounded-full border border-teal/35 bg-white text-teal shadow-[0_8px_20px_-14px_rgba(14,36,56,0.35)]">
-                  <JourneyIcon index={index} />
-                </div>
-                <p className="mt-4 text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink">
-                  {label}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-ink/75 sm:leading-7">
-                  {step.action}
-                </p>
-              </>
-            );
+          <JourneyReveal className="relative grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-4 lg:pt-2">
+            {steps.map((step, index) => {
+              const href = "href" in step ? step.href : undefined;
+              const copy = journeyCopy[index];
 
-            return (
-              <li key={step.key} className="relative">
-                {!isLast ? (
-                  <>
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute top-5 left-11 hidden h-px w-[calc(100%+0.5rem)] bg-gradient-to-r from-teal/50 via-teal/25 to-transparent lg:block"
-                    />
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute top-11 left-5 h-[calc(100%+1.5rem)] w-px bg-gradient-to-b from-teal/40 to-transparent lg:hidden"
-                    />
-                  </>
-                ) : null}
-
-                {href ? (
-                  <Link
-                    href={href}
-                    className="relative z-10 block rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
+              const content = (
+                <>
+                  <div
+                    className={cn(
+                      "relative z-10 flex size-12 items-center justify-center rounded-full border border-teal/35 bg-white text-teal shadow-[0_12px_28px_-16px_rgba(14,36,56,0.4)] transition-[transform,border-color,box-shadow,background-color] duration-300",
+                      "group-data-[active=true]/step:scale-110 group-data-[active=true]/step:border-teal group-data-[active=true]/step:bg-teal/12 group-data-[active=true]/step:shadow-[0_14px_30px_-12px_rgba(30,200,165,0.5)]",
+                    )}
                   >
-                    {content}
-                  </Link>
-                ) : (
-                  <div className="relative z-10">{content}</div>
-                )}
-              </li>
-            );
-          })}
-        </ol>
+                    <JourneyIcon index={index} />
+                  </div>
+                  <p className="mt-4 text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink">
+                    {copy?.label ?? step.name}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-6 text-ink/75">
+                    {copy?.support ?? step.action}
+                  </p>
+                </>
+              );
+
+              return (
+                <JourneyStep key={step.key} className="group/step lg:flex lg:flex-col">
+                  <div
+                    className={cn(
+                      index === 1 && "lg:mt-2.5",
+                      index === 2 && "lg:mt-5",
+                      index === 3 && "lg:mt-7",
+                      index === 4 && "lg:mt-9",
+                    )}
+                  >
+                    {href ? (
+                      <Link
+                        href={href}
+                        className="relative z-10 block rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
+                      >
+                        {content}
+                      </Link>
+                    ) : (
+                      <div className="relative z-10">{content}</div>
+                    )}
+                  </div>
+                </JourneyStep>
+              );
+            })}
+          </JourneyReveal>
+        </div>
       </div>
     </section>
+  );
+}
+
+function RisingPathGraphic() {
+  return (
+    <>
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 1000 120"
+        preserveAspectRatio="none"
+        className="pointer-events-none absolute top-4 right-0 left-0 hidden h-24 w-full lg:block"
+      >
+        <path
+          d="M40 88 C220 88, 280 62, 420 54 C560 46, 620 34, 760 28 C860 24, 920 18, 960 16"
+          fill="none"
+          stroke="color-mix(in srgb, var(--teal) 35%, transparent)"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+        <path
+          d="M40 88 C220 88, 280 62, 420 54 C560 46, 620 34, 760 28 C860 24, 920 18, 960 16"
+          fill="none"
+          stroke="color-mix(in srgb, var(--teal) 55%, transparent)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeDasharray="4 8"
+        />
+      </svg>
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute top-6 bottom-6 left-6 w-px bg-gradient-to-b from-teal/50 via-teal/25 to-transparent lg:hidden"
+      />
+    </>
   );
 }
 

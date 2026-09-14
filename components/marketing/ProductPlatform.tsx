@@ -1,5 +1,8 @@
+"use client";
+
 import { ProductCard } from "@/components/marketing/ProductCard";
 import { SectionHeading } from "@/components/marketing/SectionHeading";
+import { FocusCard, FocusCards } from "@/components/ui/focus-cards";
 import { products } from "@/config/products";
 
 export function ProductPlatform() {
@@ -26,11 +29,13 @@ export function ProductPlatform() {
         <ProductCard product={presence} featured />
       </div>
 
-      <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <FocusCards className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {futureProducts.map((product) => (
-          <ProductCard key={product.key} product={product} />
+          <FocusCard key={product.key}>
+            <ProductCard product={product} />
+          </FocusCard>
         ))}
-      </div>
+      </FocusCards>
     </section>
   );
 }

@@ -27,8 +27,9 @@ export function WhyEbs() {
     <section
       id="why-ebs"
       aria-labelledby="why-ebs-heading"
-      className="mx-auto w-full max-w-7xl scroll-mt-6 px-5 pt-14 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-14"
+      className="relative scroll-mt-6 overflow-hidden bg-gradient-to-b from-[color-mix(in_srgb,var(--brand-sky)_35%,var(--brand-warm))] via-warm to-warm"
     >
+      <div className="mx-auto w-full max-w-7xl px-5 pt-14 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-14">
       <div>
         <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
           Why EBS
@@ -71,6 +72,7 @@ export function WhyEbs() {
             </div>
           </article>
         ))}
+      </div>
       </div>
     </section>
   );
