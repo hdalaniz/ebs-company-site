@@ -100,6 +100,7 @@ function InsightPathCard() {
     <HoverBorderGradient
       as="a"
       href={getInsightUrl("/analyze")}
+      rel="noopener noreferrer"
       duration={1.1}
       containerClassName="shadow-[var(--shadow-card-featured)]"
       className="ebs-card-featured group relative block overflow-hidden shadow-none"
