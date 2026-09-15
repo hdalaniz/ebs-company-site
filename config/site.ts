@@ -16,21 +16,22 @@ export const ctaCopy = {
 /**
  * Origin of the EBS Insight application.
  *
- * Set `NEXT_PUBLIC_EBS_INSIGHT_URL` to the origin only — do not include `/analyze`.
+ * Read into a module-level binding so Next.js can statically inline
+ * `process.env.NEXT_PUBLIC_EBS_INSIGHT_URL` into client bundles.
+ * Set the variable to the origin only — do not include `/analyze`.
  * Trailing slashes are normalized. Production origin: `https://ebs-insight.vercel.app`
  *
  * Local example: http://localhost:3001
- * If unset, Insight CTAs fall back to `/products/presence#ebs-insight`.
+ * If unset or empty, Insight CTAs fall back to `/products/presence#ebs-insight`.
  */
+const insightOrigin = process.env.NEXT_PUBLIC_EBS_INSIGHT_URL;
+
 export function isInsightConfigured() {
-  return Boolean(process.env.NEXT_PUBLIC_EBS_INSIGHT_URL?.trim());
+  return Boolean(insightOrigin?.trim());
 }
 
 export function getInsightUrl(path = "") {
-  const base = process.env.NEXT_PUBLIC_EBS_INSIGHT_URL?.trim().replace(
-    /\/+$/,
-    "",
-  );
+  const base = insightOrigin?.trim().replace(/\/+$/, "");
 
   if (!base) {
     return "/products/presence#ebs-insight";
