@@ -17,7 +17,7 @@ export const ctaCopy = {
  * Canonical public origin of the live EBS Insight application.
  * `NEXT_PUBLIC_EBS_INSIGHT_URL` is an optional override (origin only, no `/analyze`).
  */
-const DEFAULT_EBS_INSIGHT_ORIGIN = "https://ebs-insight.vercel.app";
+const DEFAULT_EBS_INSIGHT_ORIGIN = "https://ebs-insight-v2.vercel.app";
 
 const configuredOrigin = process.env.NEXT_PUBLIC_EBS_INSIGHT_URL?.trim();
 
