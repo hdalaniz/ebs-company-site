@@ -98,7 +98,7 @@ export function Hero() {
 function InsightPathCard() {
   return (
     <HoverBorderGradient
-      as={Link}
+      as="a"
       href={getInsightUrl("/analyze")}
       duration={1.1}
       containerClassName="shadow-[var(--shadow-card-featured)]"
