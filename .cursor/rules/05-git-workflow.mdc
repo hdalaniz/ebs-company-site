@@ -55,7 +55,8 @@ When asked to commit and push:
 
 - stage only the intended files
 - commit with the approved message
-- push to origin/main or the requested branch
+- push the current branch to its matching remote branch
+- do not push a feature branch to main
 - report the commit hash
 - report files committed
 - report files excluded
@@ -66,3 +67,46 @@ When asked only to push:
 
 - push the current approved commit and branch as appropriate
 - do not create a new commit
+
+## Feature Branch Workflow
+
+Small documentation-only or trivial low-risk fixes may remain on main when explicitly approved.
+
+Meaningful product work should use a feature branch.
+
+Do not automatically create a branch unless the user asks to start the task or sprint.
+
+Before creating a branch:
+
+1. confirm current branch
+2. confirm working tree status
+3. confirm main is up to date with origin/main
+
+Preferred branch naming:
+
+- feature/<short-description>
+- fix/<short-description>
+- refactor/<short-description>
+- chore/<short-description>
+
+Use lowercase kebab-case.
+
+Never mix unrelated work in one branch.
+
+Do not merge to main automatically.
+
+Do not delete a branch automatically after completion unless the user asks.
+
+When feature work is ready:
+
+1. run npm run verify
+2. report verification result
+3. push the feature branch only when explicitly asked
+4. use the Vercel Preview deployment for manual QA
+5. merge only after approval
+
+A feature-branch push updates that branch. It does not update main.
+
+Production should remain main.
+
+If the working tree has unrelated local changes, stop and report them before starting feature work.
