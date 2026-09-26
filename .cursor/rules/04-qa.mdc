@@ -7,13 +7,15 @@ alwaysApply: true
 
 Do not consider meaningful work complete until verification is performed.
 
-For code changes, run:
+For normal code changes, prefer:
 
-npm run build
-npm run lint
-npx tsc --noEmit
+npm run verify
 
-Run the project test suite when relevant.
+That command runs lint, TypeScript typecheck, and the production build. If a relevant test suite exists, include it in `verify` before the production build.
+
+If `npm run verify` fails, report which stage failed (lint, typecheck, tests, or build) and the root cause. Do not weaken linting, disable TypeScript checks, or change application code only to force the command to pass.
+
+Run the project test suite when relevant and it is not already covered by `npm run verify`.
 
 For UI work, manually verify:
 
