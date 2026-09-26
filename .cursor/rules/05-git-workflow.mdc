@@ -1,0 +1,68 @@
+---
+description: Git, commit, and repository hygiene rules
+alwaysApply: true
+---
+
+# EBS Git Workflow Rules
+
+Before committing:
+
+1. inspect git status
+2. identify intended files
+3. exclude unrelated changes
+4. exclude temporary QA artifacts
+5. exclude secrets
+6. verify build/lint/TypeScript/tests as appropriate
+
+Do not commit:
+
+- .env.local
+- secrets
+- API keys
+- temporary screenshots
+- .sprint-qa/
+- debug artifacts
+- unrelated documentation
+
+Prefer scoped commits.
+
+Commit-message style:
+
+feat: <product change>
+fix: <bug or correction>
+refactor: <non-behavior structural change>
+test: <test-only change>
+docs: <documentation-only change>
+
+Do not commit automatically after implementation unless the user explicitly approves the result.
+
+When asked to commit:
+
+- stage only the intended files
+- commit with the approved message
+- do not push
+- report the commit hash
+- report files committed
+- report files excluded
+- report whether the working tree is clean
+- report remaining untracked files
+
+Do not push unless the user explicitly asks to push.
+
+Never assume that commit implies push.
+
+When asked to commit and push:
+
+- stage only the intended files
+- commit with the approved message
+- push to origin/main or the requested branch
+- report the commit hash
+- report files committed
+- report files excluded
+- report whether the working tree is clean
+- report remaining untracked files
+
+When asked only to push:
+
+- push the current approved commit and branch as appropriate
+- do not create a new commit

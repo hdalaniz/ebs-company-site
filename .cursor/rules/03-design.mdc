@@ -1,0 +1,83 @@
+---
+description: EBS local-first brand and UI rules
+alwaysApply: true
+---
+
+# EBS Design System Rules
+
+The approved EBS visual direction is:
+
+Local-first
+Modern
+Friendly
+Premium
+Home-service oriented
+Technology-enabled
+
+Avoid:
+
+- dark enterprise SaaS aesthetic
+- neon AI styling
+- cyberpunk visuals
+- generic office stock photography
+- excessive gradients
+- excessive animation
+- flashy AI-demo effects
+
+Core brand colors:
+
+--brand-navy: #143049
+--brand-navy-deep: #0e2438
+--brand-teal: #1EC8A5
+--brand-teal-hover: #17B395
+--brand-sky: #E6EEF4
+--brand-warm: #F6F3EE
+--brand-white: #FFFFFF
+--brand-slate: #4F6274
+--brand-forest: #4D6B5A
+
+Brand atmosphere:
+
+- warm off-white surfaces
+- white cards
+- navy typography
+- teal CTAs
+- soft sky-blue sections
+- local homes
+- neighborhoods
+- mountains / foothills
+- natural daylight
+
+Photography should reinforce home-service/local-business context.
+
+Aceternity-inspired interaction may be used sparingly.
+
+Allowed:
+
+- subtle Spotlight
+- Hover Border Gradient
+- Focus Cards
+- mild viewport reveals
+- subtle CTA arrow movement
+- restrained topographic/elevation details
+
+Avoid:
+
+- Meteors
+- Background Beams
+- Vortex
+- Lamp effects
+- typewriter animations
+- aggressive glow
+- scroll hijacking
+
+Priority order:
+
+1. usability
+2. customer clarity
+3. local/home-service context
+4. brand consistency
+5. technical polish
+6. decorative animation
+
+All motion must respect prefers-reduced-motion.

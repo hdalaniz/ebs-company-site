@@ -1,0 +1,59 @@
+---
+description: Definition of done and QA requirements
+alwaysApply: true
+---
+
+# EBS QA Rules
+
+Do not consider meaningful work complete until verification is performed.
+
+For code changes, run:
+
+npm run build
+npm run lint
+npx tsc --noEmit
+
+Run the project test suite when relevant.
+
+For UI work, manually verify:
+
+- desktop
+- tablet
+- 375px mobile
+- no horizontal overflow
+- keyboard navigation
+- visible focus states
+- reduced motion
+- CTA behavior
+- responsive layout
+- browser Back when relevant
+
+For form/workflow changes, verify:
+
+- valid input
+- invalid input
+- loading state
+- error state
+- success state
+- route transitions
+
+For production-facing changes, verify:
+
+- no debug copy
+- no placeholder text
+- no broken links
+- no fake data
+- no stale product statuses
+
+Do not change tests merely to make a failing implementation pass unless the product behavior intentionally changed.
+
+If a test must change, explain why.
+
+When reporting completion, include:
+
+- files changed
+- functionality changed
+- functionality intentionally preserved
+- test/build results
+- known limitations
+- recommended next step

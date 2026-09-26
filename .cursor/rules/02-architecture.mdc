@@ -1,0 +1,72 @@
+---
+description: Architecture and engineering guardrails
+alwaysApply: true
+---
+
+# EBS Architecture Rules
+
+Preserve a modular monolith architecture unless a measurable operational requirement justifies otherwise.
+
+Default stack:
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- Vercel
+- GitHub
+- Managed PostgreSQL when needed
+
+Prefer managed services and provider adapters.
+
+Do not introduce without a clear requirement:
+
+- microservices
+- Kubernetes
+- event buses
+- vector databases
+- multi-agent systems
+- custom authorization engines
+- unnecessary infrastructure
+
+Protect:
+
+- tenant data isolation
+- authentication
+- authorization
+- auditability
+- idempotent jobs and webhooks
+- secrets
+- backups
+- observability
+- maintainable module boundaries
+
+AI should be bounded.
+
+AI may be used for:
+
+- analysis
+- classification
+- summaries
+- drafts
+- recommendations
+- structured extraction
+
+Use deterministic rules for:
+
+- permissions
+- consent
+- service areas
+- business hours
+- availability
+- pricing
+- financial actions
+
+When making changes:
+
+- prefer the smallest safe change
+- reuse existing abstractions
+- do not rewrite working architecture for style
+- do not duplicate configuration
+- preserve existing routes unless the task explicitly requires a route change
+- do not change backend behavior during visual-only tasks

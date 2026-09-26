@@ -1,0 +1,63 @@
+---
+description: Core EBS product strategy and product-scope rules
+alwaysApply: true
+---
+
+# Elevate Business Systems Product Rules
+
+Elevate Business Systems (EBS) is building an AI-powered revenue-conversion platform for home-service businesses.
+
+Core promise:
+
+EBS helps home-service businesses turn missed demand into booked revenue.
+
+Primary target customer:
+
+- Home-service businesses
+- Begin with HVAC and plumbing
+- Approximately 3–30 technicians
+
+Primary customer problems:
+
+- Missed calls and web leads
+- Slow lead response
+- Lead qualification and booking
+- Estimate follow-up
+- Reviews and local trust
+- Lead-source attribution
+- Revenue visibility
+
+EBS is NOT:
+
+- a traditional website agency
+- a generic AI automation agency
+- a CRM replacement
+- an FSM replacement
+- a broad multi-industry platform
+
+Use this product loop when evaluating features:
+
+Diagnose → Capture → Convert → Prove → Learn
+
+Before expanding scope, ask:
+
+1. Does this increase booked revenue or reduce owner effort?
+2. Is it required by multiple real customers?
+3. Can EBS measure the outcome?
+4. Does it strengthen retention, integration depth, or useful data?
+5. Is it simpler to integrate than build?
+
+Product family:
+
+- EBS Presence
+  - EBS Insight: businesses with an existing website
+  - EBS Launch: businesses without a website
+- EBS Growth
+- EBS Revenue Intelligence
+- EBS Assist
+
+Current product statuses should remain explicit and truthful.
+
+Do not imply future features are currently available.
+
+Do not invent metrics, customers, revenue outcomes, or capabilities.
