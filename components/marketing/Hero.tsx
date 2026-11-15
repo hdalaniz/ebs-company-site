@@ -115,11 +115,14 @@ function InsightPathCard() {
             <BrowserIcon className="size-4 text-teal" />
             <p className="text-sm text-muted">Already have a website?</p>
           </div>
-          <p className="mt-2.5 text-xl font-semibold tracking-tight text-ink sm:text-[1.35rem]">
-            EBS Insight
-          </p>
+          <div className="mt-2.5 flex flex-wrap items-center gap-2.5">
+            <p className="text-xl font-semibold tracking-tight text-ink sm:text-[1.35rem]">
+              EBS Insight
+            </p>
+            <ProductStatusBadge status="available" label="Available now" />
+          </div>
           <p className="mt-2 text-[0.95rem] leading-6 text-ink/75">
-            Analyze and improve your online presence.
+            Run a live analysis of your existing website.
           </p>
           <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-teal/12 px-3 py-1.5 text-sm font-semibold text-teal motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-0.5">
             {ctaCopy.insight}
@@ -157,7 +160,7 @@ function LaunchPathCard() {
             <ProductStatusBadge status="coming-soon" label="Coming Soon" />
           </div>
           <p className="mt-2 text-[0.95rem] leading-6 text-ink/75">
-            Build your digital foundation.
+            Guided website building is Coming Soon — preview the path here.
           </p>
           <p className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-teal motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-0.5">
             {ctaCopy.launch}

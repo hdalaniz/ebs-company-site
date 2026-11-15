@@ -168,9 +168,6 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center justify-self-end gap-4 lg:col-start-3 lg:flex">
-          <Link href={site.signInHref} className={navLinkClass} onClick={closeMenus}>
-            Sign In
-          </Link>
           <Link
             href={site.getStartedHref}
             className={cn(buttonLinkVariants.primary, "px-4")}
@@ -273,14 +270,6 @@ export function Header() {
             onClick={closeMenus}
           >
             About
-          </Link>
-          <Link
-            href={site.signInHref}
-            className="block min-h-11 rounded-md py-3 text-base text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
-            aria-current={pathname === site.signInHref ? "page" : undefined}
-            onClick={closeMenus}
-          >
-            Sign In
           </Link>
         </nav>
       </div>

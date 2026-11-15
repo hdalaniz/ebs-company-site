@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
 import { ButtonLink } from "@/components/marketing/ButtonLink";
 
 type SimplePageProps = {
   eyebrow?: string;
   title: string;
   description: string;
+  children?: ReactNode;
   ctaHref?: string;
   ctaLabel?: string;
 };
@@ -12,6 +14,7 @@ export function SimplePage({
   eyebrow,
   title,
   description,
+  children,
   ctaHref = "/",
   ctaLabel = "Back to home",
 }: SimplePageProps) {
@@ -34,6 +37,11 @@ export function SimplePage({
       <p className="mt-5 text-base leading-7 text-ink/75 sm:text-lg sm:leading-8">
         {description}
       </p>
+      {children ? (
+        <div className="mt-8 space-y-8 text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
+          {children}
+        </div>
+      ) : null}
       <div className="mt-8">
         <ButtonLink href={ctaHref} variant="secondary">
           {ctaLabel}
