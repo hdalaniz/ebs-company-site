@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     absolute: "EBS Presence | Build and Improve Your Online Presence",
   },
   description:
-    "Whether you're starting from scratch or already have a website, EBS Presence helps you build, understand, and improve the digital foundation customers see first.",
+    "Already have a website? Run EBS Insight now. Need a website? EBS Launch is Coming Soon. EBS Presence is the digital foundation path for home-service businesses.",
 };
 
 export default function PresencePage() {

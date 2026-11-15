@@ -22,9 +22,9 @@ export const products: Product[] = [
     cardHeadline: "Build an online presence that wins business.",
     cardDescription:
       "Create a professional digital foundation or discover what's holding your existing website back.",
-    cardSupporting: "Includes EBS Insight + EBS Launch",
+    cardSupporting: "Insight available now · Launch Coming Soon",
     status: "available",
-    statusLabel: "Building Now",
+    statusLabel: "Available",
     cta: "Explore EBS Presence",
   },
   {

@@ -111,9 +111,8 @@ export function PresenceHero() {
             Make your online presence work harder for your business.
           </h1>
           <p className="mt-5 max-w-xl text-[1.0625rem] leading-7 text-ink/80 sm:text-lg sm:leading-8">
-            Whether you&apos;re starting from scratch or already have a website,
-            EBS Presence helps you build, understand, and improve the digital
-            foundation customers see first.
+            Already have a website? Run EBS Insight now to see what to improve.
+            Need a website? EBS Launch is Coming Soon — preview that path below.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
             <ButtonLink
@@ -170,13 +169,13 @@ export function PresenceDecision() {
               <p className="text-lg font-semibold tracking-tight text-ink">
                 EBS Insight
               </p>
-              <ProductStatusBadge status="available" label="Available" />
+              <ProductStatusBadge status="available" label="Available now" />
             </div>
             <h3 className="mt-4 text-xl font-semibold tracking-tight text-ink sm:text-2xl">
               Find what&apos;s holding your website back.
             </h3>
             <p className="mt-3 text-sm leading-6 text-ink/75 sm:text-[0.95rem] sm:leading-7">
-              Analyze your existing online presence, uncover conversion
+              Run a live analysis of your existing site, uncover conversion
               problems, and get prioritized recommendations for what to improve
               next.
             </p>
@@ -208,14 +207,16 @@ export function PresenceDecision() {
               <p className="text-lg font-semibold tracking-tight text-ink">
                 EBS Launch
               </p>
-              <ProductStatusBadge status="coming-soon" />
+              <ProductStatusBadge status="coming-soon" label="Coming Soon" />
             </div>
             <h3 className="mt-4 text-xl font-semibold tracking-tight text-ink sm:text-2xl">
               Build your digital foundation.
             </h3>
             <p className="mt-3 text-sm leading-6 text-ink/75 sm:text-[0.95rem] sm:leading-7">
-              Tell EBS about your business, goals, visual preferences, services,
-              and desired features through a guided website-building experience.
+              Coming Soon: a guided website-building experience where you will
+              define your business, goals, visual preferences, services, and
+              features. Not available to use yet — preview the planned path
+              below.
             </p>
 
             <CompactJourney steps={launchJourney} accent="slate" />
@@ -282,9 +283,12 @@ export function PresenceRelationship() {
                   <p className="text-sm font-medium text-muted">
                     Already have a website
                   </p>
-                  <p className="mt-2 text-lg font-semibold tracking-tight text-ink">
-                    EBS Insight
-                  </p>
+                  <div className="mt-2 flex flex-wrap items-center gap-2.5">
+                    <p className="text-lg font-semibold tracking-tight text-ink">
+                      EBS Insight
+                    </p>
+                    <ProductStatusBadge status="available" label="Available now" />
+                  </div>
                 </div>
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-teal/30 bg-teal/10 text-teal">
                   <BrowserGlyph />
@@ -336,7 +340,7 @@ export function PresenceRelationship() {
                     <p className="text-lg font-semibold tracking-tight text-ink">
                       EBS Launch
                     </p>
-                    <ProductStatusBadge status="coming-soon" />
+                    <ProductStatusBadge status="coming-soon" label="Coming Soon" />
                   </div>
                 </div>
                 <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-navy/15 bg-white text-muted">
@@ -523,18 +527,19 @@ export function LaunchPreview() {
             <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
               EBS Launch
             </p>
-            <ProductStatusBadge status="coming-soon" />
+            <ProductStatusBadge status="coming-soon" label="Coming Soon" />
           </div>
           <h2
             id="ebs-launch-heading"
             className="mt-3 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
           >
-            Meet EBS Launch.
+            EBS Launch is Coming Soon.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-            A guided website-building experience designed to turn your business
-            information, goals, services, and visual preferences into a
-            professional online presence.
+            Planned for businesses that need a website: a guided experience to
+            turn business information, goals, services, and visual preferences
+            into a professional online presence. This section is a product vision
+            preview only — Launch is not usable yet.
           </p>
         </div>
 
@@ -670,8 +675,9 @@ export function PresenceFinalCta() {
               Start with where your business is today.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-              Already have a website? Use EBS Insight to understand what to
-              improve. Starting from scratch? EBS Launch is being built for you.
+              Already have a website? Run EBS Insight now. Need a website? EBS
+              Launch is Coming Soon — preview the planned path, or start with
+              Insight when you have a site.
             </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
               <ButtonLink
