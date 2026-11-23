@@ -52,7 +52,7 @@ export function LocalBusinessBreak() {
         <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-14">
           <div className="max-w-2xl motion-safe:animate-fade-up">
             <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-              Built for local service businesses
+              Built for home-service businesses
             </p>
             <h2
               id="local-business-heading"
@@ -61,7 +61,7 @@ export function LocalBusinessBreak() {
               Better systems help good businesses grow.
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-              EBS is being built for the businesses that keep homes and
+              RiseCurrent is built for the businesses that keep homes and
               communities running — businesses where every missed call, slow
               response, or unclear website can mean lost revenue.
             </p>

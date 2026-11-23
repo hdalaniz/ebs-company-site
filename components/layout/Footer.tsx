@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { BrandMark } from "@/components/brand/BrandMark";
-import { products } from "@/config/products";
+import { currentProducts } from "@/config/products";
+import { site } from "@/config/site";
 
 const footerLinkClass =
   "group/footer-link inline-flex items-center gap-1.5 text-sm text-on-dark-muted transition-colors hover:text-teal focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal";
+
+/** Footer products list is current commercial offer only. */
+const footerProducts = currentProducts;
 
 export function Footer() {
   return (
@@ -57,20 +61,18 @@ export function Footer() {
               <BrandMark className="size-9 shrink-0" />
               <span className="min-w-0">
                 <span className="block text-base font-semibold tracking-tight text-on-dark">
-                  EBS
-                </span>
-                <span className="block text-xs leading-snug tracking-wide text-teal">
-                  Elevate Business Systems
+                  {site.shortName}
                 </span>
               </span>
             </Link>
             <p className="mt-6 text-lg font-semibold tracking-tight text-on-dark">
-              Better systems.
+              Turn missed demand
               <br />
-              Stronger businesses.
+              into booked revenue.
             </p>
             <p className="mt-4 max-w-sm text-sm leading-6 text-on-dark-muted">
-              Helping service businesses turn missed demand into booked revenue.
+              Helping home-service businesses find leaks, fix conversion gaps,
+              and build stronger systems for growth.
             </p>
           </div>
 
@@ -79,17 +81,23 @@ export function Footer() {
               Products
             </p>
             <ul className="mt-5 space-y-3.5">
-              {products.map((product) => (
+              {footerProducts.map((product) => (
                 <li key={product.key}>
-                  <Link href={product.href} className={footerLinkClass}>
-                    {product.name}
-                    <span
-                      aria-hidden="true"
-                      className="translate-x-0 opacity-0 transition-[opacity,transform] duration-200 group-hover/footer-link:translate-x-0.5 group-hover/footer-link:opacity-100 motion-reduce:hidden"
+                  {product.external ? (
+                    <a
+                      href={product.href}
+                      className={footerLinkClass}
+                      rel="noopener noreferrer"
                     >
-                      →
-                    </span>
-                  </Link>
+                      {product.name}
+                      <FooterArrow />
+                    </a>
+                  ) : (
+                    <Link href={product.href} className={footerLinkClass}>
+                      {product.name}
+                      <FooterArrow />
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -103,12 +111,7 @@ export function Footer() {
               <li>
                 <Link href="/about" className={footerLinkClass}>
                   About
-                  <span
-                    aria-hidden="true"
-                    className="translate-x-0 opacity-0 transition-[opacity,transform] duration-200 group-hover/footer-link:translate-x-0.5 group-hover/footer-link:opacity-100 motion-reduce:hidden"
-                  >
-                    →
-                  </span>
+                  <FooterArrow />
                 </Link>
               </li>
             </ul>
@@ -122,23 +125,13 @@ export function Footer() {
               <li>
                 <Link href="/privacy" className={footerLinkClass}>
                   Privacy
-                  <span
-                    aria-hidden="true"
-                    className="translate-x-0 opacity-0 transition-[opacity,transform] duration-200 group-hover/footer-link:translate-x-0.5 group-hover/footer-link:opacity-100 motion-reduce:hidden"
-                  >
-                    →
-                  </span>
+                  <FooterArrow />
                 </Link>
               </li>
               <li>
                 <Link href="/terms" className={footerLinkClass}>
                   Terms
-                  <span
-                    aria-hidden="true"
-                    className="translate-x-0 opacity-0 transition-[opacity,transform] duration-200 group-hover/footer-link:translate-x-0.5 group-hover/footer-link:opacity-100 motion-reduce:hidden"
-                  >
-                    →
-                  </span>
+                  <FooterArrow />
                 </Link>
               </li>
             </ul>
@@ -147,11 +140,22 @@ export function Footer() {
 
         <div className="mt-12 border-t border-on-dark/10 pt-6">
           <p className="text-xs tracking-wide text-on-dark-muted">
-            © {new Date().getFullYear()} Elevate Business Systems. Built for
-            local businesses.
+            © {new Date().getFullYear()} {site.companyName}. Built for
+            home-service businesses.
           </p>
         </div>
       </div>
     </footer>
+  );
+}
+
+function FooterArrow() {
+  return (
+    <span
+      aria-hidden="true"
+      className="translate-x-0 opacity-0 transition-[opacity,transform] duration-200 group-hover/footer-link:translate-x-0.5 group-hover/footer-link:opacity-100 motion-reduce:hidden"
+    >
+      →
+    </span>
   );
 }

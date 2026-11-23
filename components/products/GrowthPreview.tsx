@@ -81,9 +81,9 @@ const leads = [
 export function GrowthPreview() {
   return (
     <ProductVisionFrame
-      productName="EBS Growth"
+      productName="RiseCurrent Growth"
       caption="Product vision preview"
-      disclaimer="Illustrative interface — not live customer records. EBS Growth does not currently capture or act on leads."
+      disclaimer="Illustrative interface — not live customer records. RiseCurrent Growth does not currently capture or act on leads."
     >
       <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
         {metrics.map((metric) => (

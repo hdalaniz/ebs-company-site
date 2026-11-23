@@ -5,45 +5,15 @@ import {
   JourneyReveal,
   JourneyStep,
 } from "@/components/ui/journey-reveal";
-import { platformJourney } from "@/config/products";
+import { customerJourney, philosophyLoop } from "@/config/products";
+import { trackCta } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
-const continuousStep = {
-  key: "continuous",
-  name: "Continuous Improvement",
-  action: "Learn + Elevate",
-} as const;
-
-const journeyCopy = [
-  {
-    label: "Presence",
-    support: "Build the foundation",
-  },
-  {
-    label: "Growth",
-    support: "Capture and convert",
-  },
-  {
-    label: "Revenue Intelligence",
-    support: "Prove what works",
-  },
-  {
-    label: "Assist",
-    support: "Choose the next move",
-  },
-  {
-    label: "Continuous Improvement",
-    support: "Learn and elevate",
-  },
-] as const;
-
 export function GrowthLoop() {
-  const steps = [...platformJourney, continuousStep];
-
   return (
     <section
-      id="how-ebs-works"
-      aria-labelledby="how-ebs-works-heading"
+      id="how-it-works"
+      aria-labelledby="how-it-works-heading"
       className="section-sky section-topo relative scroll-mt-24 overflow-hidden"
     >
       <div
@@ -58,29 +28,25 @@ export function GrowthLoop() {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:py-20">
         <div>
           <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-            How EBS works
+            How it works
           </p>
           <h2
-            id="how-ebs-works-heading"
+            id="how-it-works-heading"
             className="mt-3 max-w-xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
           >
-            From presence to revenue.
+            Insight → Launch → Presence
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-            Each product builds on the last — so local businesses can improve
-            their foundation, capture more demand, and grow with clearer
-            direction.
+            A clear path for home-service businesses: find the leak, build the
+            conversion foundation, then keep improving performance over time.
           </p>
         </div>
 
         <div className="relative mt-12 lg:mt-14">
           <RisingPathGraphic />
 
-          <JourneyReveal className="relative grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-4 lg:pt-2">
-            {steps.map((step, index) => {
-              const href = "href" in step ? step.href : undefined;
-              const copy = journeyCopy[index];
-
+          <JourneyReveal className="relative grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-6 lg:pt-2">
+            {customerJourney.map((step, index) => {
               const content = (
                 <>
                   <div
@@ -95,10 +61,13 @@ export function GrowthLoop() {
                     {String(index + 1).padStart(2, "0")}
                   </p>
                   <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink">
-                    {copy?.label ?? step.name}
+                    {step.name}
                   </h3>
+                  <p className="mt-1.5 text-sm font-medium text-ink/85">
+                    {step.action}
+                  </p>
                   <p className="mt-1.5 text-sm leading-6 text-ink/75">
-                    {copy?.support ?? step.action}
+                    {step.support}
                   </p>
                 </>
               );
@@ -107,27 +76,62 @@ export function GrowthLoop() {
                 <JourneyStep key={step.key} className="group/step lg:flex lg:flex-col">
                   <div
                     className={cn(
-                      index === 1 && "lg:mt-2.5",
-                      index === 2 && "lg:mt-5",
-                      index === 3 && "lg:mt-7",
-                      index === 4 && "lg:mt-9",
+                      index === 1 && "lg:mt-3",
+                      index === 2 && "lg:mt-6",
                     )}
                   >
-                    {href ? (
-                      <Link
-                        href={href}
+                    {"external" in step && step.external ? (
+                      <a
+                        href={step.href}
+                        rel="noopener noreferrer"
                         className="relative z-10 block rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
+                        onClick={() => trackCta("cta_insight_click")}
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      <Link
+                        href={step.href}
+                        className="relative z-10 block rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
+                        onClick={() => {
+                          if (step.key === "launch") {
+                            trackCta("cta_launch_click");
+                          }
+                          if (step.key === "presence") {
+                            trackCta("cta_presence_click");
+                          }
+                        }}
                       >
                         {content}
                       </Link>
-                    ) : (
-                      <div className="relative z-10">{content}</div>
                     )}
                   </div>
                 </JourneyStep>
               );
             })}
           </JourneyReveal>
+        </div>
+
+        <div className="mt-14 rounded-2xl border border-border bg-white/70 px-5 py-6 sm:px-7 sm:py-7">
+          <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+            Long-term product system
+          </p>
+          <p className="mt-2 text-sm leading-6 text-ink/75 sm:text-[0.95rem]">
+            Behind the current offer, RiseCurrent is built around a lasting
+            operating philosophy:
+          </p>
+          <ol className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2">
+            {philosophyLoop.map((step, index) => (
+              <li key={step.key} className="flex items-center gap-2">
+                <span className="text-sm font-semibold text-ink">{step.name}</span>
+                {index < philosophyLoop.length - 1 ? (
+                  <span className="text-teal/50" aria-hidden="true">
+                    →
+                  </span>
+                ) : null}
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
@@ -144,14 +148,14 @@ function RisingPathGraphic() {
         className="pointer-events-none absolute top-4 right-0 left-0 hidden h-24 w-full lg:block"
       >
         <path
-          d="M40 88 C220 88, 280 62, 420 54 C560 46, 620 34, 760 28 C860 24, 920 18, 960 16"
+          d="M80 88 C280 88, 360 54, 500 48 C640 42, 720 28, 920 18"
           fill="none"
           stroke="color-mix(in srgb, var(--teal) 35%, transparent)"
           strokeWidth="3"
           strokeLinecap="round"
         />
         <path
-          d="M40 88 C220 88, 280 62, 420 54 C560 46, 620 34, 760 28 C860 24, 920 18, 960 16"
+          d="M80 88 C280 88, 360 54, 500 48 C640 42, 720 28, 920 18"
           fill="none"
           stroke="color-mix(in srgb, var(--teal) 55%, transparent)"
           strokeWidth="1.5"
@@ -173,13 +177,19 @@ function JourneyIcon({ index }: { index: number }) {
   if (index === 0) {
     return (
       <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
-        <path
-          d="M2 13 6 7.5 8.2 10 12 4.5 14 13"
+        <circle
+          cx="7"
+          cy="7"
+          r="4.2"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.4"
+        />
+        <path
+          d="m10.2 10.2 3 3"
+          stroke="currentColor"
+          strokeWidth="1.4"
           strokeLinecap="round"
-          strokeLinejoin="round"
         />
       </svg>
     );
@@ -189,7 +199,7 @@ function JourneyIcon({ index }: { index: number }) {
     return (
       <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
         <path
-          d="M3 12 8 4l5 8H3Z"
+          d="M3 12.5 8 3.5l5 9H3Z"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.4"
@@ -199,53 +209,10 @@ function JourneyIcon({ index }: { index: number }) {
     );
   }
 
-  if (index === 2) {
-    return (
-      <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
-        <path
-          d="M3 12V8M7 12V5M11 12V7M14 12V4"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  }
-
-  if (index === 3) {
-    return (
-      <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
-        <circle
-          cx="8"
-          cy="8"
-          r="5.25"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.4"
-        />
-        <path
-          d="M8 5.5v3l2 1.2"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        />
-      </svg>
-    );
-  }
-
   return (
     <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
       <path
-        d="M12.2 6.2A4.4 4.4 0 1 0 8 12.4"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M10.2 6.2h2v-2"
+        d="M2 13 6 7.5 8.2 10 12 4.5 14 13"
         fill="none"
         stroke="currentColor"
         strokeWidth="1.4"

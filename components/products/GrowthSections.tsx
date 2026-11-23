@@ -68,21 +68,21 @@ const capabilities = [
 
 const platformSteps = [
   {
-    name: "EBS Presence",
+    name: "RiseCurrent Presence",
     role: "Foundation",
     href: "/products/presence",
     detail: "Create the digital front door",
     current: false,
   },
   {
-    name: "EBS Growth",
+    name: "RiseCurrent Growth",
     role: "Conversion",
     href: "/products/growth",
     detail: "Work the opportunities",
     current: true,
   },
   {
-    name: "EBS Revenue Intelligence",
+    name: "RiseCurrent Revenue Intelligence",
     role: "Measurement",
     href: "/products/revenue-intelligence",
     detail: "Measure what becomes revenue",
@@ -108,7 +108,7 @@ export function GrowthHero() {
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pt-12 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14 lg:pt-20 lg:pb-14">
         <div className="motion-safe:animate-fade-up">
           <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-            EBS Growth
+            RiseCurrent Growth
           </p>
           <div className="mt-4">
             <ProductStatusBadge status="coming-soon" />
@@ -118,12 +118,12 @@ export function GrowthHero() {
             <span className="text-teal">Lose fewer opportunities.</span>
           </h1>
           <p className="mt-6 max-w-xl text-[1.0625rem] leading-7 text-ink/80 sm:text-lg sm:leading-8">
-            EBS Growth is being designed to help service businesses respond
+            RiseCurrent Growth is being designed to help service businesses respond
             faster, follow up consistently, recover missed opportunities, and
             reactivate previous customers.
           </p>
           <p className="mt-5 max-w-lg text-sm font-medium leading-6 text-ink/70 sm:text-[0.95rem]">
-            Built to help local service businesses respond while the opportunity
+            Built to help home-service businesses respond while the opportunity
             is still warm.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
@@ -244,7 +244,7 @@ export function GrowthWorkflow() {
             A clearer path from inquiry to follow-through.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-            EBS Growth is intended to help service businesses keep incoming
+            RiseCurrent Growth is intended to help service businesses keep incoming
             demand from stalling between the first contact and booked work.
           </p>
         </div>
@@ -380,7 +380,7 @@ export function GrowthPlatformRelationship() {
             id="growth-platform-heading"
             className="mt-3 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
           >
-            Where Growth sits in the EBS platform.
+            Where Growth sits in the RiseCurrent platform.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
             Presence helps create or improve the digital front door. Growth is
@@ -473,7 +473,7 @@ export function GrowthFinalCta() {
               Start by understanding where your business stands today.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-              EBS Growth is coming soon. Start with your digital foundation and
+              RiseCurrent Growth is coming soon. Start with your digital foundation and
               identify the opportunities already visible today.
             </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">

@@ -1,4 +1,5 @@
 import { FinalCta } from "@/components/marketing/FinalCta";
+import { FutureCapabilities } from "@/components/marketing/FutureCapabilities";
 import { GrowthLoop } from "@/components/marketing/GrowthLoop";
 import { Hero } from "@/components/marketing/Hero";
 import { LocalBusinessBreak } from "@/components/marketing/LocalBusinessBreak";
@@ -10,8 +11,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    absolute:
-      "Elevate Business Systems | Turn Local Demand Into Booked Revenue",
+    absolute: "RiseCurrent | Turn Missed Demand Into Booked Revenue",
   },
   description: site.description,
 };
@@ -25,6 +25,7 @@ export default function Home() {
       <WhyEbs />
       <LocalBusinessBreak />
       <PlatformPreview />
+      <FutureCapabilities />
       <FinalCta />
     </>
   );

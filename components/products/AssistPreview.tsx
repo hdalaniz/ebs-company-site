@@ -34,9 +34,9 @@ const actions = [
 export function AssistPreview() {
   return (
     <ProductVisionFrame
-      productName="EBS Assist"
+      productName="RiseCurrent Assist"
       caption="Future product vision"
-      disclaimer="Future product vision — these examples are illustrative and are not currently automated. EBS Assist does not take autonomous actions today."
+      disclaimer="Future product vision — these examples are illustrative and are not currently automated. RiseCurrent Assist does not take autonomous actions today."
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>

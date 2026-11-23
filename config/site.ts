@@ -1,26 +1,36 @@
 export const site = {
-  companyName: "Elevate Business Systems",
-  shortName: "EBS",
+  companyName: "RiseCurrent",
+  shortName: "RiseCurrent",
   description:
-    "Elevate Business Systems helps service businesses turn missed demand into booked revenue.",
-  getStartedHref: "/products/presence",
+    "RiseCurrent helps home-service businesses turn missed demand into booked revenue.",
+  url: "https://risecurrentsystems.com",
+  getStartedHref: "/products/launch",
   signInHref: "/signin",
 } as const;
 
+export const pricing = {
+  insight: "Free",
+  launch: "Starting at $3,500",
+  presence: "Starting at $399/month",
+  custom: "Quoted separately",
+} as const;
+
 export const ctaCopy = {
-  presence: "Explore EBS Presence",
-  insight: "Run EBS Insight",
-  launch: "Preview EBS Launch",
+  presence: "Explore Presence",
+  insight: "Run Free Insight",
+  launch: "Explore Launch",
+  getStarted: "Get Started",
 } as const;
 
 /**
- * Canonical public origin of the live EBS Insight application.
+ * Canonical public origin of the live Insight application.
  *
  * `https://ebs-insight.vercel.app` is the customer-facing production hostname.
  * `https://ebs-insight-v2.vercel.app` is an internal fallback alias on the same
  * V2 project. Do not scatter either URL across components.
  *
  * `NEXT_PUBLIC_EBS_INSIGHT_URL` is an optional override (origin only, no `/analyze`).
+ * Internal identifier names are preserved for P4 stability.
  */
 const DEFAULT_EBS_INSIGHT_ORIGIN = "https://ebs-insight.vercel.app";
 

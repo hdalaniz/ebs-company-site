@@ -13,6 +13,7 @@ import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
 import { products } from "@/config/products";
 import { ctaCopy, getInsightUrl } from "@/config/site";
+import { ctaEventForHref, trackCta } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
 const whyCards = [
@@ -38,24 +39,22 @@ const whyCards = [
 
 const productJourney = [
   {
+    key: "insight" as const,
+    action: "Find the leak",
+    detail:
+      "Run a free diagnostic to see where demand may be leaking and what to do next.",
+  },
+  {
+    key: "launch" as const,
+    action: "Build the foundation",
+    detail:
+      "Establish a managed, conversion-focused website foundation for your business.",
+  },
+  {
     key: "presence" as const,
-    action: "Build + Improve",
-    detail: "Build and improve the digital foundation customers see first.",
-  },
-  {
-    key: "growth" as const,
-    action: "Capture + Convert",
-    detail: "Capture demand and convert more of it into booked work.",
-  },
-  {
-    key: "revenue-intelligence" as const,
-    action: "Measure + Prove",
-    detail: "Measure and prove what actually becomes booked revenue.",
-  },
-  {
-    key: "assist" as const,
-    action: "Recommend",
-    detail: "Recommend the next best action from measured business outcomes.",
+    action: "Improve over time",
+    detail:
+      "Monitor and strengthen conversion performance on an ongoing basis.",
   },
 ];
 
@@ -95,7 +94,7 @@ const notCards = [
   {
     title: "Not a website agency",
     description:
-      "EBS Presence can help with websites, but the goal is stronger demand capture and conversion — not selling website projects.",
+      "RiseCurrent Launch and Presence include website work, but the goal is stronger demand capture and conversion — not selling website projects.",
   },
   {
     title: "Not a generic AI automation shop",
@@ -105,12 +104,12 @@ const notCards = [
   {
     title: "Not a CRM or field-service replacement",
     description:
-      "EBS is intended to work around the revenue journey, not replace every operational system a business already uses.",
+      "RiseCurrent is intended to work around the revenue journey, not replace every operational system a business already uses.",
   },
   {
     title: "Not “AI for everything”",
     description:
-      "EBS focuses on specific workflows where value can be measured.",
+      "RiseCurrent focuses on specific workflows where value can be measured.",
   },
 ] as const;
 
@@ -139,13 +138,13 @@ export function AboutHero() {
       <div className="relative z-10 flex items-center justify-center px-5 py-16 sm:px-8 sm:py-20 lg:min-h-[36rem] lg:py-24">
         <div className="w-full max-w-[820px] rounded-[1.75rem] border border-on-dark/15 bg-on-dark/[0.1] px-6 py-8 text-center shadow-[0_28px_60px_-34px_rgba(0,0,0,0.5)] backdrop-blur-lg motion-safe:animate-fade-up sm:rounded-[2rem] sm:px-10 sm:py-11 lg:px-12 lg:py-12">
           <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-            About EBS
+            About RiseCurrent
           </p>
           <h1 className="mt-4 text-[2.05rem] leading-[1.1] font-bold tracking-tight text-on-dark sm:text-4xl lg:text-[2.85rem] lg:leading-[1.08]">
-            Better systems for stronger local businesses.
+            Better systems for stronger home-service businesses.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-            Elevate Business Systems is building practical software for service
+            RiseCurrent is building practical software for home-service
             businesses that want to capture more demand, convert more
             opportunities, and understand what actually drives growth.
           </p>
@@ -155,17 +154,18 @@ export function AboutHero() {
           </p>
           <div className="mt-8 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
             <ButtonLink
-              href="/products/presence"
+              href={getInsightUrl("/analyze")}
+              trackEvent="cta_insight_click"
               className="w-full sm:w-auto"
             >
-              {ctaCopy.presence}
+              {ctaCopy.insight}
             </ButtonLink>
             <ButtonLink
-              href="/#how-ebs-works"
+              href="/#how-it-works"
               variant="ghost"
               className="w-full justify-center text-on-dark hover:text-teal sm:w-auto"
             >
-              See How EBS Works
+              See How RiseCurrent Works
             </ButtonLink>
           </div>
         </div>
@@ -192,7 +192,7 @@ export function AboutWhyExists() {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:py-20">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-            Why EBS exists
+            Why RiseCurrent exists
           </p>
           <h2
             id="about-why-heading"
@@ -202,7 +202,7 @@ export function AboutWhyExists() {
             them are weak.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-            Local service businesses often already have demand. The problem is
+            Home-service businesses often already have demand. The problem is
             what happens next — missed calls, slow follow-up, unclear websites,
             weak trust signals, and little visibility into what actually becomes
             booked work.
@@ -243,25 +243,24 @@ export function AboutProductJourney() {
       <div className="mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:py-20">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-            What EBS is building
+            What RiseCurrent offers
           </p>
           <h2
             id="about-platform-heading"
             className="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
           >
-            One platform. A clearer path from presence to revenue.
+            A clear path from diagnosis to stronger conversion.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-            Each product is designed to strengthen a different part of the
-            growth journey — from the digital front door to clearer decisions
-            about what to do next.
+            Start with a free diagnostic, build the conversion foundation, then
+            keep improving it over time. Each step is available today.
           </p>
         </div>
 
-        <ol className="relative mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-4">
+        <ol className="relative mt-10 grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-4">
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute top-12 right-6 left-6 hidden h-px bg-gradient-to-r from-teal/40 via-teal/30 to-teal/15 xl:block"
+            className="pointer-events-none absolute top-12 right-6 left-6 hidden h-px bg-gradient-to-r from-teal/40 via-teal/30 to-teal/15 md:block"
           />
           {productJourney.map((step, index) => {
             const product = products.find((item) => item.key === step.key);
@@ -269,45 +268,66 @@ export function AboutProductJourney() {
               return null;
             }
 
+            const { href, external, status, statusLabel, name, cta } = product;
+            const cardClass = cn(
+              "ebs-card group relative z-10 block h-full rounded-2xl p-5 transition-[transform,box-shadow] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal motion-safe:hover:-translate-y-0.5 sm:p-6",
+              step.key === "insight" &&
+                "shadow-[0_22px_50px_-28px_rgba(30,200,165,0.4)] ring-1 ring-teal/25",
+            );
+
+            const cardBody = (
+              <>
+                <div className="flex items-start justify-between gap-3">
+                  <span className="flex size-11 items-center justify-center rounded-full border border-teal/30 bg-teal/10 text-teal">
+                    <ProductIcon index={index} />
+                  </span>
+                  <ProductStatusBadge status={status} label={statusLabel} />
+                </div>
+                <p className="mt-4 text-[0.68rem] font-semibold tracking-[0.16em] text-teal uppercase">
+                  {step.action}
+                </p>
+                <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink">
+                  {name}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-ink/75">
+                  {step.detail}
+                </p>
+                <p className="mt-4 text-sm font-semibold text-teal motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-0.5">
+                  {cta}
+                  <span aria-hidden="true"> →</span>
+                </p>
+              </>
+            );
+
+            function onCardClick() {
+              const event = ctaEventForHref(href);
+              if (event) {
+                trackCta(event);
+              }
+            }
+
             return (
               <li key={step.key} className="relative">
                 {index < productJourney.length - 1 ? (
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute top-full left-6 h-5 w-px bg-gradient-to-b from-teal/35 to-transparent xl:hidden"
+                    className="pointer-events-none absolute top-full left-6 h-5 w-px bg-gradient-to-b from-teal/35 to-transparent md:hidden"
                   />
                 ) : null}
-                <Link
-                  href={product.href}
-                  className={cn(
-                    "ebs-card group relative z-10 block h-full rounded-2xl p-5 transition-[transform,box-shadow] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal motion-safe:hover:-translate-y-0.5 sm:p-6",
-                    step.key === "presence" &&
-                      "shadow-[0_22px_50px_-28px_rgba(30,200,165,0.4)] ring-1 ring-teal/25",
-                  )}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="flex size-11 items-center justify-center rounded-full border border-teal/30 bg-teal/10 text-teal">
-                      <ProductIcon index={index} />
-                    </span>
-                    <ProductStatusBadge
-                      status={product.status}
-                      label={product.statusLabel}
-                    />
-                  </div>
-                  <p className="mt-4 text-[0.68rem] font-semibold tracking-[0.16em] text-teal uppercase">
-                    {step.action}
-                  </p>
-                  <h3 className="mt-2 text-lg font-semibold tracking-tight text-ink">
-                    {product.name}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-ink/75">
-                    {step.detail}
-                  </p>
-                  <p className="mt-4 text-sm font-semibold text-teal motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-0.5">
-                    {product.cta}
-                    <span aria-hidden="true"> →</span>
-                  </p>
-                </Link>
+                {external ? (
+                  <a
+                    href={href}
+                    rel="noopener noreferrer"
+                    onClick={onCardClick}
+                    className={cardClass}
+                  >
+                    {cardBody}
+                  </a>
+                ) : (
+                  <Link href={href} onClick={onCardClick} className={cardClass}>
+                    {cardBody}
+                  </Link>
+                )}
               </li>
             );
           })}
@@ -341,7 +361,7 @@ export function AboutAudience() {
         <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-14">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-              Built for service businesses
+              Built for home-service businesses
             </p>
             <h2
               id="about-audience-heading"
@@ -351,7 +371,7 @@ export function AboutAudience() {
               running.
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-              EBS is starting with home-service businesses where trust, response
+              RiseCurrent is starting with home-service businesses where trust, response
               speed, and follow-up directly influence whether demand turns into
               booked work.
             </p>
@@ -416,7 +436,7 @@ export function AboutApproach() {
             Diagnose. Capture. Convert. Prove. Learn.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-            EBS is built around a practical operating philosophy: find where
+            RiseCurrent is built around a practical operating philosophy: find where
             revenue is leaking, strengthen the systems that catch demand, and
             keep improving from measured outcomes.
           </p>
@@ -521,7 +541,7 @@ export function AboutBrandStory() {
             Modern software should still feel close to the businesses it serves.
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-            EBS combines modern software with a practical, local-business
+            RiseCurrent combines modern software with a practical, local-business
             mindset — clear communication, strong relationships, simple next
             steps, and measurable results.
           </p>
@@ -566,23 +586,25 @@ export function AboutFinalCta() {
               Start with the part of your business customers see first.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-              EBS Presence helps you understand whether your current online
-              presence is helping or holding you back — and gives you a clearer
-              next step.
+              RiseCurrent Insight helps you understand whether your current
+              online presence is helping or holding you back — and gives you a
+              clearer next step.
             </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
               <ButtonLink
-                href="/products/presence"
+                href={getInsightUrl("/analyze")}
+                trackEvent="cta_insight_click"
                 className="w-full sm:w-auto"
               >
-                {ctaCopy.presence}
+                {ctaCopy.insight}
               </ButtonLink>
               <ButtonLink
-                href={getInsightUrl("/analyze")}
+                href="/products/launch"
                 variant="ghost"
+                trackEvent="cta_launch_click"
                 className="w-full justify-center text-on-dark hover:text-teal sm:w-auto"
               >
-                {ctaCopy.insight}
+                {ctaCopy.launch}
               </ButtonLink>
             </div>
           </div>

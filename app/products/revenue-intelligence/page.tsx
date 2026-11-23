@@ -12,10 +12,10 @@ import {
 
 export const metadata: Metadata = {
   title: {
-    absolute: "EBS Revenue Intelligence | Know What Drives Revenue",
+    absolute: "RiseCurrent Revenue Intelligence | Know What Drives Revenue",
   },
   description:
-    "A future EBS product being designed to connect lead sources, response activity, bookings, jobs, and revenue so owners can see what is working. Not currently available.",
+    "A future RiseCurrent product being designed to connect lead sources, response activity, bookings, jobs, and revenue so owners can see what is working. Not currently available.",
 };
 
 export default function RevenueIntelligencePage() {

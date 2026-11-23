@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { type CtaEventName, trackCta } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
 type ButtonLinkProps = {
@@ -7,6 +10,7 @@ type ButtonLinkProps = {
   children: ReactNode;
   variant?: "primary" | "secondary" | "ghost";
   className?: string;
+  trackEvent?: CtaEventName;
 };
 
 function isExternal(href: string) {
@@ -36,6 +40,7 @@ export function ButtonLink({
   children,
   variant = "primary",
   className,
+  trackEvent,
 }: ButtonLinkProps) {
   const classes = cn(buttonLinkVariants[variant], className);
   const content =
@@ -48,16 +53,27 @@ export function ButtonLink({
       children
     );
 
+  function handleClick() {
+    if (trackEvent) {
+      trackCta(trackEvent);
+    }
+  }
+
   if (isExternal(href)) {
     return (
-      <a href={href} className={classes} rel="noopener noreferrer">
+      <a
+        href={href}
+        className={classes}
+        rel="noopener noreferrer"
+        onClick={handleClick}
+      >
         {content}
       </a>
     );
   }
 
   return (
-    <Link href={href} className={classes}>
+    <Link href={href} className={classes} onClick={handleClick}>
       {content}
     </Link>
   );

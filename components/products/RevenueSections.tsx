@@ -101,28 +101,28 @@ const capabilities = [
 
 const platformSteps = [
   {
-    name: "EBS Presence",
+    name: "RiseCurrent Presence",
     role: "Foundation",
     href: "/products/presence",
     detail: "Create the digital front door",
     current: false,
   },
   {
-    name: "EBS Growth",
+    name: "RiseCurrent Growth",
     role: "Conversion",
     href: "/products/growth",
     detail: "Work the opportunities",
     current: false,
   },
   {
-    name: "EBS Revenue Intelligence",
+    name: "RiseCurrent Revenue Intelligence",
     role: "Measurement",
     href: "/products/revenue-intelligence",
     detail: "Measure what actually became business",
     current: true,
   },
   {
-    name: "EBS Assist",
+    name: "RiseCurrent Assist",
     role: "Next Best Action",
     href: "/products/assist",
     detail: "Recommend what happens next",
@@ -141,7 +141,7 @@ export function RevenueHero() {
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pt-12 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14 lg:pt-20 lg:pb-14">
         <div className="motion-safe:animate-fade-up">
           <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-            EBS Revenue Intelligence
+            RiseCurrent Revenue Intelligence
           </p>
           <div className="mt-4">
             <ProductStatusBadge status="coming-soon" />
@@ -151,12 +151,12 @@ export function RevenueHero() {
             <span className="text-teal">drives revenue.</span>
           </h1>
           <p className="mt-6 max-w-xl text-[1.0625rem] leading-7 text-ink/80 sm:text-lg sm:leading-8">
-            EBS Revenue Intelligence is being designed to connect lead sources,
+            RiseCurrent Revenue Intelligence is being designed to connect lead sources,
             response activity, bookings, jobs, and revenue so service businesses
             can see what is working and where opportunities are being lost.
           </p>
           <p className="mt-5 max-w-lg text-sm font-medium leading-6 text-ink/70 sm:text-[0.95rem]">
-            Built to help local service businesses see the path from demand to
+            Built to help home-service businesses see the path from demand to
             booked work.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
@@ -462,14 +462,14 @@ export function RevenueOpportunity() {
               </p>
               <p className="mt-3 text-sm leading-6 text-ink/75">
                 Revenue Intelligence is intended to surface leaks like delayed
-                response so EBS Growth can help owners work those opportunities
+                response so RiseCurrent Growth can help owners work those opportunities
                 while they are still warm.
               </p>
               <Link
                 href="/products/growth"
                 className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-teal transition-colors hover:text-teal-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
               >
-                Preview EBS Growth
+                Preview RiseCurrent Growth
                 <span aria-hidden="true">→</span>
               </Link>
             </div>
@@ -561,7 +561,7 @@ export function RevenuePlatform() {
             id="revenue-platform-heading"
             className="mt-3 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
           >
-            Where Revenue Intelligence sits in the EBS platform.
+            Where Revenue Intelligence sits in the RiseCurrent platform.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
             Presence creates the digital front door. Growth works the
@@ -655,7 +655,7 @@ export function RevenueFinalCta() {
               Start with the revenue leaks you can see today.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-              Revenue Intelligence is coming soon. EBS Insight can already help
+              Revenue Intelligence is coming soon. RiseCurrent Insight can already help
               identify where your digital presence may be losing opportunities.
             </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
