@@ -1,10 +1,12 @@
+import { getStartedHref } from "@/lib/get-started/links";
+
 export const site = {
   companyName: "RiseCurrent",
   shortName: "RiseCurrent",
   description:
     "RiseCurrent helps home-service businesses turn missed demand into booked revenue.",
   url: "https://risecurrentsystems.com",
-  getStartedHref: "/products/launch",
+  getStartedHref: getStartedHref("not-sure"),
   signInHref: "/signin",
 } as const;
 

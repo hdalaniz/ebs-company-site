@@ -38,6 +38,9 @@ export function trackCta(event: CtaEventName) {
 }
 
 export function ctaEventForHref(href: string): CtaEventName | undefined {
+  if (href.includes("/get-started")) {
+    return "cta_get_started_click";
+  }
   if (href.includes("/analyze") || href.includes("ebs-insight")) {
     return "cta_insight_click";
   }

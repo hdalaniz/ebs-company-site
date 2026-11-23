@@ -7,6 +7,7 @@ import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
 import { ctaCopy, getInsightUrl, pricing } from "@/config/site";
+import { getStartedHref } from "@/lib/get-started/links";
 
 const presenceIncludes = [
   {
@@ -78,7 +79,7 @@ export function PresenceHero() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
             <ButtonLink
-              href="/products/launch"
+              href={getStartedHref("presence")}
               className="w-full sm:w-auto"
               trackEvent="cta_get_started_click"
             >
@@ -316,12 +317,12 @@ export function PresenceFinalCta() {
               Keep improving after the foundation is in place.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-              Start with Insight or Launch, then use Presence to monitor and
-              strengthen conversion performance over time.
+              Tell us about the business and we&apos;ll follow up on Presence.
+              You can still run a free Insight diagnostic first.
             </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
               <ButtonLink
-                href="/products/launch"
+                href={getStartedHref("presence")}
                 className="w-full sm:w-auto"
                 trackEvent="cta_get_started_click"
               >

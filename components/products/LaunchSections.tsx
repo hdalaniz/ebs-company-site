@@ -6,6 +6,7 @@ import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
 import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
 import { ctaCopy, getInsightUrl, pricing } from "@/config/site";
+import { getStartedHref } from "@/lib/get-started/links";
 
 const launchScope = [
   "Guided strategy and intake",
@@ -80,7 +81,7 @@ export function LaunchHero() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
             <ButtonLink
-              href="#launch-get-started"
+              href={getStartedHref("launch")}
               className="w-full sm:w-auto"
               trackEvent="cta_get_started_click"
             >
@@ -224,12 +225,12 @@ export function LaunchPricing() {
               {LAUNCH_GET_STARTED_HEADING}
             </h3>
             <p className="mt-3 text-sm leading-6 text-ink/75">
-              Start with a free Insight assessment to clarify the leak and next
-              step. From there, we manage Launch as a founder-led engagement.
+              Share a few details and we&apos;ll follow up about Launch scope.
+              Nothing is billed from the form.
             </p>
             <div className="mt-6 flex flex-col gap-3">
               <ButtonLink
-                href={getInsightUrl("/analyze")}
+                href={getStartedHref("launch")}
                 className="w-full sm:w-auto"
                 trackEvent="cta_get_started_click"
               >
@@ -288,7 +289,7 @@ export function LaunchFinalCta() {
             </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
               <ButtonLink
-                href="#launch-get-started"
+                href={getStartedHref("launch")}
                 className="w-full sm:w-auto"
                 trackEvent="cta_get_started_click"
               >

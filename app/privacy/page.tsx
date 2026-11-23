@@ -27,6 +27,26 @@ export default function PrivacyPage() {
 
       <section>
         <h2 className="text-lg font-semibold tracking-tight text-ink">
+          Get Started requests
+        </h2>
+        <p className="mt-3">
+          The Get Started page asks for a business name, trade, website
+          situation, product interest, contact name, and email. You may also
+          share a phone number, a website address, or a short note about the
+          problem you want to solve. A business with no website can continue
+          without one.
+        </p>
+        <p className="mt-3">
+          RiseCurrent uses that information to follow up about Launch, Presence,
+          or a free Insight diagnostic. Submitting the form does not create an
+          account, reserve time, or start payment. The company site sends the
+          request to RiseCurrent&apos;s commercial lead service. It does not keep a
+          separate copy in a company-site database.
+        </p>
+      </section>
+
+      <section>
+        <h2 className="text-lg font-semibold tracking-tight text-ink">
           RiseCurrent Insight (separate product)
         </h2>
         <p className="mt-3">
@@ -73,8 +93,9 @@ export default function PrivacyPage() {
         </h2>
         <p className="mt-3">
           RiseCurrent Launch and Presence are available through the
-          company site as managed services; this site does not collect account
-          data for them. Features labeled Coming Soon, Future, or Product
+          company site as managed services. This site does not create customer
+          accounts for them. Qualification details submitted on Get Started are
+          described above. Features labeled Coming Soon, Future, or Product
           Vision — including RiseCurrent Growth, Revenue Intelligence, and
           Assist — are not live customer products on this site today and do not
           collect account data here.

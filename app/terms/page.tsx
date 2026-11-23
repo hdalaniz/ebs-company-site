@@ -22,7 +22,9 @@ export default function TermsPage() {
           This site provides information about RiseCurrent products and how to get
           started. Content is for general information. It does not create a
           customer account, a paid subscription, or a professional services
-          engagement by itself.
+          engagement by itself. Submitting Get Started is a request for
+          follow-up. It does not purchase Launch or Presence, open a
+          subscription, reserve time, or create a services agreement.
         </p>
       </section>
 
