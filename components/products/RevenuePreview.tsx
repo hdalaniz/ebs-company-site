@@ -16,7 +16,7 @@ const supportingMetrics = [
 export function RevenuePreview() {
   return (
     <ProductVisionFrame
-      productName="EBS Revenue Intelligence"
+      productName="RiseCurrent Revenue Intelligence"
       caption="Product vision preview"
       disclaimer="Illustrative product preview — not customer data. These values are fictional demonstration figures only."
     >

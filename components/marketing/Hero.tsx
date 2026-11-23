@@ -14,7 +14,8 @@ import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
-import { ctaCopy, getInsightUrl } from "@/config/site";
+import { ctaCopy, getInsightUrl, pricing, site } from "@/config/site";
+import { trackCta } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 import { useIsClient } from "@/lib/use-is-client";
 
@@ -59,30 +60,35 @@ export function Hero() {
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-8 px-5 pt-24 pb-14 sm:px-8 sm:pt-28 sm:pb-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(20rem,0.9fr)] lg:gap-14 lg:pt-16 lg:pb-20">
         <div className="max-w-xl motion-safe:animate-fade-up">
           <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-            Elevate Business Systems
+            {site.companyName}
           </p>
           <h1 className="mt-4 text-[2.15rem] leading-[1.12] font-bold tracking-tight text-ink sm:text-5xl lg:text-[3.35rem] lg:leading-[1.08]">
-            Turn more local demand into booked revenue.
+            Turn missed demand into booked revenue.
           </h1>
           <p className="mt-5 max-w-lg text-[1.0625rem] leading-7 text-ink/80 sm:text-lg sm:leading-8">
-            Elevate Business Systems helps home-service businesses strengthen
-            their online presence, respond to more opportunities, and turn more
-            of the demand they already generate into customers.
+            RiseCurrent helps home-service businesses find where leads are
+            leaking, fix the conversion gaps, and build a stronger system for
+            growth.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
-            <ButtonLink href="/products/presence" className="w-full sm:w-auto">
-              {ctaCopy.presence}
-            </ButtonLink>
             <ButtonLink
               href={getInsightUrl("/analyze")}
-              variant="ghost"
               className="w-full sm:w-auto"
+              trackEvent="cta_insight_click"
             >
               {ctaCopy.insight}
             </ButtonLink>
+            <ButtonLink
+              href="/products/presence"
+              variant="ghost"
+              className="w-full sm:w-auto"
+              trackEvent="cta_presence_click"
+            >
+              {ctaCopy.presence}
+            </ButtonLink>
           </div>
           <p className="mt-6 text-sm font-medium tracking-wide text-ink/70">
-            Built for local businesses. Designed for growth.
+            Built for home-service businesses.
           </p>
         </div>
 
@@ -104,6 +110,7 @@ function InsightPathCard() {
       duration={1.1}
       containerClassName="shadow-[var(--shadow-card-featured)]"
       className="ebs-card-featured group relative block overflow-hidden shadow-none"
+      onClick={() => trackCta("cta_insight_click")}
     >
       <span
         aria-hidden="true"
@@ -111,18 +118,15 @@ function InsightPathCard() {
       />
       <div className="grid gap-4 p-5 pl-6 sm:p-6 sm:pl-7 lg:grid-cols-[minmax(0,1fr)_7.5rem] lg:items-center lg:gap-5">
         <div>
-          <div className="flex items-center gap-2.5">
-            <BrowserIcon className="size-4 text-teal" />
-            <p className="text-sm text-muted">Already have a website?</p>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <p className="text-sm text-muted">Diagnose</p>
+            <ProductStatusBadge status="available" label="Available" />
           </div>
-          <div className="mt-2.5 flex flex-wrap items-center gap-2.5">
-            <p className="text-xl font-semibold tracking-tight text-ink sm:text-[1.35rem]">
-              EBS Insight
-            </p>
-            <ProductStatusBadge status="available" label="Available now" />
-          </div>
+          <p className="mt-2.5 text-xl font-semibold tracking-tight text-ink sm:text-[1.35rem]">
+            RiseCurrent Insight
+          </p>
           <p className="mt-2 text-[0.95rem] leading-6 text-ink/75">
-            Run a live analysis of your existing website.
+            Find the leak. {pricing.insight} assessment.
           </p>
           <p className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-teal/12 px-3 py-1.5 text-sm font-semibold text-teal motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-0.5">
             {ctaCopy.insight}
@@ -139,9 +143,10 @@ function LaunchPathCard() {
   return (
     <HoverBorderGradient
       as={Link}
-      href="/products/presence#ebs-launch"
+      href="/products/launch"
       duration={1.25}
       className="ebs-card-muted group relative block overflow-hidden shadow-none"
+      onClick={() => trackCta("cta_launch_click")}
     >
       <span
         aria-hidden="true"
@@ -149,18 +154,15 @@ function LaunchPathCard() {
       />
       <div className="grid gap-4 p-5 pl-6 sm:p-6 sm:pl-7 lg:grid-cols-[minmax(0,1fr)_7.5rem] lg:items-center lg:gap-5">
         <div>
-          <div className="flex items-center gap-2.5">
-            <BuilderIcon className="size-4 text-muted" />
-            <p className="text-sm text-muted">Need a website?</p>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <p className="text-sm text-muted">Establish</p>
+            <ProductStatusBadge status="available" label="Available" />
           </div>
-          <div className="mt-2.5 flex flex-wrap items-center gap-2.5">
-            <p className="text-xl font-semibold tracking-tight text-ink sm:text-[1.35rem]">
-              EBS Launch
-            </p>
-            <ProductStatusBadge status="coming-soon" label="Coming Soon" />
-          </div>
+          <p className="mt-2.5 text-xl font-semibold tracking-tight text-ink sm:text-[1.35rem]">
+            RiseCurrent Launch
+          </p>
           <p className="mt-2 text-[0.95rem] leading-6 text-ink/75">
-            Guided website building is Coming Soon — preview the path here.
+            Build the conversion foundation. {pricing.launch}.
           </p>
           <p className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-teal motion-safe:transition-transform motion-safe:duration-200 motion-safe:group-hover:translate-x-0.5">
             {ctaCopy.launch}
@@ -214,9 +216,9 @@ function LaunchPreviewMini() {
       className="rounded-xl border border-border bg-white/90 p-2.5 shadow-[0_10px_24px_-18px_rgba(14,36,56,0.28)]"
     >
       <p className="text-[0.62rem] font-semibold tracking-[0.12em] text-teal uppercase">
-        Step 2 of 6
+        Conversion foundation
       </p>
-      <p className="mt-1 text-[0.72rem] font-medium text-ink">Choose your style</p>
+      <p className="mt-1 text-[0.72rem] font-medium text-ink">Managed launch</p>
       <div className="mt-2.5 grid grid-cols-3 gap-1.5">
         {[
           ["#143049", "#1ec8a5", "#e6eef4"],
@@ -243,45 +245,5 @@ function LaunchPreviewMini() {
         ))}
       </div>
     </div>
-  );
-}
-
-function BrowserIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
-      <rect
-        x="1.5"
-        y="2.5"
-        width="13"
-        height="11"
-        rx="2"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-      <path d="M1.5 5.5h13" stroke="currentColor" strokeWidth="1.3" />
-      <circle cx="4" cy="4" r="0.7" fill="currentColor" />
-      <circle cx="6" cy="4" r="0.7" fill="currentColor" opacity="0.55" />
-    </svg>
-  );
-}
-
-function BuilderIcon({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
-      <path
-        d="M3 12.5 8 3.5l5 9H3Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M6.2 9.2h3.6"
-        stroke="currentColor"
-        strokeWidth="1.3"
-        strokeLinecap="round"
-      />
-    </svg>
   );
 }

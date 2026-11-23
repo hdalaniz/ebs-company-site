@@ -1,31 +1,29 @@
 import type { Metadata } from "next";
 import {
-  LaunchPreview,
-  PresenceDecision,
+  PresenceBoundaries,
   PresenceFinalCta,
   PresenceHero,
+  PresenceIncludes,
+  PresenceJourney,
   PresenceLocalBreak,
-  PresenceRelationship,
-  PresenceWhy,
 } from "@/components/products/PresenceSections";
+import { pricing } from "@/config/site";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "EBS Presence | Build and Improve Your Online Presence",
+    absolute: "RiseCurrent Presence | Monitor and Improve Conversion",
   },
-  description:
-    "Already have a website? Run EBS Insight now. Need a website? EBS Launch is Coming Soon. EBS Presence is the digital foundation path for home-service businesses.",
+  description: `RiseCurrent Presence continuously monitors and improves the systems that help turn demand into customers. ${pricing.presence}.`,
 };
 
 export default function PresencePage() {
   return (
     <>
       <PresenceHero />
-      <PresenceDecision />
-      <PresenceRelationship />
-      <PresenceWhy />
+      <PresenceIncludes />
+      <PresenceBoundaries />
+      <PresenceJourney />
       <PresenceLocalBreak />
-      <LaunchPreview />
       <PresenceFinalCta />
     </>
   );

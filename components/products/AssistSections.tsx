@@ -35,7 +35,7 @@ const heroPriorities = [
 const maturityStages = [
   {
     title: "Recommend",
-    description: "EBS identifies what deserves attention.",
+    description: "RiseCurrent identifies what deserves attention.",
     icon: "recommend" as const,
     highlight: false,
   },
@@ -151,7 +151,7 @@ export function AssistHero() {
       <div className="relative z-10 mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pt-12 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14 lg:pt-20 lg:pb-14">
         <div className="motion-safe:animate-fade-up">
           <p className="inline-flex rounded-full border border-teal/20 bg-teal/10 px-3 py-1 text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-            EBS Assist
+            RiseCurrent Assist
           </p>
           <div className="mt-4">
             <ProductStatusBadge
@@ -167,7 +167,7 @@ export function AssistHero() {
             <span className="text-teal">next best move.</span>
           </h1>
           <p className="mt-6 max-w-xl text-[1.0625rem] leading-7 text-ink/80 sm:text-lg sm:leading-8">
-            EBS Assist is the future intelligence layer of the EBS platform —
+            RiseCurrent Assist is the future intelligence layer of the RiseCurrent platform —
             designed to help service businesses prioritize the opportunities and
             actions most likely to matter.
           </p>
@@ -388,7 +388,7 @@ export function AssistSignals() {
             Better recommendations come from better context.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-            Assist is designed to sit at the end of the EBS product loop — using
+            Assist is designed to sit at the end of the RiseCurrent product loop — using
             signals from the rest of the platform before suggesting a next move.
           </p>
         </div>
@@ -627,8 +627,9 @@ export function AssistFinalCta() {
               The first step is understanding the opportunity.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-              EBS Assist is a future product. Today, EBS Presence and Insight
-              can help you understand where your business has room to improve.
+              RiseCurrent Assist is a future product. Today, RiseCurrent
+              Insight, Launch, and Presence can help you understand where your
+              business has room to improve.
             </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
               <ButtonLink

@@ -3,16 +3,9 @@
 import { ProductCard } from "@/components/marketing/ProductCard";
 import { SectionHeading } from "@/components/marketing/SectionHeading";
 import { FocusCard, FocusCards } from "@/components/ui/focus-cards";
-import { products } from "@/config/products";
+import { currentProducts, futureProducts } from "@/config/products";
 
 export function ProductPlatform() {
-  const presence = products[0];
-  const futureProducts = products.slice(1);
-
-  if (!presence) {
-    return null;
-  }
-
   return (
     <section
       id="products"
@@ -21,21 +14,34 @@ export function ProductPlatform() {
     >
       <SectionHeading
         headingId="products-heading"
-        heading="One platform. Built around business growth."
-        supporting="EBS products help service businesses strengthen their presence, capture more demand, and turn more opportunities into booked revenue."
+        heading="Insight. Launch. Presence."
+        supporting="Three products. One job: help home-service businesses turn missed demand into booked revenue."
       />
 
-      <div className="mt-10">
-        <ProductCard product={presence} featured />
-      </div>
-
-      <FocusCards className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {futureProducts.map((product) => (
+      <FocusCards className="mt-10 grid gap-5 lg:grid-cols-3">
+        {currentProducts.map((product) => (
           <FocusCard key={product.key}>
             <ProductCard product={product} />
           </FocusCard>
         ))}
       </FocusCards>
+
+      <div className="mt-12">
+        <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+          Future capabilities
+        </p>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-ink/70">
+          Longer-term products that extend the system. Clearly labeled and not
+          part of the current offer.
+        </p>
+        <FocusCards className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {futureProducts.map((product) => (
+            <FocusCard key={product.key}>
+              <ProductCard product={product} />
+            </FocusCard>
+          ))}
+        </FocusCards>
+      </div>
     </section>
   );
 }

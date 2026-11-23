@@ -6,12 +6,15 @@ import { usePathname } from "next/navigation";
 import { BrandMark } from "@/components/brand/BrandMark";
 import { buttonLinkVariants } from "@/components/marketing/ButtonLink";
 import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
-import { products } from "@/config/products";
-import { site } from "@/config/site";
+import { currentProducts, futureProducts } from "@/config/products";
+import { ctaCopy, site } from "@/config/site";
+import { trackCta } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
 const navLinkClass =
   "text-sm font-medium text-muted transition-colors hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal";
+
+const navProducts = [...currentProducts, ...futureProducts];
 
 export function Header() {
   const pathname = usePathname();
@@ -66,21 +69,23 @@ export function Header() {
     window.setTimeout(() => setMobileOpen(false), 0);
   }
 
+  function onGetStartedClick() {
+    trackCta("cta_get_started_click");
+    closeMenus();
+  }
+
   return (
     <header className="relative z-20 border-b border-navy/10 bg-white/90 shadow-[0_8px_24px_-18px_rgba(14,36,56,0.35)] backdrop-blur-xl">
       <div className="mx-auto grid max-w-7xl grid-cols-[1fr_auto] items-center gap-4 px-5 py-3.5 sm:px-8 lg:grid-cols-[1fr_auto_1fr]">
         <Link
           href="/"
-          className="flex min-w-0 items-center gap-3 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal"
+          className="flex min-w-0 items-center gap-2.5 rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal sm:gap-3"
           onClick={closeMenus}
         >
           <BrandMark className="size-8 shrink-0" priority />
           <div className="min-w-0">
-            <p className="text-[0.95rem] font-semibold tracking-tight text-ink">
-              EBS
-            </p>
-            <p className="hidden truncate text-xs leading-snug tracking-wide text-teal sm:block">
-              Elevate Business Systems
+            <p className="truncate text-[0.95rem] font-semibold tracking-tight text-ink">
+              {site.shortName}
             </p>
           </div>
         </Link>
@@ -120,42 +125,29 @@ export function Header() {
               )}
             >
               <ul className="ebs-card overflow-hidden rounded-2xl p-2">
-                {products.map((product) => (
+                {navProducts.map((product) => (
                   <li key={product.key}>
-                    <Link
+                    <ProductNavLink
                       href={product.href}
-                      aria-current={pathname === product.href ? "page" : undefined}
-                      className={cn(
-                        "block rounded-xl px-3.5 py-3 transition-colors hover:bg-sky/80 focus-visible:bg-sky/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal",
-                        pathname === product.href &&
-                          "bg-teal/10 ring-1 ring-inset ring-teal/25",
-                      )}
-                      onClick={closeMenus}
-                    >
-                      <span className="flex items-center justify-between gap-3">
-                        <span className="text-sm font-semibold text-ink">
-                          {product.name}
-                        </span>
-                        <ProductStatusBadge
-                          status={product.status}
-                          label={product.statusLabel}
-                        />
-                      </span>
-                      <span className="mt-1 block text-sm text-muted">
-                        {product.navDescription}
-                      </span>
-                    </Link>
+                      external={product.external}
+                      current={pathname === product.href}
+                      name={product.name}
+                      description={product.navDescription}
+                      status={product.status}
+                      statusLabel={product.statusLabel}
+                      onNavigate={closeMenus}
+                    />
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          <Link href="/#how-ebs-works" className={navLinkClass} onClick={closeMenus}>
-            How EBS Works
+          <Link href="/#how-it-works" className={navLinkClass} onClick={closeMenus}>
+            How It Works
           </Link>
-          <Link href="/#why-ebs" className={navLinkClass} onClick={closeMenus}>
-            Why EBS
+          <Link href="/#why-risecurrent" className={navLinkClass} onClick={closeMenus}>
+            Why RiseCurrent
           </Link>
           <Link
             href="/about"
@@ -171,9 +163,9 @@ export function Header() {
           <Link
             href={site.getStartedHref}
             className={cn(buttonLinkVariants.primary, "px-4")}
-            onClick={closeMenus}
+            onClick={onGetStartedClick}
           >
-            Get Started
+            {ctaCopy.getStarted}
           </Link>
         </div>
 
@@ -181,9 +173,9 @@ export function Header() {
           <Link
             href={site.getStartedHref}
             className={cn(buttonLinkVariants.primary, "px-3.5")}
-            onClick={closeMenus}
+            onClick={onGetStartedClick}
           >
-            Get Started
+            {ctaCopy.getStarted}
           </Link>
           <button
             type="button"
@@ -220,48 +212,36 @@ export function Header() {
             hidden={!mobileProductsOpen}
             className="space-y-1 pb-2 pl-1"
           >
-              {products.map((product) => (
-                <li key={product.key}>
-                  <Link
-                    href={product.href}
-                    aria-current={pathname === product.href ? "page" : undefined}
-                    className={cn(
-                      "block rounded-xl px-3 py-3 hover:bg-sky/80 focus-visible:bg-sky/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal",
-                      pathname === product.href &&
-                        "bg-teal/10 ring-1 ring-inset ring-teal/25",
-                    )}
-                    onClick={closeMenus}
-                  >
-                    <span className="flex items-center justify-between gap-3">
-                      <span className="text-base font-semibold text-ink">
-                        {product.name}
-                      </span>
-                      <ProductStatusBadge
-                        status={product.status}
-                        label={product.statusLabel}
-                      />
-                    </span>
-                    <span className="mt-1 block text-sm text-muted">
-                      {product.navDescription}
-                    </span>
-                  </Link>
-                </li>
-              ))}
+            {navProducts.map((product) => (
+              <li key={product.key}>
+                <ProductNavLink
+                  href={product.href}
+                  external={product.external}
+                  current={pathname === product.href}
+                  name={product.name}
+                  description={product.navDescription}
+                  status={product.status}
+                  statusLabel={product.statusLabel}
+                  onNavigate={closeMenus}
+                  mobile
+                />
+              </li>
+            ))}
           </ul>
 
           <Link
-            href="/#how-ebs-works"
+            href="/#how-it-works"
             className="block min-h-11 rounded-md py-3 text-base text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
             onClick={closeMenus}
           >
-            How EBS Works
+            How It Works
           </Link>
           <Link
-            href="/#why-ebs"
+            href="/#why-risecurrent"
             className="block min-h-11 rounded-md py-3 text-base text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
             onClick={closeMenus}
           >
-            Why EBS
+            Why RiseCurrent
           </Link>
           <Link
             href="/about"
@@ -274,6 +254,79 @@ export function Header() {
         </nav>
       </div>
     </header>
+  );
+}
+
+function ProductNavLink({
+  href,
+  external,
+  current,
+  name,
+  description,
+  status,
+  statusLabel,
+  onNavigate,
+  mobile = false,
+}: {
+  href: string;
+  external?: boolean;
+  current: boolean;
+  name: string;
+  description: string;
+  status: "available" | "coming-soon" | "future";
+  statusLabel: string;
+  onNavigate: () => void;
+  mobile?: boolean;
+}) {
+  const className = cn(
+    mobile
+      ? "block rounded-xl px-3 py-3 hover:bg-sky/80 focus-visible:bg-sky/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
+      : "block rounded-xl px-3.5 py-3 transition-colors hover:bg-sky/80 focus-visible:bg-sky/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal",
+    current && "bg-teal/10 ring-1 ring-inset ring-teal/25",
+  );
+
+  const content = (
+    <>
+      <span className="flex items-center justify-between gap-3">
+        <span
+          className={cn(
+            "font-semibold text-ink",
+            mobile ? "text-base" : "text-sm",
+          )}
+        >
+          {name}
+        </span>
+        <ProductStatusBadge status={status} label={statusLabel} />
+      </span>
+      <span className="mt-1 block text-sm text-muted">{description}</span>
+    </>
+  );
+
+  if (external) {
+    return (
+      <a
+        href={href}
+        className={className}
+        rel="noopener noreferrer"
+        onClick={() => {
+          trackCta("cta_insight_click");
+          onNavigate();
+        }}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      href={href}
+      aria-current={current ? "page" : undefined}
+      className={className}
+      onClick={onNavigate}
+    >
+      {content}
+    </Link>
   );
 }
 

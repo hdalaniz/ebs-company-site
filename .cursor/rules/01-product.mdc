@@ -1,15 +1,18 @@
 ---
-description: Core EBS product strategy and product-scope rules
+description: Core RiseCurrent product strategy and product-scope rules
 alwaysApply: true
 ---
 
-# Elevate Business Systems Product Rules
+# RiseCurrent Product Rules
 
-Elevate Business Systems (EBS) is building an AI-powered revenue-conversion platform for home-service businesses.
+RiseCurrent is building an AI-powered revenue-conversion platform for home-service businesses.
+
+Public master brand: **RiseCurrent**
+Do not publish "RiseCurrent Systems LLC" until the LLC is formed.
 
 Core promise:
 
-EBS helps home-service businesses turn missed demand into booked revenue.
+RiseCurrent helps home-service businesses turn missed demand into booked revenue.
 
 Primary target customer:
 
@@ -27,7 +30,7 @@ Primary customer problems:
 - Lead-source attribution
 - Revenue visibility
 
-EBS is NOT:
+RiseCurrent is NOT:
 
 - a traditional website agency
 - a generic AI automation agency
@@ -35,7 +38,11 @@ EBS is NOT:
 - an FSM replacement
 - a broad multi-industry platform
 
-Use this product loop when evaluating features:
+Current customer journey (public):
+
+Insight → Launch → Presence
+
+Long-term product philosophy:
 
 Diagnose → Capture → Convert → Prove → Learn
 
@@ -43,18 +50,20 @@ Before expanding scope, ask:
 
 1. Does this increase booked revenue or reduce owner effort?
 2. Is it required by multiple real customers?
-3. Can EBS measure the outcome?
+3. Can RiseCurrent measure the outcome?
 4. Does it strengthen retention, integration depth, or useful data?
 5. Is it simpler to integrate than build?
 
 Product family:
 
-- EBS Presence
-  - EBS Insight: businesses with an existing website
-  - EBS Launch: businesses without a website
-- EBS Growth
-- EBS Revenue Intelligence
-- EBS Assist
+- RiseCurrent Insight — Diagnose (available; free)
+- RiseCurrent Launch — Establish conversion foundation (available; starting at $3,500)
+- RiseCurrent Presence — Continuously improve conversion (available; starting at $399/month)
+- RiseCurrent Growth — Coming Soon
+- RiseCurrent Revenue Intelligence — Coming Soon
+- RiseCurrent Assist — Future
+
+Preserve internal technical identifiers where renaming adds risk (for example `NEXT_PUBLIC_EBS_INSIGHT_URL`, `getInsightUrl`, repo name `ebs-company-site`).
 
 Current product statuses should remain explicit and truthful.
 

@@ -61,7 +61,7 @@ export function LocalBusinessBreak() {
               Better systems help good businesses grow.
             </h2>
             <p className="mt-5 max-w-xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-              EBS is being built for the businesses that keep homes and
+              RiseCurrent is built for the businesses that keep homes and
               communities running — businesses where every missed call, slow
               response, or unclear website can mean lost revenue.
             </p>

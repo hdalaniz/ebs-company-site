@@ -12,10 +12,10 @@ import {
 
 export const metadata: Metadata = {
   title: {
-    absolute: "About Elevate Business Systems",
+    absolute: "About RiseCurrent",
   },
   description:
-    "Elevate Business Systems is building practical software for service businesses that want to capture more demand, convert more opportunities, and understand what actually drives growth.",
+    "RiseCurrent is building practical software for service businesses that want to capture more demand, convert more opportunities, and understand what actually drives growth.",
 };
 
 export default function AboutPage() {

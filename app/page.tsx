@@ -10,8 +10,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    absolute:
-      "Elevate Business Systems | Turn Local Demand Into Booked Revenue",
+    absolute: "RiseCurrent | Turn Missed Demand Into Booked Revenue",
   },
   description: site.description,
 };

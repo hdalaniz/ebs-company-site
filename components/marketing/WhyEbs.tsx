@@ -2,7 +2,7 @@ const reasons = [
   {
     title: "Stop guessing what to improve.",
     description:
-      "EBS helps you see where calls, leads, and customer journeys are breaking down — so you can focus on the problems that matter.",
+      "RiseCurrent helps you see where calls, leads, and customer journeys are breaking down — so you can focus on the problems that matter.",
     accent: "teal" as const,
     visual: "leak" as const,
   },
@@ -16,7 +16,7 @@ const reasons = [
   {
     title: "Connect improvements to outcomes.",
     description:
-      "EBS is being designed to connect growth actions with leads, bookings, and revenue — so progress is visible.",
+      "RiseCurrent is built to connect growth actions with leads, bookings, and revenue — so progress is visible.",
     accent: "teal" as const,
     visual: "outcomes" as const,
   },
@@ -25,54 +25,54 @@ const reasons = [
 export function WhyEbs() {
   return (
     <section
-      id="why-ebs"
-      aria-labelledby="why-ebs-heading"
+      id="why-risecurrent"
+      aria-labelledby="why-risecurrent-heading"
       className="relative scroll-mt-24 overflow-hidden bg-gradient-to-b from-[color-mix(in_srgb,var(--brand-sky)_35%,var(--brand-warm))] via-warm to-warm"
     >
       <div className="mx-auto w-full max-w-7xl px-5 pt-14 pb-10 sm:px-8 sm:pt-16 sm:pb-12 lg:pt-20 lg:pb-14">
-      <div>
-        <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-          Why EBS
-        </p>
-        <h2
-          id="why-ebs-heading"
-          className="mt-3 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
-        >
-          Clarity for the businesses that keep communities running.
-        </h2>
-        <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-          EBS helps service businesses understand what&apos;s working, what
-          needs attention, and what to do next.
-        </p>
-      </div>
-
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-        {reasons.map((reason) => (
-          <article
-            key={reason.title}
-            className="ebs-card group/bento flex h-full flex-col overflow-hidden p-0"
+        <div>
+          <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+            Why RiseCurrent
+          </p>
+          <h2
+            id="why-risecurrent-heading"
+            className="mt-3 max-w-2xl text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
           >
-            <div
-              className={
-                reason.accent === "slate"
-                  ? "relative h-24 overflow-hidden border-b border-border bg-gradient-to-br from-sky to-transparent text-teal-secondary sm:h-28"
-                  : "relative h-24 overflow-hidden border-b border-border bg-gradient-to-br from-teal/12 to-transparent text-teal sm:h-28"
-              }
-              aria-hidden="true"
+            Clarity for the businesses that keep communities running.
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
+            RiseCurrent helps home-service businesses understand what&apos;s
+            working, what needs attention, and what to do next.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 md:grid-cols-3">
+          {reasons.map((reason) => (
+            <article
+              key={reason.title}
+              className="ebs-card group/bento flex h-full flex-col overflow-hidden p-0"
             >
-              <ReasonVisual visual={reason.visual} />
-            </div>
-            <div className="flex flex-1 flex-col px-5 py-5 sm:px-6 sm:py-6">
-              <h3 className="text-lg font-semibold tracking-tight text-ink sm:text-xl">
-                {reason.title}
-              </h3>
-              <p className="mt-2 text-[0.95rem] leading-6 text-ink/75 sm:text-base sm:leading-7">
-                {reason.description}
-              </p>
-            </div>
-          </article>
-        ))}
-      </div>
+              <div
+                className={
+                  reason.accent === "slate"
+                    ? "relative h-24 overflow-hidden border-b border-border bg-gradient-to-br from-sky to-transparent text-teal-secondary sm:h-28"
+                    : "relative h-24 overflow-hidden border-b border-border bg-gradient-to-br from-teal/12 to-transparent text-teal sm:h-28"
+                }
+                aria-hidden="true"
+              >
+                <ReasonVisual visual={reason.visual} />
+              </div>
+              <div className="flex flex-1 flex-col px-5 py-5 sm:px-6 sm:py-6">
+                <h3 className="text-lg font-semibold tracking-tight text-ink sm:text-xl">
+                  {reason.title}
+                </h3>
+                <p className="mt-2 text-[0.95rem] leading-6 text-ink/75 sm:text-base sm:leading-7">
+                  {reason.description}
+                </p>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

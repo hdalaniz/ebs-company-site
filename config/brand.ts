@@ -1,6 +1,6 @@
 export const brand = {
-  productName: "EBS",
-  companyName: "Elevate Business Systems",
+  productName: "RiseCurrent",
+  companyName: "RiseCurrent",
   assets: {
     logoMark: "/branding/logos/ebs-insight-mark.svg",
     mountain: "/branding/mountain/ebs-mountain.png",
