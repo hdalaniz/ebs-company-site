@@ -1,14 +1,18 @@
-# Commercial lead contract (P6)
+# Commercial inquiry contract (P6 integrated)
 
-The company site does not store commercial leads. `/get-started` posts to a company-site route, which forwards the request to the Insight commercial-lead service owned by Agent B.
+The company site does not store commercial inquiries. `/get-started` posts to a company-site route, which forwards to Insight:
 
-No company-site database, Stripe checkout, calendar booking, or customer account is part of this flow.
+`POST {Insight origin}/api/commercial-inquiries`
+
+Agent B owns persistence, deterministic routing, and `/admin/leads`. This document is the company-site adapter contract.
 
 ## Browser → company site
 
 `POST /api/get-started`
 
 Same-origin only. `Content-Type: application/json`.
+
+Customer-facing vocabulary stays friendly. The server maps to Insight values before forwarding.
 
 ```json
 {
@@ -21,130 +25,76 @@ Same-origin only. `Content-Type: application/json`.
   "phone": "2085550100",
   "websiteUrl": "https://example.com",
   "biggestProblem": "Calls go to voicemail.",
-  "productQuery": "launch"
+  "productQuery": "launch",
+  "source": "insight_results",
+  "recommendation": "weak-foundation",
+  "opportunityRef": "opp_ab12cd34",
+  "submissionToken": "11111111-1111-4111-8111-111111111111"
 }
 ```
 
 Required:
 
-- `businessName` (2–120)
-- `trade`: `hvac` | `plumbing` | `other`
-- `websiteSituation`: `no-website` | `needs-major-improvement` | `needs-better-conversion` | `not-sure`
-- `productInterest`: `launch` | `presence` | `not-sure`
-- `contactName` (2–80)
-- `email`
+- `businessName`, `trade`, `websiteSituation`, `productInterest`, `contactName`, `email`
+- `submissionToken` (UUID per form attempt; reuse on retry)
+- `source` (controlled attribution vocabulary)
 
-Optional:
+Optional: `phone`, `websiteUrl`, `biggestProblem`, `productQuery`, `recommendation`, `opportunityRef`.
 
-- `phone` (7–15 digits)
-- `websiteUrl` (http/https). Omitted when `websiteSituation` is `no-website`, even if a URL was typed earlier. A blank URL is valid for every situation.
-- `biggestProblem` (max 400)
-- `productQuery`: the URL `product` value, or `null` on a direct visit. This is entry context. `productInterest` is the customer's final choice and may differ.
+Website situation UI → Insight:
 
-Not collected in this version: service area, company size, payment, or booking slots.
+| UI value | Persisted |
+| --- | --- |
+| `no-website` | `none` |
+| `needs-major-improvement` | `outdated` |
+| `needs-better-conversion` | `usable` |
+| `not-sure` | `usable` |
 
-Public query string is only `product=launch|presence|not-sure`. Agent C owns broader attribution. Do not add UTM or click-id parameters here.
+Product interest UI → Insight:
 
-The browser must not receive `RISECURRENT_COMMERCIAL_LEAD_SECRET`. Click analytics must not include form fields.
+| UI value | Persisted |
+| --- | --- |
+| `launch` / `presence` | same |
+| `not-sure` | `not_sure` |
+
+The browser never receives `COMMERCIAL_INQUIRY_SECRET`.
 
 ## Company site → Insight
 
-`POST {RISECURRENT_COMMERCIAL_LEAD_URL}`
-
-When the URL is unset, the company site uses `{Insight origin}/api/commercial-leads` from `getInsightUrl("/api/commercial-leads")`.
-
 Headers:
 
+- `Authorization: Bearer ${COMMERCIAL_INQUIRY_SECRET}`
 - `Content-Type: application/json`
 - `Accept: application/json`
-- `Authorization: Bearer ${RISECURRENT_COMMERCIAL_LEAD_SECRET}`
 
-If the secret or a usable endpoint is missing, the company site returns **503** and does not call Insight. Nothing is written locally.
+Body uses Agent B field names (`website`, `source`, `sourceDetail`, `insightRecommendation`, `insightOpportunityId`, `submissionToken`).
 
-Body:
+`sourceDetail` may include `entryProduct` (URL product preselect) and `recommendation` (category). Avoid keys that contain blocked substrings such as `name`.
 
-```json
-{
-  "businessName": "Summit Air",
-  "trade": "hvac",
-  "websiteSituation": "no-website",
-  "productInterest": "launch",
-  "contactName": "Ada Owner",
-  "email": "ada@example.com",
-  "source": {
-    "surface": "company-site",
-    "path": "/get-started",
-    "productQuery": "launch"
-  }
-}
-```
-
-`source` is the extension point for Agent C. This version sets only `surface`, `path`, and `productQuery`.
-
-Optional `phone`, `websiteUrl`, and `biggestProblem` are included only when present.
-
-### Expected success — 200
+Success response (forwarded to the browser):
 
 ```json
 {
   "ok": true,
-  "leadId": "lead_123",
+  "inquiryId": "uuid",
   "recommendedRoute": "launch",
-  "nextStep": "We'll review the Launch request and follow up with scope questions."
+  "duplicate": false,
+  "publishedStartingPrice": "Starting at $3,500"
 }
 ```
 
-`recommendedRoute`: `launch` | `presence` | `insight` | `follow-up`.
+`recommendedRoute`: `launch` | `presence` | `consultation`.
 
-The company site displays that route. It does not choose a second recommendation. An unknown or missing route is shown as a neutral follow-up, not as Launch or Presence.
-
-`nextStep` is customer-facing copy. The company site replaces it when it promises a response window, a guarantee, a booked call, checkout, or payment. Do not send those promises unless operations already support them. This form does not.
-
-`leadId` is optional. Allowed characters: letters, numbers, `_`, `-`, up to 80 characters. It is shown as a reference, not as an account id.
-
-### Expected failure
-
-```json
-{
-  "ok": false,
-  "code": "INVALID_REQUEST",
-  "message": "Request could not be accepted."
-}
-```
-
-Any non-200 from Insight is treated as an upstream failure. The company site tells the visitor nothing was saved. It does not keep a local retry queue.
-
-## Customer-facing outcomes
-
-| Situation | What the visitor sees |
-| --- | --- |
-| Success | Request received, recommended route, what happens next, and a clear statement that time is not reserved and payment does not start |
-| Validation error | Field messages, no request forwarded |
-| Secret or endpoint missing | "We couldn't send this request yet. Nothing was saved." |
-| Insight unreachable or non-200 | "We couldn't send this request. Nothing was saved." |
-| 200 with an unusable body | Ask them to retry before submitting again. Do not claim the request was discarded if Insight may have stored it |
+`publishedStartingPrice` is informational catalog copy only (or `null` for consultation).
 
 ## Environment
 
 | Name | Where |
 | --- | --- |
-| `RISECURRENT_COMMERCIAL_LEAD_URL` | Server only. Optional absolute URL. |
-| `RISECURRENT_COMMERCIAL_LEAD_SECRET` | Server only. Required before forwarding. |
+| `COMMERCIAL_INQUIRY_SECRET` | Server only. Required. Same name as Insight. |
+| `RISECURRENT_COMMERCIAL_INQUIRY_URL` | Server only. Optional absolute URL override. |
+| `NEXT_PUBLIC_EBS_INSIGHT_URL` | Optional Insight origin override used to build the default endpoint. |
 
-Set both on the company-site host. Agent B validates the bearer token. Do not use `NEXT_PUBLIC_` for either value.
+Default endpoint: `getInsightUrl("/api/commercial-inquiries")`.
 
-## Shared files touched for integration
-
-Other P6 work should expect these company-site edits:
-
-- `config/site.ts` — generic Get Started href is `/get-started?product=not-sure`
-- `components/layout/Header.tsx` — unchanged; it reads `site.getStartedHref`
-- `components/marketing/FinalCta.tsx` — homepage Get Started
-- `components/products/LaunchSections.tsx` — Launch Get Started
-- `components/products/PresenceSections.tsx` — Presence Get Started
-- `lib/analytics.ts` — `/get-started` maps to `cta_get_started_click` with no properties
-- `app/privacy/page.tsx` and `app/terms/page.tsx` — qualification disclosure
-- `package.json` — `server-only`, `tsx`, and `npm test` inside `verify`
-- `.env.example` — server env names only
-
-Insight route, persistence, and admin inbox stay in `ebs-insight-v2`.
+Do not use `NEXT_PUBLIC_` for the secret.

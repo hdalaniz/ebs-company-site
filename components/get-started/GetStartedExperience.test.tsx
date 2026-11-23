@@ -4,6 +4,15 @@ import { describe, it } from "node:test";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { GetStartedExperience } from "@/components/get-started/GetStartedExperience";
+import type { GetStartedContext } from "@/lib/attribution";
+
+const baseAttribution: GetStartedContext = {
+  productInterest: "launch",
+  source: "launch_page",
+  recommendationCategory: null,
+  opportunityRef: null,
+  fromInsightResults: false,
+};
 
 function inputTag(html: string, id: string): string {
   const match = html.match(new RegExp(`<input\\b[^>]*\\bid="${id}"[^>]*>`));
@@ -17,13 +26,21 @@ describe("Get Started form", () => {
       createElement(GetStartedExperience, {
         initialProduct: "launch",
         productQuery: "launch",
+        attribution: baseAttribution,
       }),
     );
 
     assert.match(html, /data-initial-product="launch"/);
+    assert.match(html, /data-source="launch_page"/);
     assert.match(inputTag(html, "product-interest-launch"), /\schecked=""/);
-    assert.doesNotMatch(inputTag(html, "product-interest-presence"), /\schecked=/);
-    assert.doesNotMatch(inputTag(html, "product-interest-not-sure"), /\schecked=/);
+    assert.doesNotMatch(
+      inputTag(html, "product-interest-presence"),
+      /\schecked=/,
+    );
+    assert.doesNotMatch(
+      inputTag(html, "product-interest-not-sure"),
+      /\schecked=/,
+    );
     for (const id of [
       "product-interest-launch",
       "product-interest-presence",
@@ -45,25 +62,39 @@ describe("Get Started form", () => {
       createElement(GetStartedExperience, {
         initialProduct: "presence",
         productQuery: "presence",
+        attribution: {
+          ...baseAttribution,
+          productInterest: "presence",
+          source: "presence_page",
+        },
       }),
     );
     const direct = renderToStaticMarkup(
       createElement(GetStartedExperience, {
         initialProduct: "not-sure",
         productQuery: null,
+        attribution: {
+          ...baseAttribution,
+          productInterest: "not-sure",
+          source: "direct_get_started",
+        },
       }),
     );
 
-    assert.match(inputTag(presence, "product-interest-presence"), /\schecked=""/);
-    assert.match(inputTag(direct, "product-interest-not-sure"), /\schecked=""/);
+    assert.match(
+      inputTag(presence, "product-interest-presence"),
+      /\schecked="/,
+    );
+    assert.match(inputTag(direct, "product-interest-not-sure"), /\schecked="/);
   });
 
-  it("does not put the lead secret or form analytics into the client module", () => {
+  it("does not put the inquiry secret into the client module", () => {
     const source = readFileSync(
       "components/get-started/GetStartedExperience.tsx",
       "utf8",
     );
-    assert.doesNotMatch(source, /RISECURRENT_COMMERCIAL_LEAD_SECRET/);
-    assert.doesNotMatch(source, /trackCta|@vercel\/analytics/);
+    assert.doesNotMatch(source, /COMMERCIAL_INQUIRY_SECRET/);
+    assert.doesNotMatch(source, /RISECURRENT_COMMERCIAL/);
+    assert.doesNotMatch(source, /@vercel\/analytics/);
   });
 });

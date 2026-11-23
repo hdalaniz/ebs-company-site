@@ -2,8 +2,19 @@
 
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { pricing } from "@/config/site";
-import { GetStartedError, GetStartedSuccess } from "@/components/get-started/GetStartedResult";
+import {
+  GetStartedError,
+  GetStartedSuccess,
+} from "@/components/get-started/GetStartedResult";
 import { buttonLinkVariants } from "@/components/marketing/ButtonLink";
+import {
+  trackCommercialRouteReturned,
+  trackInsightHandoffArrived,
+  trackQualificationFailed,
+  trackQualificationStarted,
+  trackQualificationSubmitted,
+} from "@/lib/analytics";
+import type { GetStartedContext } from "@/lib/attribution";
 import { CUSTOMER_MESSAGES } from "@/lib/commercial-leads/types";
 import {
   createDraft,
@@ -19,7 +30,10 @@ import {
   type Trade,
   type WebsiteSituation,
 } from "@/lib/get-started/model";
-import { parsePublicError, parsePublicSuccess } from "@/lib/get-started/public-response";
+import {
+  parsePublicError,
+  parsePublicSuccess,
+} from "@/lib/get-started/public-response";
 import {
   firstStepForErrors,
   validateQualification,
@@ -32,25 +46,52 @@ import { cn } from "@/lib/cn";
 type GetStartedExperienceProps = {
   initialProduct: ProductInterest;
   productQuery: ProductInterest | null;
+  attribution: GetStartedContext;
 };
 
 const inputClass =
   "mt-2 w-full min-h-11 rounded-lg border border-navy/15 bg-white px-3 py-2.5 text-base text-ink outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal";
 
+function newSubmissionToken(): string {
+  if (
+    typeof crypto !== "undefined" &&
+    typeof crypto.randomUUID === "function"
+  ) {
+    return crypto.randomUUID();
+  }
+  // Narrow fallback for older test environments.
+  return "00000000-0000-4000-8000-000000000000";
+}
+
 export function GetStartedExperience({
   initialProduct,
   productQuery,
+  attribution,
 }: GetStartedExperienceProps) {
   const [step, setStep] = useState<StepId>("business");
-  const [draft, setDraft] = useState<QualificationDraft>(() => createDraft(initialProduct));
+  const [draft, setDraft] = useState<QualificationDraft>(() =>
+    createDraft(initialProduct),
+  );
   const [errors, setErrors] = useState<QualificationFieldErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
-  const [result, setResult] = useState<ReturnType<typeof parsePublicSuccess>>(null);
+  const [result, setResult] = useState<ReturnType<typeof parsePublicSuccess>>(
+    null,
+  );
+  const [submissionToken] = useState(newSubmissionToken);
+  const startedTracked = useRef(false);
+  const handoffTracked = useRef(false);
   const stepHeadingRef = useRef<HTMLHeadingElement>(null);
   const successHeadingRef = useRef<HTMLHeadingElement>(null);
   const skipFocus = useRef(true);
   const baseId = useId();
+
+  const analyticsBase = {
+    product: draft.productInterest,
+    source: attribution.source,
+    recommendation: attribution.recommendationCategory ?? undefined,
+    ref: attribution.opportunityRef ?? undefined,
+  };
 
   useEffect(() => {
     if (skipFocus.current) {
@@ -64,7 +105,34 @@ export function GetStartedExperience({
     stepHeadingRef.current?.focus();
   }, [step, result]);
 
-  function update<K extends keyof QualificationDraft>(key: K, value: QualificationDraft[K]) {
+  useEffect(() => {
+    if (handoffTracked.current) return;
+    if (!attribution.fromInsightResults) return;
+    handoffTracked.current = true;
+    trackInsightHandoffArrived({
+      product: attribution.productInterest,
+      source: attribution.source,
+      recommendation: attribution.recommendationCategory ?? undefined,
+      ref: attribution.opportunityRef ?? undefined,
+    });
+  }, [attribution]);
+
+  function markStarted() {
+    if (startedTracked.current) return;
+    startedTracked.current = true;
+    trackQualificationStarted({
+      product: draft.productInterest,
+      source: attribution.source,
+      recommendation: attribution.recommendationCategory ?? undefined,
+      ref: attribution.opportunityRef ?? undefined,
+    });
+  }
+
+  function update<K extends keyof QualificationDraft>(
+    key: K,
+    value: QualificationDraft[K],
+  ) {
+    markStarted();
     setDraft((current) => ({ ...current, [key]: value }));
     setErrors((current) => {
       if (!current[key as QualificationField]) return current;
@@ -75,9 +143,13 @@ export function GetStartedExperience({
   }
 
   function goNext() {
+    markStarted();
     const stepErrors = validateStep(step, draft);
     setErrors(stepErrors);
-    if (Object.keys(stepErrors).length > 0) return;
+    if (Object.keys(stepErrors).length > 0) {
+      trackQualificationFailed({ ...analyticsBase, reason: "validation" });
+      return;
+    }
     setFormError(null);
     setStep(step === "business" ? "offer" : "contact");
   }
@@ -88,11 +160,13 @@ export function GetStartedExperience({
   }
 
   async function submitRequest() {
+    markStarted();
     const validation = validateQualification(draft);
     if (!validation.ok) {
       setErrors(validation.fields);
       setStep(firstStepForErrors(validation.fields));
       setFormError(null);
+      trackQualificationFailed({ ...analyticsBase, reason: "validation" });
       return;
     }
 
@@ -108,6 +182,10 @@ export function GetStartedExperience({
         body: JSON.stringify({
           ...validation.value,
           productQuery,
+          source: attribution.source,
+          recommendation: attribution.recommendationCategory,
+          opportunityRef: attribution.opportunityRef,
+          submissionToken,
         }),
       });
       const body: unknown = await response.json().catch(() => null);
@@ -118,12 +196,35 @@ export function GetStartedExperience({
         if (Object.keys(error.fields).length > 0) {
           setErrors(error.fields);
           setStep(firstStepForErrors(error.fields));
+          trackQualificationFailed({ ...analyticsBase, reason: "validation" });
+        } else if (response.status === 503) {
+          trackQualificationFailed({
+            ...analyticsBase,
+            reason: "unavailable",
+          });
+        } else {
+          trackQualificationFailed({ ...analyticsBase, reason: "network" });
         }
         return;
       }
+
+      trackQualificationSubmitted({
+        product: validation.value.productInterest,
+        source: attribution.source,
+        recommendation: attribution.recommendationCategory ?? undefined,
+        ref: attribution.opportunityRef ?? undefined,
+      });
+      trackCommercialRouteReturned({
+        product: validation.value.productInterest,
+        source: attribution.source,
+        recommendation: attribution.recommendationCategory ?? undefined,
+        ref: attribution.opportunityRef ?? undefined,
+        route: success.recommendedRoute,
+      });
       setResult(success);
     } catch {
       setFormError(CUSTOMER_MESSAGES.upstream);
+      trackQualificationFailed({ ...analyticsBase, reason: "network" });
     } finally {
       setPending(false);
     }
@@ -140,13 +241,15 @@ export function GetStartedExperience({
   }
 
   if (result) {
-    return <GetStartedSuccess result={result} headingRef={successHeadingRef} />;
+    return (
+      <GetStartedSuccess result={result} headingRef={successHeadingRef} />
+    );
   }
 
   const stepMeta = STEPS.find((item) => item.id === step) ?? STEPS[0];
 
   return (
-    <div data-initial-product={initialProduct}>
+    <div data-initial-product={initialProduct} data-source={attribution.source}>
       <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
         RiseCurrent
       </p>
@@ -204,8 +307,8 @@ export function GetStartedExperience({
               : "How we should reach you"}
         </h2>
         <p className="mt-2 text-sm leading-6 text-ink/70">
-          Step {STEPS.findIndex((item) => item.id === stepMeta.id) + 1} of {STEPS.length}.
-          Required fields are marked.
+          Step {STEPS.findIndex((item) => item.id === stepMeta.id) + 1} of{" "}
+          {STEPS.length}. Required fields are marked.
         </p>
 
         <div hidden={step !== "business"} className="mt-6 space-y-6">
@@ -242,11 +345,13 @@ export function GetStartedExperience({
               detail: option.detail,
             }))}
             onChange={(value) => {
+              markStarted();
               const situation = value as WebsiteSituation;
               setDraft((current) => ({
                 ...current,
                 websiteSituation: situation,
-                websiteUrl: situation === "no-website" ? "" : current.websiteUrl,
+                websiteUrl:
+                  situation === "no-website" ? "" : current.websiteUrl,
               }));
               setErrors((current) => {
                 const next = { ...current };
@@ -290,7 +395,10 @@ export function GetStartedExperience({
               id: `product-interest-${option.value}`,
             }))}
             onChange={(value) => {
-              setDraft((current) => withProductInterest(current, value as ProductInterest));
+              markStarted();
+              setDraft((current) =>
+                withProductInterest(current, value as ProductInterest),
+              );
               setErrors((current) => {
                 const next = { ...current };
                 delete next.productInterest;
@@ -434,7 +542,9 @@ function TextField({
       <label htmlFor={id} className="block text-sm font-semibold text-ink">
         {label}
         {required ? <span className="text-teal"> *</span> : null}
-        {optional ? <span className="font-medium text-muted"> (optional)</span> : null}
+        {optional ? (
+          <span className="font-medium text-muted"> (optional)</span>
+        ) : null}
       </label>
       {hint ? (
         <p id={hintId} className="mt-1 text-sm leading-6 text-ink/65">
@@ -486,7 +596,12 @@ function ChoiceField({
   legend: string;
   name: string;
   value: string;
-  options: ReadonlyArray<{ value: string; label: string; detail?: string; id?: string }>;
+  options: ReadonlyArray<{
+    value: string;
+    label: string;
+    detail?: string;
+    id?: string;
+  }>;
   onChange: (value: string) => void;
   error?: string;
   required?: boolean;
@@ -524,9 +639,13 @@ function ChoiceField({
                 onChange={() => onChange(option.value)}
               />
               <span>
-                <span className="block text-sm font-semibold text-ink">{option.label}</span>
+                <span className="block text-sm font-semibold text-ink">
+                  {option.label}
+                </span>
                 {option.detail ? (
-                  <span className="mt-1 block text-sm leading-6 text-muted">{option.detail}</span>
+                  <span className="mt-1 block text-sm leading-6 text-muted">
+                    {option.detail}
+                  </span>
                 ) : null}
               </span>
             </label>

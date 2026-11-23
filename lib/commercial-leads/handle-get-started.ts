@@ -1,10 +1,19 @@
 import { getInsightUrl } from "@/config/site";
 import {
+  parseAttributionSource,
+  parseOpportunityRef,
+  parseRecommendationCategory,
+  type AttributionSource,
+  type GetStartedContext,
+} from "@/lib/attribution";
+import {
   CUSTOMER_MESSAGES,
   customerMessageForFailure,
-  type CommercialLeadRequest,
-  type CommercialLeadResult,
+  type CommercialInquiryRequest,
+  type CommercialInquiryResult,
+  type GetStartedBrowserPayload,
 } from "@/lib/commercial-leads/types";
+import { toCommercialInquiryRequest } from "@/lib/commercial-leads/to-inquiry";
 import {
   isProductInterest,
   type ProductInterest,
@@ -13,10 +22,12 @@ import {
 import { validateQualification } from "@/lib/get-started/validate";
 
 const MAX_BODY_CHARS = 20_000;
+const SUBMISSION_TOKEN_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 export type GetStartedSubmit = (
-  payload: CommercialLeadRequest,
-) => Promise<CommercialLeadResult>;
+  payload: CommercialInquiryRequest,
+) => Promise<CommercialInquiryResult>;
 
 function json(body: unknown, status: number): Response {
   return Response.json(body, { status });
@@ -85,9 +96,29 @@ function productQueryFromBody(
   return "invalid";
 }
 
+function sourceFromBody(
+  body: Record<string, unknown>,
+): AttributionSource | "invalid" {
+  if (body.source === undefined || body.source === null || body.source === "") {
+    return "direct_get_started";
+  }
+  if (typeof body.source !== "string") return "invalid";
+  const parsed = parseAttributionSource(body.source);
+  return parsed ?? "invalid";
+}
+
+function submissionTokenFromBody(
+  body: Record<string, unknown>,
+): string | "invalid" {
+  if (typeof body.submissionToken !== "string") return "invalid";
+  const token = body.submissionToken.trim();
+  if (!SUBMISSION_TOKEN_PATTERN.test(token)) return "invalid";
+  return token.toLowerCase();
+}
+
 /**
- * Company-site boundary for Get Started. Validates, then delegates persistence
- * to the injected Insight client. This module does not write a database.
+ * Company-site boundary for Get Started. Validates, maps to the Insight
+ * commercial-inquiry contract, then delegates persistence to the injected client.
  */
 export async function handleGetStartedPost(
   request: Request,
@@ -152,14 +183,37 @@ export async function handleGetStartedPost(
 
   const draft = draftFromBody(parsed);
   const productQuery = productQueryFromBody(parsed);
-  if (!draft || productQuery === "invalid") {
+  const source = sourceFromBody(parsed);
+  const submissionToken = submissionTokenFromBody(parsed);
+  const recommendationCategory = parseRecommendationCategory(
+    parsed.recommendation ?? parsed.recommendationCategory,
+  );
+  const opportunityRef = parseOpportunityRef(
+    typeof parsed.opportunityRef === "string"
+      ? parsed.opportunityRef
+      : typeof parsed.ref === "string"
+        ? parsed.ref
+        : null,
+  );
+
+  if (
+    !draft ||
+    productQuery === "invalid" ||
+    source === "invalid" ||
+    submissionToken === "invalid"
+  ) {
     return json(
       {
         ok: false,
         code: "INVALID_REQUEST",
         message: CUSTOMER_MESSAGES.invalid,
         fields: {
-          ...(!draft ? { productInterest: "Choose Launch, Presence, or not sure." } : {}),
+          ...(!draft
+            ? { productInterest: "Choose Launch, Presence, or not sure." }
+            : {}),
+          ...(submissionToken === "invalid"
+            ? { form: "Refresh the page and try again." }
+            : {}),
         },
       },
       400,
@@ -179,16 +233,26 @@ export async function handleGetStartedPost(
     );
   }
 
-  const payload: CommercialLeadRequest = {
+  const browserPayload: GetStartedBrowserPayload = {
     ...validation.value,
-    source: {
-      surface: "company-site",
-      path: "/get-started",
-      productQuery,
-    },
+    submissionToken,
+    source,
+    productQuery,
+    recommendationCategory,
+    opportunityRef,
   };
 
-  let result: CommercialLeadResult;
+  const context: GetStartedContext = {
+    productInterest: productQuery ?? "not-sure",
+    source,
+    recommendationCategory,
+    opportunityRef,
+    fromInsightResults: source === "insight_results",
+  };
+
+  const payload = toCommercialInquiryRequest(browserPayload, context);
+
+  let result: CommercialInquiryResult;
   try {
     result = await deps.submit(payload);
   } catch {
@@ -217,14 +281,18 @@ export async function handleGetStartedPost(
   return json(
     {
       ok: true,
-      ...(result.leadId ? { leadId: result.leadId } : {}),
+      inquiryId: result.inquiryId,
       recommendedRoute: result.recommendedRoute,
-      nextStep: result.nextStep,
+      duplicate: result.duplicate,
+      publishedStartingPrice: result.publishedStartingPrice,
     },
     200,
   );
 }
 
-export function commercialLeadFallbackEndpoint(): string {
-  return getInsightUrl("/api/commercial-leads");
+export function commercialInquiryFallbackEndpoint(): string {
+  return getInsightUrl("/api/commercial-inquiries");
 }
+
+/** @deprecated Use commercialInquiryFallbackEndpoint. */
+export const commercialLeadFallbackEndpoint = commercialInquiryFallbackEndpoint;

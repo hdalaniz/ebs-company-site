@@ -1,4 +1,4 @@
-import { getStartedHref } from "@/lib/get-started/links";
+import { GET_STARTED_LINKS } from "@/lib/attribution";
 
 export const site = {
   companyName: "RiseCurrent",
@@ -6,7 +6,7 @@ export const site = {
   description:
     "RiseCurrent helps home-service businesses turn missed demand into booked revenue.",
   url: "https://risecurrentsystems.com",
-  getStartedHref: getStartedHref("not-sure"),
+  getStartedHref: GET_STARTED_LINKS.companyHeader.href,
   signInHref: "/signin",
 } as const;
 

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import { CUSTOMER_MESSAGES } from "@/lib/commercial-leads/types";
 import { handleGetStartedPost } from "@/lib/commercial-leads/handle-get-started";
-import type { CommercialLeadRequest } from "@/lib/commercial-leads/types";
+import type { CommercialInquiryRequest } from "@/lib/commercial-leads/types";
 
 function request(body: unknown, headers: Record<string, string> = {}) {
   return new Request("https://risecurrentsystems.com/api/get-started", {
@@ -27,10 +27,14 @@ const validBody = {
   phone: "",
   biggestProblem: "",
   productQuery: "launch",
+  source: "insight_results",
+  recommendation: "weak-foundation",
+  opportunityRef: "opp_ab12cd34",
+  submissionToken: "33333333-3333-4333-8333-333333333333",
 };
 
 describe("handleGetStartedPost", () => {
-  it("rejects a cross-origin post before any lead call", async () => {
+  it("rejects a cross-origin post before any inquiry call", async () => {
     let called = false;
     const response = await handleGetStartedPost(
       request(validBody, { origin: "https://evil.example" }),
@@ -48,12 +52,19 @@ describe("handleGetStartedPost", () => {
 
   it("returns field errors and does not forward an incomplete request", async () => {
     let called = false;
-    const response = await handleGetStartedPost(request({ productInterest: "launch" }), {
-      submit: async () => {
-        called = true;
-        return { ok: false, code: "UPSTREAM" };
+    const response = await handleGetStartedPost(
+      request({
+        productInterest: "launch",
+        submissionToken: validBody.submissionToken,
+        source: "direct_get_started",
+      }),
+      {
+        submit: async () => {
+          called = true;
+          return { ok: false, code: "UPSTREAM" };
+        },
       },
-    });
+    );
     const body = await response.json();
 
     assert.equal(response.status, 400);
@@ -62,16 +73,17 @@ describe("handleGetStartedPost", () => {
     assert.equal(body.fields.email, "Enter an email address.");
   });
 
-  it("forwards a no-website qualification and returns the backend route", async () => {
-    const forwarded: CommercialLeadRequest[] = [];
+  it("maps UI values to the Insight commercial-inquiry contract", async () => {
+    const forwarded: CommercialInquiryRequest[] = [];
     const response = await handleGetStartedPost(request(validBody), {
       submit: async (payload) => {
         forwarded.push(payload);
         return {
           ok: true,
-          leadId: "lead_123",
-          recommendedRoute: "presence",
-          nextStep: "We'll review Presence fit and follow up with the monthly scope.",
+          inquiryId: "44444444-4444-4444-8444-444444444444",
+          recommendedRoute: "consultation",
+          duplicate: false,
+          publishedStartingPrice: null,
         };
       },
     });
@@ -79,13 +91,18 @@ describe("handleGetStartedPost", () => {
 
     assert.equal(response.status, 200);
     assert.equal(forwarded.length, 1);
-    assert.equal(forwarded[0]?.websiteSituation, "no-website");
-    assert.equal(forwarded[0]?.websiteUrl, undefined);
+    assert.equal(forwarded[0]?.websiteSituation, "none");
+    assert.equal(forwarded[0]?.website, undefined);
     assert.equal(forwarded[0]?.productInterest, "presence");
-    assert.equal(forwarded[0]?.source.productQuery, "launch");
-    assert.equal(body.recommendedRoute, "presence");
+    assert.equal(forwarded[0]?.source, "insight_results");
+    assert.equal(forwarded[0]?.insightRecommendation, "launch");
+    assert.equal(forwarded[0]?.insightOpportunityId, "opp_ab12cd34");
+    assert.equal(forwarded[0]?.sourceDetail?.recommendation, "weak-foundation");
+    assert.equal(forwarded[0]?.sourceDetail?.entryProduct, "launch");
+    assert.equal(body.recommendedRoute, "consultation");
+    assert.equal(body.inquiryId, "44444444-4444-4444-8444-444444444444");
     assert.equal(body.ok, true);
-    assert.equal(JSON.stringify(body).includes("RISECURRENT"), false);
+    assert.equal(JSON.stringify(body).includes("COMMERCIAL_INQUIRY"), false);
   });
 
   it("tells the visitor nothing was saved when forwarding is not configured", async () => {

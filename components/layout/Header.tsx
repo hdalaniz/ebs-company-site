@@ -8,7 +8,8 @@ import { buttonLinkVariants } from "@/components/marketing/ButtonLink";
 import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
 import { currentProducts, futureProducts } from "@/config/products";
 import { ctaCopy, site } from "@/config/site";
-import { trackCta } from "@/lib/analytics";
+import { trackCta, trackGetStartedClicked } from "@/lib/analytics";
+import { GET_STARTED_LINKS } from "@/lib/attribution";
 import { cn } from "@/lib/cn";
 
 const navLinkClass =
@@ -70,7 +71,7 @@ export function Header() {
   }
 
   function onGetStartedClick() {
-    trackCta("cta_get_started_click");
+    trackGetStartedClicked(GET_STARTED_LINKS.companyHeader);
     closeMenus();
   }
 

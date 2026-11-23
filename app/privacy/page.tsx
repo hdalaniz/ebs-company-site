@@ -70,9 +70,9 @@ export default function PrivacyPage() {
         </h2>
         <p className="mt-3">
           Information shared with RiseCurrent during early access is used to operate the
-          product experience you requested, respond to help requests, improve
-          product quality, and communicate about RiseCurrent services. We do not sell
-          personal contact information.
+          product experience you requested, respond to help requests and Get
+          Started inquiries, improve product quality, and communicate about
+          RiseCurrent services. We do not sell personal contact information.
         </p>
       </section>
 

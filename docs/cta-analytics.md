@@ -27,3 +27,7 @@ Get Started click events stay limited to the event name. Do not add business nam
 4. After deploy, browser Network requests to `/_vercel/insights` confirm delivery.
 
 Tracking failures are swallowed so CTA navigation is never blocked.
+
+## P6
+
+Get Started clicks still use `cta_get_started_click`, now with `product` and `source`. Qualification and interest events are documented in `docs/p6-commercial-attribution.md`. Do not send name, email, phone, or message to Analytics.

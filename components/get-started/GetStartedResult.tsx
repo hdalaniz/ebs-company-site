@@ -27,46 +27,54 @@ const ROUTE_COPY: Record<RecommendedRoute, RoutePresentation> = {
     href: "/products/presence",
     cta: "Review Presence",
   },
-  insight: {
-    label: "RiseCurrent Insight",
-    summary: "A free diagnostic is the recommended next step before a paid engagement.",
-    href: getInsightUrl("/analyze"),
-    cta: "Run free Insight",
-    external: true,
-  },
-  "follow-up": {
+  consultation: {
     label: "Personal follow-up",
-    summary: "We'll review what you shared and follow up with a recommended next step.",
+    summary:
+      "We'll review what you shared and follow up with a recommended next step.",
     href: "/",
     cta: "Back to home",
   },
 };
 
-const NEUTRAL_ROUTE: RoutePresentation = {
-  label: "Follow-up",
-  summary:
-    "We'll review what you shared before recommending Launch, Presence, or free Insight.",
-  href: "/",
-  cta: "Back to home",
-};
+function nextStepCopy(result: PublicGetStartedSuccess): string {
+  if (result.recommendedRoute === "consultation") {
+    return SAFE_NEXT_STEP;
+  }
+
+  if (result.publishedStartingPrice) {
+    return `Published starting price for ${ROUTE_COPY[result.recommendedRoute].label}: ${result.publishedStartingPrice}. That figure is informational only — it is not a custom quote, and submitting this form does not start payment or reserve time.`;
+  }
+
+  return SAFE_NEXT_STEP;
+}
 
 type GetStartedSuccessProps = {
   result: PublicGetStartedSuccess;
   headingRef?: Ref<HTMLHeadingElement>;
 };
 
-export function GetStartedSuccess({ result, headingRef }: GetStartedSuccessProps) {
-  const route = result.recommendedRoute
-    ? ROUTE_COPY[result.recommendedRoute]
-    : NEUTRAL_ROUTE;
-  const nextStep = result.nextStep.trim() || SAFE_NEXT_STEP;
+export function GetStartedSuccess({
+  result,
+  headingRef,
+}: GetStartedSuccessProps) {
+  const route = ROUTE_COPY[result.recommendedRoute];
+  const nextStep = nextStepCopy(result);
   const showHome = route.href !== "/";
+  const showInsight =
+    result.recommendedRoute === "consultation"
+      ? {
+          href: getInsightUrl("/analyze"),
+          cta: "Run free Insight",
+        }
+      : null;
 
   return (
     <section
       aria-labelledby="get-started-success-heading"
       className="ebs-card p-5 sm:p-8"
       data-testid="get-started-success"
+      data-route={result.recommendedRoute}
+      data-duplicate={result.duplicate ? "true" : "false"}
     >
       <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
         Request received
@@ -80,30 +88,49 @@ export function GetStartedSuccess({ result, headingRef }: GetStartedSuccessProps
         We received your request.
       </h2>
       <p className="mt-3 text-base leading-7 text-ink/75">
-        Your request is with RiseCurrent for follow-up. It does not reserve time or start payment.
+        Your request is with RiseCurrent for follow-up. It does not reserve time
+        or start payment.
       </p>
 
       <div className="mt-6 rounded-xl border border-teal/30 bg-teal/10 px-4 py-4">
         <p className="text-xs font-semibold tracking-[0.16em] text-teal uppercase">
           Recommended next step
         </p>
-        <p className="mt-2 text-lg font-semibold tracking-tight text-ink">{route.label}</p>
+        <p className="mt-2 text-lg font-semibold tracking-tight text-ink">
+          {route.label}
+        </p>
         <p className="mt-2 text-sm leading-6 text-ink/80">{route.summary}</p>
+        {result.publishedStartingPrice ? (
+          <p className="mt-3 text-sm font-medium text-ink">
+            {result.publishedStartingPrice}
+          </p>
+        ) : null}
       </div>
 
       <div className="mt-6">
-        <h3 className="text-sm font-semibold tracking-tight text-ink">What happens next</h3>
+        <h3 className="text-sm font-semibold tracking-tight text-ink">
+          What happens next
+        </h3>
         <p className="mt-2 text-sm leading-6 text-ink/80">{nextStep}</p>
       </div>
 
-      {result.leadId ? (
-        <p className="mt-4 text-xs tracking-wide text-muted">Reference {result.leadId}</p>
-      ) : null}
+      <p className="mt-4 text-xs tracking-wide text-muted">
+        Reference {result.inquiryId}
+      </p>
 
       <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-        <ResultLink href={route.href} external={route.external} variant="primary">
+        <ResultLink
+          href={route.href}
+          external={route.external}
+          variant="primary"
+        >
           {route.cta}
         </ResultLink>
+        {showInsight ? (
+          <ResultLink href={showInsight.href} external variant="secondary">
+            {showInsight.cta}
+          </ResultLink>
+        ) : null}
         {showHome ? (
           <ResultLink href="/" variant="secondary">
             Back to home

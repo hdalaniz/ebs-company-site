@@ -6,7 +6,7 @@ import { ProductStatusBadge } from "@/components/marketing/ProductStatusBadge";
 import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
 import { ctaCopy, getInsightUrl, pricing } from "@/config/site";
-import { getStartedHref } from "@/lib/get-started/links";
+import { GET_STARTED_LINKS } from "@/lib/attribution";
 
 const launchScope = [
   "Guided strategy and intake",
@@ -81,9 +81,10 @@ export function LaunchHero() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
             <ButtonLink
-              href={getStartedHref("launch")}
+              href={GET_STARTED_LINKS.launchPage.href}
               className="w-full sm:w-auto"
               trackEvent="cta_get_started_click"
+              trackContext={GET_STARTED_LINKS.launchPage}
             >
               {ctaCopy.getStarted}
             </ButtonLink>
@@ -225,14 +226,16 @@ export function LaunchPricing() {
               {LAUNCH_GET_STARTED_HEADING}
             </h3>
             <p className="mt-3 text-sm leading-6 text-ink/75">
-              Share a few details and we&apos;ll follow up about Launch scope.
-              Nothing is billed from the form.
+              Tell RiseCurrent you are interested in Launch. We follow up on
+              the commercial next step from there. A free Insight assessment
+              is still available at the top of this page.
             </p>
             <div className="mt-6 flex flex-col gap-3">
               <ButtonLink
-                href={getStartedHref("launch")}
+                href={GET_STARTED_LINKS.launchPage.href}
                 className="w-full sm:w-auto"
                 trackEvent="cta_get_started_click"
+                trackContext={GET_STARTED_LINKS.launchPage}
               >
                 {ctaCopy.getStarted}
               </ButtonLink>
@@ -289,9 +292,10 @@ export function LaunchFinalCta() {
             </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
               <ButtonLink
-                href={getStartedHref("launch")}
+                href={GET_STARTED_LINKS.launchPage.href}
                 className="w-full sm:w-auto"
                 trackEvent="cta_get_started_click"
+                trackContext={GET_STARTED_LINKS.launchPage}
               >
                 {ctaCopy.getStarted}
               </ButtonLink>

@@ -17,10 +17,16 @@ const FIELD_KEYS = [
   "phone",
 ] as const;
 
+const INQUIRY_ID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+const PRICE_PATTERN = /^Starting at \$[\d,]+(?:\/month)?$/;
+
 export type PublicGetStartedSuccess = {
-  leadId?: string;
-  recommendedRoute: RecommendedRoute | null;
-  nextStep: string;
+  inquiryId: string;
+  recommendedRoute: RecommendedRoute;
+  duplicate: boolean;
+  publishedStartingPrice: string | null;
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -31,35 +37,54 @@ function safeMessage(value: unknown, fallback: string): string {
   if (typeof value !== "string") return fallback;
   const message = value.replace(/\s+/g, " ").trim().slice(0, 300);
   if (!message) return fallback;
-  if (/bearer\s+\S+|RISECURRENT_COMMERCIAL_LEAD_SECRET/i.test(message)) {
+  if (
+    /bearer\s+\S+|COMMERCIAL_INQUIRY_SECRET|RISECURRENT_COMMERCIAL/i.test(
+      message,
+    )
+  ) {
     return fallback;
   }
   return message;
 }
 
-export function parsePublicSuccess(body: unknown): PublicGetStartedSuccess | null {
+export function parsePublicSuccess(
+  body: unknown,
+): PublicGetStartedSuccess | null {
   if (!isRecord(body) || body.ok !== true) return null;
-  const nextStep = safeMessage(body.nextStep, "");
-  if (!nextStep) return null;
 
-  const recommendedRoute =
-    body.recommendedRoute === null
-      ? null
-      : typeof body.recommendedRoute === "string" &&
-          isRecommendedRoute(body.recommendedRoute)
-        ? body.recommendedRoute
-        : undefined;
-  if (recommendedRoute === undefined) return null;
+  if (
+    typeof body.recommendedRoute !== "string" ||
+    !isRecommendedRoute(body.recommendedRoute)
+  ) {
+    return null;
+  }
 
-  const leadId =
-    typeof body.leadId === "string" && /^[A-Za-z0-9_-]{1,80}$/.test(body.leadId)
-      ? body.leadId
-      : undefined;
+  if (
+    typeof body.inquiryId !== "string" ||
+    !INQUIRY_ID_PATTERN.test(body.inquiryId)
+  ) {
+    return null;
+  }
+
+  if (typeof body.duplicate !== "boolean") return null;
+
+  let publishedStartingPrice: string | null = null;
+  if (body.publishedStartingPrice === null) {
+    publishedStartingPrice = null;
+  } else if (
+    typeof body.publishedStartingPrice === "string" &&
+    PRICE_PATTERN.test(body.publishedStartingPrice)
+  ) {
+    publishedStartingPrice = body.publishedStartingPrice;
+  } else {
+    return null;
+  }
 
   return {
-    ...(leadId ? { leadId } : {}),
-    recommendedRoute,
-    nextStep,
+    inquiryId: body.inquiryId.toLowerCase(),
+    recommendedRoute: body.recommendedRoute,
+    duplicate: body.duplicate,
+    publishedStartingPrice,
   };
 }
 

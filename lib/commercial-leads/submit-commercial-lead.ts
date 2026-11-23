@@ -2,40 +2,25 @@ import "server-only";
 
 import {
   isRecommendedRoute,
-  SAFE_NEXT_STEP,
-  type CommercialLeadRequest,
-  type CommercialLeadResult,
+  type CommercialInquiryRequest,
+  type CommercialInquiryResult,
 } from "@/lib/commercial-leads/types";
 
-export type CommercialLeadEnv = {
+export type CommercialInquiryEnv = {
   endpointUrl?: string;
   secret?: string;
-  /** Used when RISECURRENT_COMMERCIAL_LEAD_URL is unset. */
+  /** Used when RISECURRENT_COMMERCIAL_INQUIRY_URL is unset. */
   fallbackEndpoint: string;
 };
 
-const UNSAFE_NEXT_STEP =
-  /\b(within\s+\d+|guarante|calendar|stripe|checkout|book(?:ed|ing)\s+(?:a\s+)?(?:call|time|meeting|appointment|demo)|start(?:s|ed)?\s+(?:your\s+)?(?:subscription|billing|payment))\b/i;
+const INQUIRY_ID_PATTERN =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-const LEAD_ID_PATTERN = /^[A-Za-z0-9_-]{1,80}$/;
+const PRICE_PATTERN = /^Starting at \$[\d,]+(?:\/month)?$/;
 
-export function sanitizeNextStep(value: unknown): string {
-  if (typeof value !== "string") return SAFE_NEXT_STEP;
-  let cleaned = "";
-  for (const char of value) {
-    const code = char.charCodeAt(0);
-    if (code < 32 || code === 127 || char === "<" || char === ">") {
-      cleaned += " ";
-      continue;
-    }
-    cleaned += char;
-  }
-  cleaned = cleaned.replace(/\s+/g, " ").trim().slice(0, 500);
-  if (!cleaned || UNSAFE_NEXT_STEP.test(cleaned)) return SAFE_NEXT_STEP;
-  return cleaned;
-}
-
-export function resolveCommercialLeadEndpoint(env: CommercialLeadEnv): string | null {
+export function resolveCommercialInquiryEndpoint(
+  env: CommercialInquiryEnv,
+): string | null {
   const configured = env.endpointUrl?.trim();
   const candidate = configured || env.fallbackEndpoint;
   try {
@@ -52,42 +37,62 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
 
-function parseSuccess(body: unknown): CommercialLeadResult {
+function parseSuccess(body: unknown): CommercialInquiryResult {
   if (!isPlainObject(body) || body.ok !== true) {
     return { ok: false, code: "UNCONFIRMED" };
   }
 
-  const recommendedRoute =
-    typeof body.recommendedRoute === "string" &&
-    isRecommendedRoute(body.recommendedRoute)
-      ? body.recommendedRoute
-      : null;
+  if (
+    typeof body.recommendedRoute !== "string" ||
+    !isRecommendedRoute(body.recommendedRoute)
+  ) {
+    return { ok: false, code: "UNCONFIRMED" };
+  }
 
-  const leadId =
-    typeof body.leadId === "string" && LEAD_ID_PATTERN.test(body.leadId)
-      ? body.leadId
-      : undefined;
+  if (
+    typeof body.inquiryId !== "string" ||
+    !INQUIRY_ID_PATTERN.test(body.inquiryId)
+  ) {
+    return { ok: false, code: "UNCONFIRMED" };
+  }
+
+  if (typeof body.duplicate !== "boolean") {
+    return { ok: false, code: "UNCONFIRMED" };
+  }
+
+  let publishedStartingPrice: string | null = null;
+  if (body.publishedStartingPrice === null) {
+    publishedStartingPrice = null;
+  } else if (
+    typeof body.publishedStartingPrice === "string" &&
+    PRICE_PATTERN.test(body.publishedStartingPrice)
+  ) {
+    publishedStartingPrice = body.publishedStartingPrice;
+  } else if (body.publishedStartingPrice !== undefined) {
+    return { ok: false, code: "UNCONFIRMED" };
+  }
 
   return {
     ok: true,
-    ...(leadId ? { leadId } : {}),
-    recommendedRoute,
-    nextStep: sanitizeNextStep(body.nextStep),
+    inquiryId: body.inquiryId.toLowerCase(),
+    recommendedRoute: body.recommendedRoute,
+    duplicate: body.duplicate,
+    publishedStartingPrice,
   };
 }
 
 /**
- * Forwards a validated qualification to the Insight commercial-lead endpoint.
+ * Forwards a validated commercial inquiry to Insight.
  * Does not persist locally. The shared secret stays in the Authorization header.
  */
-export async function submitCommercialLead(
-  payload: CommercialLeadRequest,
-  env: CommercialLeadEnv,
+export async function submitCommercialInquiry(
+  payload: CommercialInquiryRequest,
+  env: CommercialInquiryEnv,
   fetchImpl: typeof fetch = fetch,
-): Promise<CommercialLeadResult> {
+): Promise<CommercialInquiryResult> {
   const secret = env.secret?.trim();
-  const endpoint = resolveCommercialLeadEndpoint(env);
-  if (!secret || !endpoint) {
+  const endpoint = resolveCommercialInquiryEndpoint(env);
+  if (!secret || secret.length < 16 || !endpoint) {
     return { ok: false, code: "NOT_CONFIGURED" };
   }
 
@@ -121,3 +126,12 @@ export async function submitCommercialLead(
 
   return parseSuccess(body);
 }
+
+/** @deprecated Use submitCommercialInquiry. */
+export const submitCommercialLead = submitCommercialInquiry;
+
+/** @deprecated Use CommercialInquiryEnv. */
+export type CommercialLeadEnv = CommercialInquiryEnv;
+
+/** @deprecated Endpoint resolver renamed. */
+export const resolveCommercialLeadEndpoint = resolveCommercialInquiryEndpoint;

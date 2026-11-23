@@ -8,13 +8,14 @@ import {
 } from "@/components/get-started/GetStartedResult";
 
 describe("Get Started result", () => {
-  it("shows the recommended route and what happens next", () => {
+  it("shows the recommended route, published price, and reference id", () => {
     const html = renderToStaticMarkup(
       createElement(GetStartedSuccess, {
         result: {
-          leadId: "lead_123",
+          inquiryId: "66666666-6666-4666-8666-666666666666",
           recommendedRoute: "launch",
-          nextStep: "We'll review the Launch request and follow up with scope questions.",
+          duplicate: false,
+          publishedStartingPrice: "Starting at $3,500",
         },
       }),
     );
@@ -23,11 +24,11 @@ describe("Get Started result", () => {
     assert.match(html, /We received your request/);
     assert.match(html, /Recommended next step/);
     assert.match(html, /RiseCurrent Launch/);
-    assert.match(html, /What happens next/);
-    assert.match(html, /follow up with scope questions/);
+    assert.match(html, /Starting at \$3,500/);
+    assert.match(html, /informational only/);
     assert.match(html, /Your request is with RiseCurrent for follow-up/);
     assert.match(html, /does not reserve time or start payment/);
-    assert.match(html, /Reference lead_123/);
+    assert.match(html, /Reference 66666666-6666-4666-8666-666666666666/);
     assert.match(html, /href="\/products\/launch"/);
     assert.doesNotMatch(html, /within \d+|stripe|checkout|calendar/i);
   });
@@ -45,18 +46,22 @@ describe("Get Started result", () => {
     assert.doesNotMatch(html, /We received your request/);
   });
 
-  it("offers free Insight only when that is the returned route", () => {
+  it("offers free Insight on consultation without promising a booked call", () => {
     const html = renderToStaticMarkup(
       createElement(GetStartedSuccess, {
         result: {
-          recommendedRoute: "insight",
-          nextStep: "A free diagnostic is the clearest next look at the current site.",
+          inquiryId: "77777777-7777-4777-8777-777777777777",
+          recommendedRoute: "consultation",
+          duplicate: true,
+          publishedStartingPrice: null,
         },
       }),
     );
 
-    assert.match(html, /RiseCurrent Insight/);
+    assert.match(html, /Personal follow-up/);
     assert.match(html, /Run free Insight/);
     assert.match(html, /\/analyze/);
+    assert.match(html, /data-duplicate="true"/);
+    assert.doesNotMatch(html, /book(?:ed|ing)|guarante|within \d+/i);
   });
 });

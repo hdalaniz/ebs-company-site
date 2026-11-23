@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --require ./scripts/stub-server-only.cjs --test lib/**/*.test.ts components/**/*.test.tsx",
+    "test": "tsx --require ./scripts/stub-server-only.cjs --test 'lib/**/*.test.ts' 'components/**/*.test.tsx'",
     "verify": "npm run lint && npm run typecheck && npm test && npm run build"
   },
   "dependencies": {
