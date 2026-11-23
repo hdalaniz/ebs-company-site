@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     absolute: "About RiseCurrent",
   },
   description:
-    "RiseCurrent is building practical software for service businesses that want to capture more demand, convert more opportunities, and understand what actually drives growth.",
+    "RiseCurrent is building practical software for home-service businesses that want to capture more demand, convert more opportunities, and understand what actually drives growth.",
 };
 
 export default function AboutPage() {

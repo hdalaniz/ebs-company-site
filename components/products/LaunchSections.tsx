@@ -39,6 +39,9 @@ const launchSteps = [
   },
 ] as const;
 
+/** Isolated to prevent accidental adjacent JSX/index concatenation in preview. */
+const LAUNCH_GET_STARTED_HEADING = "Ready to get started?";
+
 export function LaunchHero() {
   return (
     <section className="relative isolate overflow-hidden lg:min-h-[36rem]">
@@ -166,7 +169,7 @@ export function LaunchProcess() {
           {launchSteps.map((step, index) => (
             <li key={step.title} className="ebs-card rounded-2xl p-6 sm:p-7">
               <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-                {String(index + 1).padStart(2, "0")}
+                Step {index + 1}
               </p>
               <h3 className="mt-3 text-lg font-semibold tracking-tight text-ink">
                 {step.title}
@@ -206,16 +209,19 @@ export function LaunchPricing() {
               work is {pricing.custom.toLowerCase()}.
             </p>
             <p className="mt-5 text-sm leading-6 text-ink/70">
-              Launch is delivered as a managed engagement with defined revision
-              rounds — not an automated checkout or open-ended agency retainer.
+              Delivered as a managed engagement with defined revision rounds.
+              Larger or custom scopes are quoted separately.
             </p>
           </div>
           <div
             id="launch-get-started"
             className="scroll-mt-24 border-t border-border bg-sky/40 px-6 py-8 sm:px-8 sm:py-10 lg:border-t-0 lg:border-l"
           >
-            <h3 className="text-lg font-semibold tracking-tight text-ink">
-              Ready to get started?
+            <h3
+              data-testid="launch-get-started-heading"
+              className="text-lg font-semibold tracking-tight text-ink"
+            >
+              {LAUNCH_GET_STARTED_HEADING}
             </h3>
             <p className="mt-3 text-sm leading-6 text-ink/75">
               Start with a free Insight assessment to clarify the leak and next

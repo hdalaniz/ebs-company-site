@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { BrandMark } from "@/components/brand/BrandMark";
-import { currentProducts, futureProducts } from "@/config/products";
+import { currentProducts } from "@/config/products";
 import { site } from "@/config/site";
 
 const footerLinkClass =
   "group/footer-link inline-flex items-center gap-1.5 text-sm text-on-dark-muted transition-colors hover:text-teal focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal";
 
-const footerProducts = [...currentProducts, ...futureProducts];
+/** Footer products list is current commercial offer only. */
+const footerProducts = currentProducts;
 
 export function Footer() {
   return (

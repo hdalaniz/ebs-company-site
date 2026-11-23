@@ -141,10 +141,10 @@ export function AboutHero() {
             About RiseCurrent
           </p>
           <h1 className="mt-4 text-[2.05rem] leading-[1.1] font-bold tracking-tight text-on-dark sm:text-4xl lg:text-[2.85rem] lg:leading-[1.08]">
-            Better systems for stronger local businesses.
+            Better systems for stronger home-service businesses.
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-on-dark/85 sm:text-lg sm:leading-8">
-            RiseCurrent is building practical software for service
+            RiseCurrent is building practical software for home-service
             businesses that want to capture more demand, convert more
             opportunities, and understand what actually drives growth.
           </p>
@@ -202,7 +202,7 @@ export function AboutWhyExists() {
             them are weak.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-            Local service businesses often already have demand. The problem is
+            Home-service businesses often already have demand. The problem is
             what happens next — missed calls, slow follow-up, unclear websites,
             weak trust signals, and little visibility into what actually becomes
             booked work.
@@ -361,7 +361,7 @@ export function AboutAudience() {
         <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-14">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-              Built for service businesses
+              Built for home-service businesses
             </p>
             <h2
               id="about-audience-heading"

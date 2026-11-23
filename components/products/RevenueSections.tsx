@@ -156,7 +156,7 @@ export function RevenueHero() {
             can see what is working and where opportunities are being lost.
           </p>
           <p className="mt-5 max-w-lg text-sm font-medium leading-6 text-ink/70 sm:text-[0.95rem]">
-            Built to help local service businesses see the path from demand to
+            Built to help home-service businesses see the path from demand to
             booked work.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
