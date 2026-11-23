@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { type CtaEventName, trackCta } from "@/lib/analytics";
+import {
+  type AttributionAnalyticsInput,
+  type CtaEventName,
+  trackCta,
+  trackGetStartedClicked,
+} from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 
 type ButtonLinkProps = {
@@ -11,6 +16,8 @@ type ButtonLinkProps = {
   variant?: "primary" | "secondary" | "ghost";
   className?: string;
   trackEvent?: CtaEventName;
+  /** Safe product/source context for Get Started clicks. */
+  trackContext?: AttributionAnalyticsInput;
 };
 
 function isExternal(href: string) {
@@ -41,6 +48,7 @@ export function ButtonLink({
   variant = "primary",
   className,
   trackEvent,
+  trackContext,
 }: ButtonLinkProps) {
   const classes = cn(buttonLinkVariants[variant], className);
   const content =
@@ -54,6 +62,10 @@ export function ButtonLink({
     );
 
   function handleClick() {
+    if (trackEvent === "cta_get_started_click") {
+      trackGetStartedClicked(trackContext);
+      return;
+    }
     if (trackEvent) {
       trackCta(trackEvent);
     }

@@ -50,9 +50,9 @@ export default function PrivacyPage() {
         </h2>
         <p className="mt-3">
           Information shared with RiseCurrent during early access is used to operate the
-          product experience you requested, respond to help requests, improve
-          product quality, and communicate about RiseCurrent services. We do not sell
-          personal contact information.
+          product experience you requested, respond to help requests and Get
+          Started inquiries, improve product quality, and communicate about
+          RiseCurrent services. We do not sell personal contact information.
         </p>
       </section>
 
@@ -73,11 +73,16 @@ export default function PrivacyPage() {
         </h2>
         <p className="mt-3">
           RiseCurrent Launch and Presence are available through the
-          company site as managed services; this site does not collect account
-          data for them. Features labeled Coming Soon, Future, or Product
-          Vision — including RiseCurrent Growth, Revenue Intelligence, and
-          Assist — are not live customer products on this site today and do not
-          collect account data here.
+          company site as managed services. This site does not create customer
+          accounts for them. If you use Get Started to ask about Launch,
+          Presence, or which option fits, RiseCurrent may collect the contact
+          and qualification details you choose to submit — such as your name,
+          email address, phone number, and the product you are interested in —
+          so we can follow up. That inquiry is not a customer account.
+          Features labeled Coming Soon, Future, or Product Vision — including
+          RiseCurrent Growth, Revenue Intelligence, and Assist — are not live
+          customer products on this site today and do not collect account data
+          here.
         </p>
       </section>
 
