@@ -1,4 +1,5 @@
 import { FinalCta } from "@/components/marketing/FinalCta";
+import { FutureCapabilities } from "@/components/marketing/FutureCapabilities";
 import { GrowthLoop } from "@/components/marketing/GrowthLoop";
 import { Hero } from "@/components/marketing/Hero";
 import { LocalBusinessBreak } from "@/components/marketing/LocalBusinessBreak";
@@ -24,6 +25,7 @@ export default function Home() {
       <WhyEbs />
       <LocalBusinessBreak />
       <PlatformPreview />
+      <FutureCapabilities />
       <FinalCta />
     </>
   );

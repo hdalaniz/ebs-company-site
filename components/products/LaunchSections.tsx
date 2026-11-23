@@ -65,9 +65,9 @@ export function LaunchHero() {
             Build a conversion foundation that turns demand into customers.
           </h1>
           <p className="mt-5 max-w-xl text-[1.0625rem] leading-7 text-ink/80 sm:text-lg sm:leading-8">
-            RiseCurrent Launch is a managed service that establishes the website
-            foundation home-service businesses need to capture and convert
-            demand — not a generic website project.
+            RiseCurrent Launch is a managed, conversion-focused website
+            foundation for home-service businesses — designed to turn demand
+            into booked work with clear scope and a path into Presence.
           </p>
           <p className="mt-4 text-base font-semibold tracking-tight text-ink">
             {pricing.launch}
@@ -112,11 +112,12 @@ export function LaunchScope() {
           id="launch-scope-heading"
           className="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
         >
-          A managed conversion foundation — not a website agency package.
+          A managed conversion foundation with clear scope.
         </h2>
         <p className="mt-4 text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-          Launch is founder-led and fulfillment-managed. There is no automated
-          checkout or self-service site builder.
+          Launch is a founder-led engagement that builds the pages, forms,
+          trust signals, and tracking home-service businesses need to convert
+          demand — then hands off into Presence.
         </p>
       </div>
 
@@ -200,14 +201,14 @@ export function LaunchPricing() {
               {pricing.launch}
             </h2>
             <p className="mt-4 text-base leading-7 text-ink/75">
-              Starting price for a conversion-focused website foundation.
-              Larger, custom, or urgent work is {pricing.custom.toLowerCase()}.
+              Starting price for a conversion-focused website foundation with a
+              clear handoff into RiseCurrent Presence. Larger, custom, or urgent
+              work is {pricing.custom.toLowerCase()}.
             </p>
-            <ul className="mt-6 space-y-2 text-sm leading-6 text-ink/80">
-              <li>No instant automated purchase</li>
-              <li>No unlimited agency revisions</li>
-              <li>Clear handoff into RiseCurrent Presence</li>
-            </ul>
+            <p className="mt-5 text-sm leading-6 text-ink/70">
+              Launch is delivered as a managed engagement with defined revision
+              rounds — not an automated checkout or open-ended agency retainer.
+            </p>
           </div>
           <div
             id="launch-get-started"
@@ -218,8 +219,7 @@ export function LaunchPricing() {
             </h3>
             <p className="mt-3 text-sm leading-6 text-ink/75">
               Start with a free Insight assessment to clarify the leak and next
-              step, then we manage Launch as a founder-led engagement. There is
-              no automated checkout.
+              step. From there, we manage Launch as a founder-led engagement.
             </p>
             <div className="mt-6 flex flex-col gap-3">
               <ButtonLink

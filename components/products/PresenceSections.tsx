@@ -41,13 +41,6 @@ const presenceIncludes = [
   },
 ] as const;
 
-const presenceNot = [
-  "unlimited agency work",
-  "unlimited revisions",
-  "basic website maintenance only",
-  "a generic marketing retainer",
-] as const;
-
 export function PresenceHero() {
   return (
     <section className="relative isolate overflow-hidden lg:min-h-[36rem]">
@@ -120,12 +113,12 @@ export function PresenceIncludes() {
           id="presence-includes-heading"
           className="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
         >
-          Managed monitoring and conversion improvement.
+          Ongoing attention to the systems that convert demand.
         </h2>
         <p className="mt-4 text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-          Presence is not unlimited agency work and not basic website
-          maintenance. It is ongoing attention to the systems that help turn
-          demand into booked revenue.
+          Presence combines managed hosting, monitoring, proactive review, and
+          small conversion-focused improvements so your foundation keeps
+          working after launch.
         </p>
       </div>
 
@@ -152,36 +145,21 @@ export function PresenceBoundaries() {
       className="section-sky relative overflow-hidden"
     >
       <div className="relative z-10 mx-auto w-full max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:py-20">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start lg:gap-12">
-          <div>
-            <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
-              Clear boundaries
-            </p>
-            <h2
-              id="presence-boundaries-heading"
-              className="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
-            >
-              Focused improvement — not an unlimited retainer.
-            </h2>
-            <p className="mt-4 text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
-              Presence covers monitoring, maintenance, and small
-              conversion-focused improvements. Larger or urgent work is quoted
-              separately so expectations stay clear.
-            </p>
-          </div>
-          <ul className="ebs-card space-y-3 rounded-2xl p-6">
-            {presenceNot.map((item) => (
-              <li
-                key={item}
-                className="flex items-start gap-3 text-sm leading-6 text-ink/80"
-              >
-                <span className="mt-0.5 text-muted" aria-hidden="true">
-                  —
-                </span>
-                <span>Not {item}</span>
-              </li>
-            ))}
-          </ul>
+        <div className="max-w-3xl">
+          <p className="text-xs font-semibold tracking-[0.18em] text-teal uppercase">
+            Clear boundaries
+          </p>
+          <h2
+            id="presence-boundaries-heading"
+            className="mt-3 text-2xl font-bold tracking-tight text-ink sm:text-3xl lg:text-[2.15rem]"
+          >
+            Focused, ongoing improvement with clear scope.
+          </h2>
+          <p className="mt-4 text-base leading-7 text-ink/75 sm:text-[1.05rem] sm:leading-8">
+            Presence covers monitoring, maintenance, proactive monthly review,
+            and small conversion-focused improvements. Larger, urgent, or
+            out-of-scope work is quoted separately so expectations stay clear.
+          </p>
         </div>
       </div>
     </section>
