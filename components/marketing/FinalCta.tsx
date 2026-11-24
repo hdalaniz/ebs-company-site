@@ -5,6 +5,7 @@ import { ButtonLink } from "@/components/marketing/ButtonLink";
 import { SpotlightNew } from "@/components/ui/spotlight-new";
 import { brand } from "@/config/brand";
 import { ctaCopy, getInsightUrl } from "@/config/site";
+import { GET_STARTED_LINKS } from "@/lib/attribution";
 
 export function FinalCta() {
   return (
@@ -51,10 +52,11 @@ export function FinalCta() {
                 {ctaCopy.insight}
               </ButtonLink>
               <ButtonLink
-                href="/products/launch"
+                href={GET_STARTED_LINKS.direct.href}
                 variant="ghost"
                 className="w-full justify-center text-on-dark hover:text-teal sm:w-auto"
-                trackEvent="cta_launch_click"
+                trackEvent="cta_get_started_click"
+                trackContext={GET_STARTED_LINKS.direct}
               >
                 {ctaCopy.getStarted}
               </ButtonLink>
